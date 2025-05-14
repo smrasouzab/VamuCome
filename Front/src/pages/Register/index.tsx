@@ -13,11 +13,18 @@ const Register = () => {
   const [role, setRole] = useState('');
 
   const handleRegister = () => {
+    // const json = JSON.stringify({
+    //   nmUsuario: name,
+    //   dsEmail: email,
+    //   dsSenha: password,
+    //   enRole: role,
+    // });
+
     const json = JSON.stringify({
-      nmUsuario: name,
-      dsEmail: email,
-      dsSenha: password,
-      enRole: role,
+      name: name,
+      email: email,
+      password: password,
+      role: role,
     });
 
     api
@@ -28,7 +35,7 @@ const Register = () => {
       })
       .then((response) => {
         console.log(response);
-        if (response.status === 200) {
+        if (response.status === 200 || response.status === 201) {
           alert('User registered successfully!');
           navigate('/login');
         } else {
@@ -50,7 +57,7 @@ const Register = () => {
               setName('Teste');
               setEmail('teste@gmail.com');
               setPassword('12345678');
-              setRole('CLIENTE');
+              setRole('cliente');
             }}
           >Teste</button>
           <h1>Register</h1>

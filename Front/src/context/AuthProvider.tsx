@@ -1,4 +1,4 @@
-import React, { useState, createContext, useCallback, useContext } from 'react';
+import React, { useState, createContext, useCallback, useContext, useEffect } from 'react';
 import api from '../api';
 
 interface AuthProviderProps extends React.PropsWithChildren {
@@ -23,10 +23,44 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [role, setRole] = useState<string>('');
 
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+
+    const validateToken = async (token: string) => {
+      try {
+        const response = await api.post('/auth/validate-token', {
+          token,
+        });
+
+        if (response.status === 200) {
+          setIsAuthenticated(true);
+          setRole(response.data.decoded.role);
+          console.log('Token válido');
+        } else {
+          setIsAuthenticated(false);
+          setRole('');
+          console.log('Token inválido - 1');
+        }
+      } catch {
+        setIsAuthenticated(false);
+        setRole('');
+        console.log('Token inválido - 2');
+      }
+    }
+
+    validateToken(token || '');
+  }, [])
+  
+
   const login = useCallback(async (email: string, password: string) => {
+    // const reponse = await api.post<LoginResponse>('/auth/login', {
+    //   dsEmail: email,
+    //   dsSenha: password,
+    // })
+
     const reponse = await api.post<LoginResponse>('/auth/login', {
-      dsEmail: email,
-      dsSenha: password,
+      email: email,
+      password: password,
     })
 
     if (reponse.status === 200) {
