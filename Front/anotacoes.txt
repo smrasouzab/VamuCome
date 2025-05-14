@@ -1,0 +1,4 @@
+https://www.youtube.com/watch?v=oTIJunBa6MA
+https://reactrouter.com/start/declarative/routing
+https://jsonplaceholder.typicode.com/
+https://react-loading-indicators.netlify.app/
