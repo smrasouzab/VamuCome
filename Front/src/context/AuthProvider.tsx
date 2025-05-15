@@ -20,7 +20,7 @@ interface LoginResponse {
 const AuthContext = createContext<AuthContextType>({} as AuthContextType);
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [role, setRole] = useState<string>('');
 
   useEffect(() => {
@@ -31,16 +31,9 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         const response = await api.post('/auth/validate-token', {
           token,
         });
-
-        if (response.status === 200) {
-          setIsAuthenticated(true);
-          setRole(response.data.decoded.role);
-          console.log('Token válido');
-        } else {
-          setIsAuthenticated(false);
-          setRole('');
-          console.log('Token inválido - 1');
-        }
+        setIsAuthenticated(true);
+        setRole(response.data.decoded.role);
+        console.log('Token válido');
       } catch {
         setIsAuthenticated(false);
         setRole('');
@@ -50,7 +43,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
     validateToken(token || '');
   }, [])
-  
+
 
   const login = useCallback(async (email: string, password: string) => {
     // const reponse = await api.post<LoginResponse>('/auth/login', {
@@ -81,12 +74,12 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   };
 
   return (
-    <AuthContext.Provider 
-      value={{ 
-        isAuthenticated, 
+    <AuthContext.Provider
+      value={{
+        isAuthenticated,
         role,
         login,
-        logout, 
+        logout,
       }}
     >
       {children}

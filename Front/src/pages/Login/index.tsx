@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Container, Form } from "./styles";
 import { useAuth } from "../../context/AuthProvider";
 import { useNavigate } from "react-router";
-import { Bounce, toast, ToastContainer } from "react-toastify";
+import { toast, Slide } from "react-toastify";
 
 const Register = () => {
   const { login } = useAuth();
@@ -11,28 +11,24 @@ const Register = () => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  
-  const notify = () => toast('Wow so easy !');
 
   const handleLogin = async () => {
-    const response = await login(email, password);
-
-    notify();
-
-    if (response) {
+    try {
+      await login(email, password);
       toast.success('Logado com sucesso!', {
-        position: 'top-right',
+        transition: Slide,
       });
       navigate('/user');
-    } else {
-      notify();
+    } catch {
+      toast.error('Erro ao logar!', {
+        transition: Slide,
+      });
     }
   }
 
   return (
     <>
       <Container>
-        <ToastContainer />
         <Form>
           <button
             type="button"
@@ -45,8 +41,6 @@ const Register = () => {
           <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
           <input type="text" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
           <button type="button" onClick={handleLogin}>Login</button>
-          <ToastContainer />
-          <button type="button" onClick={notify}>Notify !</button>
         </Form>
       </Container>
     </>

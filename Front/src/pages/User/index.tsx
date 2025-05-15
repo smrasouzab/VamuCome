@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react"
 import { Container, Form } from "./styles"
 import { useAuth } from "../../context/AuthProvider";
+import useTheme from "../../hooks/useTheme";
 import { useNavigate } from "react-router";
 import api from "../../api";
+import { toast } from "react-toastify";
 
 const User = () => {
   const { logout } = useAuth();
+
+  const { toogleTheme } = useTheme();
 
   const navigate = useNavigate();
   
@@ -43,6 +47,10 @@ const User = () => {
               <button type="button" onClick={logout}>Logout</button>
               <br />
               <button type="button" onClick={() => navigate('/')}>Home</button>
+              <br />
+              <button type="button" onClick={toogleTheme}>Trocar Tema</button>
+              <br />
+               <button type="button" onClick={() => toast('Notificação teste!')}>Notificação</button>
             </>
           ) : (
             <h2 style={{ color: 'red' }}>Não logado</h2>
