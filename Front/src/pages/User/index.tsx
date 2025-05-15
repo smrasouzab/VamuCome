@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react"
 import { Container, Form } from "./styles"
 import { useAuth } from "../../context/AuthProvider";
-import useTheme from "../../hooks/useTheme";
+// import useTheme from "../../hooks/useTheme";
+import { useTheme } from "../../context/ThemeProvidder";
 import { useNavigate } from "react-router";
 import api from "../../api";
 import { toast } from "react-toastify";

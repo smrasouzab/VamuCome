@@ -1,4 +1,4 @@
-import React, { useState, createContext, useCallback, useContext, useEffect } from 'react';
+import React, { useState, createContext, useCallback, useContext } from 'react';
 import api from '../api';
 
 interface AuthProviderProps extends React.PropsWithChildren {
@@ -6,7 +6,7 @@ interface AuthProviderProps extends React.PropsWithChildren {
 }
 
 interface AuthContextType {
-  isAuthenticated: boolean;
+  isAuthenticated: Promise<boolean>;
   role: string;
   login: (email: string, password: string) => Promise<boolean>;
   logout: () => void;
@@ -20,30 +20,25 @@ interface LoginResponse {
 const AuthContext = createContext<AuthContextType>({} as AuthContextType);
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
-  const [role, setRole] = useState<string>('');
-
-  useEffect(() => {
+  const [isAuthenticated, setIsAuthenticated] = useState<Promise<boolean>>(async () => {
     const token = localStorage.getItem('token');
 
-    const validateToken = async (token: string) => {
+    const validateToken = async (token: string): Promise<boolean> => {
       try {
         const response = await api.post('/auth/validate-token', {
           token,
         });
-        setIsAuthenticated(true);
         setRole(response.data.decoded.role);
-        console.log('Token válido');
+        return true;
       } catch {
-        setIsAuthenticated(false);
         setRole('');
-        console.log('Token inválido - 2');
+        return false;
       }
-    }
+    };
 
-    validateToken(token || '');
-  }, [])
-
+    return validateToken(token || '');
+  });
+  const [role, setRole] = useState<string>('');
 
   const login = useCallback(async (email: string, password: string) => {
     // const reponse = await api.post<LoginResponse>('/auth/login', {
@@ -57,7 +52,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     })
 
     if (reponse.status === 200) {
-      setIsAuthenticated(true);
+      setIsAuthenticated(Promise.resolve(true));
       setRole(reponse.data.role);
       // Trocar para cookie
       localStorage.setItem('token', reponse.data.token);
@@ -69,7 +64,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   }, []);
 
   const logout = () => {
-    setIsAuthenticated(false);
+    setIsAuthenticated(Promise.resolve(true));
     setRole('');
   };
 

@@ -1,6 +1,10 @@
 import { createGlobalStyle } from 'styled-components';
  
-const GlobalStyle = createGlobalStyle`
+const GlobalStyle = createGlobalStyle<{ $themeColor?: string; }>`
+  :root {
+    --background-color: ${props => props.$themeColor || "#ffffff"};;
+  }
+
   * {
     margin: 0;
     padding: 0;

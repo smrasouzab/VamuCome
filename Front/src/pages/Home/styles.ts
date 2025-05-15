@@ -8,6 +8,7 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background-color: var(--background-color);
 `;
 
 export const Links = styled.div`
