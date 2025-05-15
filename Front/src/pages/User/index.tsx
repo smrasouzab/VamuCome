@@ -4,7 +4,7 @@ import { useAuth } from "../../context/AuthProvider";
 import { useNavigate } from "react-router";
 import api from "../../api";
 
-const index = () => {
+const User = () => {
   const { logout } = useAuth();
 
   const navigate = useNavigate();
@@ -28,7 +28,6 @@ const index = () => {
       })
       .catch(() => {
         setLogado(false);
-        console.log('USER NOT LOGGED IN');
       });
   });
 
@@ -40,7 +39,9 @@ const index = () => {
           {logado ? (
             <>
               <h2 style={{ color: 'green' }}>Logado</h2>
+              <br />
               <button type="button" onClick={logout}>Logout</button>
+              <br />
               <button type="button" onClick={() => navigate('/')}>Home</button>
             </>
           ) : (
@@ -52,4 +53,4 @@ const index = () => {
   )
 }
 
-export default index
+export default User;
