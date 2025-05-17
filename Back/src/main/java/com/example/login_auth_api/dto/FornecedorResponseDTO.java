@@ -10,10 +10,10 @@ public record FornecedorResponseDTO(
 ) {
     public static FornecedorResponseDTO fromEntity(Fornecedor fornecedor) {
         return new FornecedorResponseDTO(
-                fornecedor.getIdFornecedor(),
+                fornecedor.getIdUsuario(),
                 fornecedor.getDsRazaoSocial(),
                 fornecedor.getDtHorarioFunc().toString(),
-                fornecedor.getUsuarioFornecedor().getDsEmail()
+                fornecedor.getDsEmail()
         );
     }
 }
