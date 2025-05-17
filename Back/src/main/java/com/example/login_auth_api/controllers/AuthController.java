@@ -40,7 +40,7 @@ public class AuthController {
         String token = tokenService.generateToken(user);
 
         return ResponseEntity.ok(
-                new ResponseDTO(user.getNmUsuario(),token, user.getEnRole())
+                new ResponseDTO(user.getIdUsuario(), user.getNmUsuario(),token, user.getEnRole())
         );
     }
 

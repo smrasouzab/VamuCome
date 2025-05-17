@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 
 @Service
 public class FornecedorService {
@@ -25,17 +26,14 @@ public class FornecedorService {
 
     @Transactional
     public Fornecedor criarFornecedor(FornecedorRequestDTO dto) {
-        User user =  userRepository.findById(dto.idFornecedor());
-        if (user == null) {
-            throw new RuntimeException("Usuário não encontrado com o id: " + dto.idFornecedor());
+        User user = userRepository.findById(dto.idUsuario())
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado com o id: " + dto.idUsuario()));
+
+        if (fornecedorRepository.findByUsuarioFornecedor_Id(user.getIdUsuario()).isPresent()) {
+            throw new IllegalStateException("Usuário já está vinculado a um fornecedor.");
         }
-
         Fornecedor fornecedor = new Fornecedor();
-        // Herdado de User
-        fornecedor.setDsEmail(user.getDsEmail());
-        fornecedor.setDsSenha(user.getDsSenha());
-        fornecedor.setEnRole(user.getEnRole());
-
+        fornecedor.setUsuarioFornecedor(user);
         fornecedor.setDsRazaoSocial(dto.dsRazaoSocial());
         LocalDateTime horario = LocalDateTime.parse(dto.dtHorarioFunc(), FORMATTER);
         fornecedor.setDtHorarioFunc(horario);

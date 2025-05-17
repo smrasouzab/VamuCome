@@ -4,7 +4,8 @@ import com.example.login_auth_api.domain.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 
-public interface UserRepository extends JpaRepository<User, String> {
+import java.util.Optional;
+
+public interface UserRepository extends JpaRepository<User, Integer> {
     UserDetails findByDsEmail(String dsEmail);
-    User findById(Integer id);
 }

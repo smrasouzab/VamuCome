@@ -9,5 +9,5 @@ public record ProductRequestDTO(
         @NotBlank String nmProduto,
         @NotNull BigDecimal vlProduto,
         String dsProduto,
-        @NotBlank String dsEmail
+        @NotNull Integer idFornecedor
         ) {}

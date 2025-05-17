@@ -14,7 +14,7 @@ import java.util.List;
 @Getter
 @Setter
 
-public class Fornecedor extends User{
+public class Fornecedor extends User {
 
     private String dsRazaoSocial;
     private LocalDateTime dtHorarioFunc;

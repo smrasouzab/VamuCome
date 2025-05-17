@@ -4,7 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 public record FornecedorRequestDTO(
-        @NotNull Integer idFornecedor,
+        @NotNull Integer idUsuario,
         @NotBlank String dsRazaoSocial,
         @NotBlank String dtHorarioFunc
         ) {

@@ -4,6 +4,7 @@ import com.example.login_auth_api.domain.fornecedor.Fornecedor;
 import com.example.login_auth_api.domain.produto.Produto;
 import com.example.login_auth_api.domain.user.User;
 import com.example.login_auth_api.dto.FornecedorRequestDTO;
+import com.example.login_auth_api.dto.FornecedorResponseDTO;
 import com.example.login_auth_api.dto.ProductRequestDTO;
 import com.example.login_auth_api.service.FornecedorService;
 import com.example.login_auth_api.service.ProductService;
@@ -27,22 +28,15 @@ public class FornecedorController {
     @Autowired
     private FornecedorService fornecedorService;
 
-    @GetMapping
-    public ResponseEntity<String> getFornecedor(){
-        return ResponseEntity.ok("Fornecedor!!");
-    }
-
-    @PreAuthorize("hasRole('FORNECEDOR')")
     @PostMapping("/criar-produtos")
-    public ResponseEntity<Produto> criarProduto(@RequestBody ProductRequestDTO dto) {
-
+    public ResponseEntity<Produto> criarProduto(@RequestBody @Valid ProductRequestDTO dto) {
         Produto novoProduto = produtoService.criarProduto(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(novoProduto);
     }
 
     @PostMapping("/registrar")
-    public ResponseEntity<Fornecedor> registrarFornecedor(@RequestBody @Valid FornecedorRequestDTO dto) {
-        Fornecedor novo = fornecedorService.criarFornecedor(dto);
+    public ResponseEntity<FornecedorResponseDTO> registrarFornecedor(@RequestBody @Valid FornecedorRequestDTO dto) {
+        FornecedorResponseDTO novo = fornecedorService.criarFornecedor(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(novo);
     }
 

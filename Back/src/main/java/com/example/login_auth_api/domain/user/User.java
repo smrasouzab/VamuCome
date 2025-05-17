@@ -26,7 +26,6 @@ public class User implements UserDetails {
     @Column(name = "idUsuario")
     private Integer idUsuario;
 
-    @Column(unique = true)
     private String dsEmail;
     private String nmUsuario;
     private String dsSenha;
