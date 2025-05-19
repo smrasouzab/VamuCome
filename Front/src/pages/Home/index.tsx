@@ -1,15 +1,17 @@
-import { Container, Links, StyledNavLink } from "./styles";
+// import Navbar from "../../components/Navbar";
+import { Container, Categorias } from "./styles";
 
 const Home = () => {
   return (
     <>
+      {/* <Navbar /> */}
       <Container>
-        <Links>
-          <StyledNavLink to="/test-api">Test API</StyledNavLink>
-          <StyledNavLink to="/register">Register</StyledNavLink>
-          <StyledNavLink to="/login">Login</StyledNavLink>
-          <StyledNavLink to="/user">User</StyledNavLink>
-        </Links>
+        <Categorias>
+          <img src="categorias/1.jpg" alt="" />
+          <img src="categorias/2.jpg" alt="" />
+          <img src="categorias/3.jpg" alt="" />
+          <img src="categorias/4.jpg" alt="" />
+        </Categorias>
       </Container>
     </>
   )

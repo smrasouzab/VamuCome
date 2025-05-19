@@ -8,7 +8,7 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: var(--background-color);
+  background-color: var(--theme-color);
 `;
 
 export const Links = styled.div`
@@ -31,5 +31,17 @@ export const StyledNavLink = styled(NavLink)`
 
   &:hover {
     background-color: #00aaff;
+  }
+`;
+
+export const Categorias = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 80px;
+
+  img {
+    width: 15vw;
+    border-radius: 32px;
+    cursor: pointer;
   }
 `;

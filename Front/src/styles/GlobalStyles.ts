@@ -1,8 +1,9 @@
 import { createGlobalStyle } from 'styled-components';
  
-const GlobalStyle = createGlobalStyle<{ $themeColor?: string; }>`
+const GlobalStyle = createGlobalStyle<{ $themeColor: string; }>`
   :root {
-    --background-color: ${props => props.$themeColor || "#ffffff"};;
+    --theme-color: ${props => props.$themeColor};
+    --theme-color-reverse: ${props => props.$themeColor === "#ffffff" ? "#000000" : "#ffffff"};
   }
 
   * {
@@ -13,6 +14,8 @@ const GlobalStyle = createGlobalStyle<{ $themeColor?: string; }>`
   }
 
   html, body, #root {
+    display: flex;
+    flex-direction: column;
     width: 100%;
     height: 100%;
   }
