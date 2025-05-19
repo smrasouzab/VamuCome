@@ -24,6 +24,6 @@ public class Produto {
     private String dsProduto;
 
     @ManyToOne
-    @JoinColumn(name = "idFornecedor")
+    @JoinColumn(name = "idUsuario")
     private Fornecedor fornecedor;
 }

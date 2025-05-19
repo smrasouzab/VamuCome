@@ -7,20 +7,14 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.List;
 
-public record FornecedorRegisterDTO(
+public record ClienteRegisterDTO(
         @NotBlank String nmUsuario,
         @NotBlank @Email String dsEmail,
         @NotBlank @Size(min = 8, message = "A senha deve ter pelo menos 8 caracteres")String dsSenha,
         @NotNull UserRole enRole,
-        @NotBlank Endereco dsEndereco,
-        @NotBlank @Size(min = 8, message = "O campo deve ter no máximo 20 caracteres") String nuCNPJ,
-        @NotBlank String dsRazaoSocial,
-        @NotBlank LocalDateTime dtHorarioAbertura,
-        @NotBlank LocalDateTime dtHorarioFechamento,
-        @NotNull BigDecimal vlMinimoCompra
-        ) {
+        @NotBlank @Size(min = 8, message = "O campo deve ter no máximo 20 caracteres") String nuCPF,
+        @NotBlank List<Endereco> dsEndereco
+) {
 }

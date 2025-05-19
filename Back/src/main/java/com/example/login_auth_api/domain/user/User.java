@@ -29,20 +29,15 @@ public class User implements UserDetails {
     private String dsEmail;
     private String nmUsuario;
     private String dsSenha;
-    private String nuCnpjCpf;
-
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Endereco> endereco;
 
     @Enumerated(EnumType.STRING)
     private UserRole enRole;
 
-    public User(String nmUsuario, String dsEmail, String dsSenha, UserRole enRole, String nuCnpjCpf) {
+    public User(String nmUsuario, String dsEmail, String dsSenha, UserRole enRole) {
         this.nmUsuario = nmUsuario;
         this.dsEmail = dsEmail;
         this.dsSenha = dsSenha;
         this.enRole = enRole;
-        this.nuCnpjCpf = nuCnpjCpf;
     }
 
     @Override

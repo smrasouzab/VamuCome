@@ -34,8 +34,8 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
-                        //.requestMatchers("/fornecedor/**").hasRole("FORNECEDOR")
-                        .requestMatchers("/cliente/**").hasAnyRole("CLIENTE")
+                        .requestMatchers("/fornecedor/**").permitAll()
+                        .requestMatchers("/cliente/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
