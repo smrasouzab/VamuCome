@@ -35,7 +35,7 @@ public class FornecedorController {
         return ResponseEntity.status(HttpStatus.CREATED).body(novoProduto);
     }
 
-    @PostMapping("/registrar")
+    @PostMapping("/register")
     public ResponseEntity<Fornecedor> registerFornecedor(@RequestBody @Valid FornecedorRegisterDTO dto) {
         if (this.userRepository.findByDsEmail(dto.dsEmail()) != null) return ResponseEntity.badRequest().build();
         String encryptedPassword = new BCryptPasswordEncoder().encode(dto.dsSenha());
