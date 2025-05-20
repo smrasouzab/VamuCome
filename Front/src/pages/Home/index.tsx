@@ -1,11 +1,18 @@
 // import Navbar from "../../components/Navbar";
+import SearchBar from "../../components/SearchBar";
 import { Container, Categorias } from "./styles";
 
 const Home = () => {
   return (
     <>
-      {/* <Navbar /> */}
       <Container>
+        <SearchBar 
+          placeholder="Busque aqui seus produtos"
+          style={{
+            width: "70%",
+            height: "45px",
+          }}
+        />
         <Categorias>
           <img src="categorias/1.jpg" alt="" />
           <img src="categorias/2.jpg" alt="" />

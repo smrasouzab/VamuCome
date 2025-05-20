@@ -9,7 +9,7 @@ export const Container = styled.div`
   height: 50px;
   width: 160px;
   padding: 0 12px;
-  border: 2px solid #000;
+  border: 2px solid var(--color);
   border-radius: 16px;
 
   .highlight {
@@ -21,10 +21,22 @@ export const Container = styled.div`
     transition: all 0.5s ease;
     left: 9px;
     z-index: 0;
+
+    &.pos1 {
+      left: 9px;
+    }
+
+    &.pos2 {
+      left: 45px;
+    }
+
+    &.pos3 {
+      left: 81px;
+    }
   }
 
   svg {
-    color: #000;
+    color: var(--color);
     cursor: pointer;
     z-index: 1;
   }
