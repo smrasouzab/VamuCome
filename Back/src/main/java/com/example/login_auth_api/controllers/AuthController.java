@@ -2,7 +2,7 @@ package com.example.login_auth_api.controllers;
 
 import com.example.login_auth_api.dto.LoginRequestDTO;
 import com.example.login_auth_api.dto.RegisterRequestDTO;
-import com.example.login_auth_api.dto.ResponseDTO;
+import com.example.login_auth_api.dto.LoginResponseDTO;
 import com.example.login_auth_api.service.TokenService;
 import com.example.login_auth_api.repositories.UserRepository;
 import com.example.login_auth_api.domain.user.User;
@@ -40,7 +40,7 @@ public class AuthController {
         String token = tokenService.generateToken(user);
 
         return ResponseEntity.ok(
-                new ResponseDTO(user.getIdUsuario(), user.getNmUsuario(),token, user.getEnRole())
+                new LoginResponseDTO(user.getIdUsuario(), user.getNmUsuario(),token, user.getEnRole())
         );
     }
 
