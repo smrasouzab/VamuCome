@@ -7,7 +7,7 @@ export const Container = styled.div`
   justify-content: center;
   height: 100%;
   width: 100%;
-  background-color: var(--theme-color);
+  background-color: var(--bg-color);
 `;
 
 export const Form = styled.div`
@@ -16,10 +16,10 @@ export const Form = styled.div`
   align-items: center;
   justify-content: center;
   padding: 20px;
-  background-color: var(--theme-color-reverse);
+  background-color: var(--bg-color-reverse);
 
   h1 {
-    color: var(--theme-color);
+    color: var(--bg-color);
   }
 
   button {

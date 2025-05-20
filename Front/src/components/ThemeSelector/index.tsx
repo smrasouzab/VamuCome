@@ -1,7 +1,7 @@
 import { Container } from "./styles"
 import { LuSun, LuMoon, LuMonitor } from "react-icons/lu";
 import { useTheme } from "../../context/ThemeProvidder";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 
 const ThemeSelector = () => {
   const { setTheme } = useTheme();
@@ -10,27 +10,34 @@ const ThemeSelector = () => {
   
   const handleThemeChange = (theme: string) => {
     if (highlightRef.current) {
-      const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches;
+      highlightRef.current.className = "highlight";
+      // const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches;
       switch (theme) {
         case "light":
-          highlightRef.current.style.left = "9px";
           setTheme("light");
+          highlightRef.current.classList.add("pos1");
           break;
         case "dark":
-          highlightRef.current.style.left = "54px";
           setTheme("dark");
+          highlightRef.current.classList.add("pos2");
           break;
         case "system":
-          highlightRef.current.style.left = "-3px";
-          setTheme(isLightMode ? "light" : "dark");
+          // setTheme(isLightMode ? "light" : "dark");
+          setTheme("system");
+          highlightRef.current.classList.add("pos3");
           break;
         default:
-          highlightRef.current.style.left = "-3px";
-          setTheme(isLightMode ? "light" : "dark");
+          // setTheme(isLightMode ? "light" : "dark");
+          setTheme("system");
+          highlightRef.current.classList.add("pos3");
           break;
       }
     }
   }
+
+  useEffect(() => {
+  }, []);
+
 
   return (
     <Container>

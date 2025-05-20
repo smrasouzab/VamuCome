@@ -1,5 +1,5 @@
 import { useState, createContext, useContext, useEffect } from 'react';
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
 
 interface ThemeProviderProps extends React.PropsWithChildren {
   children: React.ReactNode;
@@ -8,7 +8,7 @@ interface ThemeProviderProps extends React.PropsWithChildren {
 interface ThemeContextType {
   theme: string;
   setTheme: (theme: string) => void;
-  toogleTheme: () => void;
+  // toogleTheme: () => void;
 }
 
 const ThemeContext = createContext<ThemeContextType>({} as ThemeContextType);
@@ -16,27 +16,37 @@ const ThemeContext = createContext<ThemeContextType>({} as ThemeContextType);
 export const ThemeProvider = ({ children }: ThemeProviderProps) => {
   const [theme, setThemeState] = useState(() => {
     const value = localStorage.getItem('theme');
+
     if (value === 'light' || value === 'dark') {
       return value;
     }
-    return 'light';
+
+    localStorage.setItem('theme', 'system');
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches;
+
+    if (isLightMode) {
+      return 'light';
+    }
+
+    return 'dark';
   });
 
   const setTheme = (theme: string) => {
     if (theme === 'light' || theme === 'dark') {
       setThemeState(theme);
-    } else {
-      toast.error('Invalid theme value. Use "light" or "dark".');
+    } else if (theme === 'system') {
+      const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches;
+      setThemeState(isLightMode ? 'light' : 'dark');
     }
   }
 
-  const toogleTheme = () => {
-    if (theme === 'light') {
-      setThemeState('dark');
-    } else {
-      setThemeState('light');
-    }
-  }
+  // const toogleTheme = () => {
+  //   if (theme === 'light') {
+  //     setThemeState('dark');
+  //   } else {
+  //     setThemeState('light');
+  //   }
+  // }
 
   useEffect(() => {
     localStorage.setItem('theme', theme);
@@ -47,7 +57,7 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
       value={{
         theme,
         setTheme,
-        toogleTheme,
+        // toogleTheme,
       }}
     >
       {children}

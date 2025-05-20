@@ -7,8 +7,9 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  background-color: var(--theme-color);
+  background-color: var(--bg-color);
+  gap: 60px;
+  padding: 35px;
 `;
 
 export const Links = styled.div`

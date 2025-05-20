@@ -9,7 +9,7 @@ export const NavbarContainer = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 0 35px;
-  background-color: #F8D084;
+  background-color: var(--bg-navbar);
 
   img {
     height: 85px;
@@ -31,4 +31,5 @@ export const NavbarNavlink = styled(NavLink)`
   color: #000;
   font-family: "Jua", sans-serif;
   font-size: 1.8rem;
+  color: var(--color);
 `;
