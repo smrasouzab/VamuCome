@@ -3,9 +3,8 @@ package com.example.login_auth_api.controllers;
 import com.example.login_auth_api.domain.cliente.Cliente;
 import com.example.login_auth_api.domain.user.User;
 import com.example.login_auth_api.dto.ClienteRegisterDTO;
-import com.example.login_auth_api.repositories.ClienteRepository;
-import com.example.login_auth_api.repositories.UserRepository;
 import com.example.login_auth_api.service.ClienteService;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,7 +30,7 @@ public class ClienteController {
         }
     }
 
-    @GetMapping("/listar-todos-clientes")
+    @GetMapping("/listar-todos")
     public ResponseEntity<List<User>> listarTodosClientes() {
         List<User> clientes = clienteService.listarTodosClientes();
 
@@ -40,5 +39,15 @@ public class ClienteController {
         }
 
         return ResponseEntity.ok(clientes); // 200
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> buscarCliente(@PathVariable Integer id) {
+        try {
+            User cliente = clienteService.listarClientePorId(id);
+            return ResponseEntity.ok(cliente); // 200 OK
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage()); // 404 Not Found
+        }
     }
 }

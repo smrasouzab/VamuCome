@@ -2,9 +2,11 @@ package com.example.login_auth_api.service;
 
 import com.example.login_auth_api.domain.cliente.Cliente;
 import com.example.login_auth_api.domain.user.User;
+import com.example.login_auth_api.domain.user.UserRole;
 import com.example.login_auth_api.dto.ClienteRegisterDTO;
 import com.example.login_auth_api.repositories.ClienteRepository;
 import com.example.login_auth_api.repositories.UserRepository;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -23,7 +25,12 @@ public class ClienteService {
     private UserRepository userRepository;
 
     public List<User> listarTodosClientes() {
-        return userRepository.findAllByEnRole("CLIENTE");
+        return userRepository.findAllByEnRole(UserRole.CLIENTE);
+    }
+
+    public User listarClientePorId(Integer id) {
+        return userRepository.findByIdAndEnRole(id, UserRole.CLIENTE.name())
+                .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com id: " + id));
     }
 
     public Cliente registrarCliente(@RequestBody @Valid ClienteRegisterDTO dto) {
