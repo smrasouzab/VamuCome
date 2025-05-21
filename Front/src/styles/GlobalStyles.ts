@@ -2,7 +2,7 @@ import { createGlobalStyle } from 'styled-components';
 
 const lightBgColor = "#fffaeb"; // Default theme color
 const darkTBgColor = "#2b2b27"; // Dark theme color
-const lightBgNavbarColor = "#f8d084"; // Light navbar background color
+const lightBgNavbarColor = "#ffc13b"; // Light navbar background color
 const darkBgNavbarColor = "#8b6f2f"; // Dark navbar background color
  
 const GlobalStyle = createGlobalStyle<{ $themeColor: string; }>`

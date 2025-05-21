@@ -64,7 +64,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   }, []);
 
   const logout = () => {
-    setIsAuthenticated(Promise.resolve(true));
+    setIsAuthenticated(Promise.resolve(false));
     setRole('');
   };
 
