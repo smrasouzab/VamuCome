@@ -15,17 +15,21 @@ const ThemeContext = createContext<ThemeContextType>({} as ThemeContextType);
 
 export const ThemeProvider = ({ children }: ThemeProviderProps) => {
   const [theme, setThemeState] = useState(() => {
+
+    if (localStorage.getItem('themeSyncWithSystem') === 'true') {
+      const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches;
+
+      if (isLightMode) {
+        return 'light';
+      }
+
+      return 'dark';
+    }
+
     const value = localStorage.getItem('theme');
 
     if (value === 'light' || value === 'dark') {
       return value;
-    }
-
-    localStorage.setItem('theme', 'system');
-    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches;
-
-    if (isLightMode) {
-      return 'light';
     }
 
     return 'dark';
@@ -34,9 +38,11 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
   const setTheme = (theme: string) => {
     if (theme === 'light' || theme === 'dark') {
       setThemeState(theme);
+      localStorage.setItem('themeSyncWithSystem', 'false');
     } else if (theme === 'system') {
       const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches;
       setThemeState(isLightMode ? 'light' : 'dark');
+      localStorage.setItem('themeSyncWithSystem', 'true');
     }
   }
 

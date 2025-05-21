@@ -4,7 +4,7 @@ import { useTheme } from "../../context/ThemeProvidder";
 import { useEffect, useRef } from "react";
 
 const ThemeSelector = () => {
-  const { setTheme } = useTheme();
+  const { theme, setTheme } = useTheme();
   
   const highlightRef = useRef<HTMLDivElement>(null);
   
@@ -36,7 +36,16 @@ const ThemeSelector = () => {
   }
 
   useEffect(() => {
-  }, []);
+    if (localStorage.getItem('themeSyncWithSystem') === 'true') {
+      handleThemeChange("system");
+    } else {
+      handleThemeChange(theme);
+    }
+
+    // if (highlightRef.current) {
+    //   highlightRef.current.className = "highlight";
+    // }
+  }, []); 
 
 
   return (

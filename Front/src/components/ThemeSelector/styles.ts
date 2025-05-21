@@ -10,28 +10,29 @@ export const Container = styled.div`
   width: 160px;
   padding: 0 12px;
   border: 2px solid var(--color);
-  border-radius: 16px;
+  border-radius: 12px;
 
   .highlight {
     position: absolute;
     width: 36px;
     height: 36px;
-    background-color: lightblue;
+    background-color: var(--color);
     border-radius: 8px;
     transition: all 0.5s ease;
     left: 9px;
     z-index: 0;
+    opacity: 0.1;
 
     &.pos1 {
       left: 9px;
     }
 
     &.pos2 {
-      left: 45px;
+      left: 59px;
     }
 
     &.pos3 {
-      left: 81px;
+      left: 110px;
     }
   }
 
