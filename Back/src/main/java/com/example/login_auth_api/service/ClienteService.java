@@ -4,6 +4,7 @@ import com.example.login_auth_api.domain.cliente.Cliente;
 import com.example.login_auth_api.domain.user.User;
 import com.example.login_auth_api.domain.user.UserRole;
 import com.example.login_auth_api.dto.ClienteRegisterDTO;
+import com.example.login_auth_api.dto.response.UserResponseDTO;
 import com.example.login_auth_api.repositories.ClienteRepository;
 import com.example.login_auth_api.repositories.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -28,9 +29,9 @@ public class ClienteService {
         return userRepository.findAllByEnRole(UserRole.CLIENTE);
     }
 
-    public User listarClientePorId(Integer id) {
-        return userRepository.findByIdAndEnRole(id, UserRole.CLIENTE.name())
-                .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com id: " + id));
+    public UserResponseDTO listarClientePorId(Integer id) {
+        return userRepository.findByIdAndEnRole(id, UserRole.CLIENTE)
+                .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado"));
     }
 
     public Cliente registrarCliente(@RequestBody @Valid ClienteRegisterDTO dto) {

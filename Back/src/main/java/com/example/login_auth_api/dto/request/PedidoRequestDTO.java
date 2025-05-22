@@ -1,4 +1,4 @@
-package com.example.login_auth_api.dto;
+package com.example.login_auth_api.dto.request;
 
 import com.example.login_auth_api.domain.cliente.Cliente;
 import com.example.login_auth_api.domain.fornecedor.Fornecedor;

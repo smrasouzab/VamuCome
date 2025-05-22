@@ -3,6 +3,7 @@ package com.example.login_auth_api.controllers;
 import com.example.login_auth_api.domain.cliente.Cliente;
 import com.example.login_auth_api.domain.user.User;
 import com.example.login_auth_api.dto.ClienteRegisterDTO;
+import com.example.login_auth_api.dto.response.UserResponseDTO;
 import com.example.login_auth_api.service.ClienteService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
@@ -44,10 +45,10 @@ public class ClienteController {
     @GetMapping("/{id}")
     public ResponseEntity<?> buscarCliente(@PathVariable Integer id) {
         try {
-            User cliente = clienteService.listarClientePorId(id);
-            return ResponseEntity.ok(cliente); // 200 OK
+            UserResponseDTO dto = clienteService.listarClientePorId(id);
+            return ResponseEntity.ok(dto);
         } catch (EntityNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage()); // 404 Not Found
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
 }
