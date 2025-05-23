@@ -6,17 +6,16 @@ import com.example.login_auth_api.dto.request.ProductRequestDTO;
 import com.example.login_auth_api.repositories.FornecedorRepository;
 import com.example.login_auth_api.repositories.ProdutoRepository;
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class ProductService {
 
-    @Autowired
-    private ProdutoRepository produtoRepository;
-
-    @Autowired
-    private FornecedorRepository fornecedorRepository;
+    private final ProdutoRepository produtoRepository;
+    private final FornecedorRepository fornecedorRepository;
 
     @Transactional
     public Produto criarProduto(ProductRequestDTO dto) {
