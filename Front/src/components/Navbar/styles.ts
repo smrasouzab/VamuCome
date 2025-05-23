@@ -4,12 +4,13 @@ import { NavLink } from "react-router-dom";
 export const NavbarContainer = styled.div`
   position: relative;
   width: 100%;
-  height: 100px;
+  height: 10vh;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 35px;
   background-color: var(--bg-navbar);
+  z-index: 1000;
 
   img {
     height: 85px;
