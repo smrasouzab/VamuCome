@@ -22,12 +22,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class FornecedorAuthController {
 
     private final FornecedorAuthService fornecedorAuthService;
-    private final AuthenticationManager authenticationManager;
     private final TokenService tokenService;
+    private final AuthenticationManager fornecedorAuthenticationManager;
 
-    /*
     @PostMapping("/login")
     public ResponseEntity<LoginResponseDTO> login(@RequestBody @Valid FornecedorRequestLoginDTO dto) {
+        /*
         String token = fornecedorAuthService.login(dto);
         Fornecedor fornecedor = fornecedorAuthService.loadByEmail(dto.dsEmailFornecedor());
 
@@ -37,13 +37,10 @@ public class FornecedorAuthController {
                 token,
                 "FORNECEDOR"
         ));
-    }
-     */
+        */
 
-    @PostMapping("/login")
-    public ResponseEntity<LoginResponseDTO> login(@RequestBody @Valid FornecedorRequestLoginDTO dto) {
         var credentials = new UsernamePasswordAuthenticationToken(dto.dsEmailFornecedor(), dto.dsSenhaFornecedor());
-        var auth = authenticationManager.authenticate(credentials);
+        var auth = fornecedorAuthenticationManager.authenticate(credentials);
         Fornecedor fornecedor = (Fornecedor) auth.getPrincipal();
 
         String token = tokenService.generateToken(fornecedor);

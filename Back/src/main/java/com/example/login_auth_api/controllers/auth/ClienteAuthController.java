@@ -22,12 +22,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class ClienteAuthController {
 
     private final ClienteAuthService clienteAuthService;
-    private final AuthenticationManager authenticationManager;
     private final TokenService tokenService;
+    private final AuthenticationManager clienteAuthenticationManager;
 
-    /*
     @PostMapping("/login")
     public ResponseEntity<LoginResponseDTO> login(@RequestBody @Valid ClienteRequestLoginDTO dto) {
+        /*
         String token = clienteAuthService.login(dto);
         Cliente cliente = clienteAuthService.loadByEmail(dto.dsEmailCliente()); // metodo utilitário se quiser puxar nome, ID, etc.
 
@@ -37,13 +37,10 @@ public class ClienteAuthController {
                 token,
                 "CLIENTE"
         ));
-    }
-     */
+        */
 
-    @PostMapping("/login")
-    public ResponseEntity<LoginResponseDTO> login(@RequestBody @Valid ClienteRequestLoginDTO dto) {
         var credentials = new UsernamePasswordAuthenticationToken(dto.dsEmailCliente(), dto.dsSenhaCliente());
-        var auth = authenticationManager.authenticate(credentials);
+        var auth = clienteAuthenticationManager.authenticate(credentials);
         Cliente cliente = (Cliente) auth.getPrincipal();
 
         String token = tokenService.generateToken(cliente);
@@ -54,6 +51,7 @@ public class ClienteAuthController {
                 "CLIENTE"
         ));
     }
+
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody @Valid ClienteRequestRegisterDTO dto) {
