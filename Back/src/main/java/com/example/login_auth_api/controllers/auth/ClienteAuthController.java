@@ -4,11 +4,13 @@ import com.example.login_auth_api.domain.cliente.Cliente;
 import com.example.login_auth_api.dto.request.login.ClienteRequestLoginDTO;
 import com.example.login_auth_api.dto.request.register.ClienteRequestRegisterDTO;
 import com.example.login_auth_api.dto.response.LoginResponseDTO;
+import com.example.login_auth_api.service.TokenService;
 import com.example.login_auth_api.service.auth.ClienteAuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,12 +22,31 @@ import org.springframework.web.bind.annotation.RestController;
 public class ClienteAuthController {
 
     private final ClienteAuthService clienteAuthService;
+    private final AuthenticationManager authenticationManager;
+    private final TokenService tokenService;
 
+    /*
     @PostMapping("/login")
     public ResponseEntity<LoginResponseDTO> login(@RequestBody @Valid ClienteRequestLoginDTO dto) {
         String token = clienteAuthService.login(dto);
-        Cliente cliente = clienteAuthService.loadByEmail(dto.dsEmailCliente()); // método utilitário se quiser puxar nome, ID, etc.
+        Cliente cliente = clienteAuthService.loadByEmail(dto.dsEmailCliente()); // metodo utilitário se quiser puxar nome, ID, etc.
 
+        return ResponseEntity.ok(new LoginResponseDTO(
+                cliente.getIdCliente(),
+                cliente.getNmUsuarioCliente(),
+                token,
+                "CLIENTE"
+        ));
+    }
+     */
+
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponseDTO> login(@RequestBody @Valid ClienteRequestLoginDTO dto) {
+        var credentials = new UsernamePasswordAuthenticationToken(dto.dsEmailCliente(), dto.dsSenhaCliente());
+        var auth = authenticationManager.authenticate(credentials);
+        Cliente cliente = (Cliente) auth.getPrincipal();
+
+        String token = tokenService.generateToken(cliente);
         return ResponseEntity.ok(new LoginResponseDTO(
                 cliente.getIdCliente(),
                 cliente.getNmUsuarioCliente(),

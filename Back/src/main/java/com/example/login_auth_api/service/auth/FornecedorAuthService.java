@@ -6,7 +6,6 @@ import com.example.login_auth_api.dto.request.register.FornecedorRequestRegister
 import com.example.login_auth_api.repositories.FornecedorRepository;
 import com.example.login_auth_api.service.TokenService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,8 +20,8 @@ public class FornecedorAuthService implements UserDetailsService {
 
     private final FornecedorRepository fornecedorRepository;
     private final PasswordEncoder passwordEncoder;
-    private final AuthenticationManager authenticationManager;
-    private final TokenService tokenService;
+    //private final AuthenticationManager authenticationManager;
+    //private final TokenService tokenService;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -30,6 +29,7 @@ public class FornecedorAuthService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException("Fornecedor não encontrado"));
     }
 
+    /*
     public String login(FornecedorRequestLoginDTO dto) {
         var authToken = new UsernamePasswordAuthenticationToken(dto.dsEmailFornecedor(), dto.dsSenhaFornecedor());
         authenticationManager.authenticate(authToken);
@@ -39,6 +39,7 @@ public class FornecedorAuthService implements UserDetailsService {
 
         return tokenService.generateToken(loadByEmail(dto.dsEmailFornecedor()));
     }
+     */
 
     public Fornecedor loadByEmail(String email) {
         return fornecedorRepository.findByDsEmailFornecedor(email)
