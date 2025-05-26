@@ -1,9 +1,16 @@
 import { createGlobalStyle } from 'styled-components';
+
+const lightBgColor = "#fffaeb"; // Default theme color
+const darkTBgColor = "#2b2b27"; // Dark theme color
+const lightBgNavbarColor = "#ffc13b"; // Light navbar background color
+const darkBgNavbarColor = "#8b6f2f"; // Dark navbar background color
  
 const GlobalStyle = createGlobalStyle<{ $themeColor: string; }>`
   :root {
-    --theme-color: ${props => props.$themeColor};
-    --theme-color-reverse: ${props => props.$themeColor === "#ffffff" ? "#000000" : "#ffffff"};
+    --bg-color: ${props => props.$themeColor === "light" ? lightBgColor : darkTBgColor};
+    --bg-color-reverse: ${props => props.$themeColor !== "light" ? lightBgColor : darkTBgColor};
+    --bg-navbar: ${props => props.$themeColor === "light" ? lightBgNavbarColor : darkBgNavbarColor};
+    --color: ${props => props.$themeColor === "light" ? "#000" : "#fff"};
   }
 
   * {

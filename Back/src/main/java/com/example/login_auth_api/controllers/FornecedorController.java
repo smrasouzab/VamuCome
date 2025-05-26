@@ -4,10 +4,9 @@ import com.example.login_auth_api.domain.fornecedor.Fornecedor;
 import com.example.login_auth_api.domain.produto.Produto;
 import com.example.login_auth_api.domain.user.UserRole;
 import com.example.login_auth_api.dto.FornecedorRegisterDTO;
-import com.example.login_auth_api.dto.ProductRequestDTO;
+import com.example.login_auth_api.dto.request.ProductRequestDTO;
 import com.example.login_auth_api.repositories.FornecedorRepository;
 import com.example.login_auth_api.repositories.UserRepository;
-import com.example.login_auth_api.service.FornecedorService;
 import com.example.login_auth_api.service.ProductService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +34,7 @@ public class FornecedorController {
         return ResponseEntity.status(HttpStatus.CREATED).body(novoProduto);
     }
 
-    @PostMapping("/registrar")
+    @PostMapping("/register")
     public ResponseEntity<Fornecedor> registerFornecedor(@RequestBody @Valid FornecedorRegisterDTO dto) {
         if (this.userRepository.findByDsEmail(dto.dsEmail()) != null) return ResponseEntity.badRequest().build();
         String encryptedPassword = new BCryptPasswordEncoder().encode(dto.dsSenha());

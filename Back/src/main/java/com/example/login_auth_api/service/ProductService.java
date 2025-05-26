@@ -2,7 +2,7 @@ package com.example.login_auth_api.service;
 
 import com.example.login_auth_api.domain.fornecedor.Fornecedor;
 import com.example.login_auth_api.domain.produto.Produto;
-import com.example.login_auth_api.dto.ProductRequestDTO;
+import com.example.login_auth_api.dto.request.ProductRequestDTO;
 import com.example.login_auth_api.repositories.FornecedorRepository;
 import com.example.login_auth_api.repositories.ProdutoRepository;
 import jakarta.transaction.Transactional;

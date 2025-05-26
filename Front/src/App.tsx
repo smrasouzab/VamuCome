@@ -2,32 +2,29 @@ import { AuthProvider } from "./context/AuthProvider";
 import GlobalStyle from './styles/GlobalStyles.ts'
 import RouterProvider from "./routes/RouterProvider.tsx";
 import { ToastContainer } from "react-toastify";
-import { ThemeProvider, useTheme } from "./context/ThemeProvidder.tsx";
+import { ThemeProvider } from "./context/ThemeProvidder.tsx";
+import { useTheme } from "./context/ThemeProvidder.tsx";
 
 function App() {
   return (
-    <>
-      <AuthProvider>
-        <ThemeProvider>
-          <ThemedApp />
-        </ThemeProvider>
-      </AuthProvider>
-    </>
+    <AuthProvider>
+      <ThemeProvider>
+        <GlobalStyleWrapper />
+        <ToastContainerWrapper />
+        <RouterProvider />
+      </ThemeProvider>
+    </AuthProvider>
   )
 };
 
-function ThemedApp() {
+function GlobalStyleWrapper() {
   const { theme } = useTheme();
+  return <GlobalStyle $themeColor={theme} />;
+}
 
-  return (
-    <>
-      <GlobalStyle $themeColor={theme === 'light' ? '#ffffff' : '#000000'} />
-      <ToastContainer
-        theme={theme}
-      />
-      <RouterProvider />
-    </>
-  );
+function ToastContainerWrapper() {
+  const { theme } = useTheme();
+  return <ToastContainer theme={theme} />;
 }
 
 export default App;

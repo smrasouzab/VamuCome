@@ -6,6 +6,7 @@ import Login from "../pages/Login";
 import User from "../pages/User";
 import ProtectedRoute from "./ProtectedRoute";
 import Navbar from "../components/Navbar";
+import HomeListagem from "../pages/Home/Listagem";
 
 const RouterProvider = () => {
   const NavbarRoute = ({ children }: { children: React.ReactNode }) => {
@@ -22,6 +23,7 @@ const RouterProvider = () => {
       <Routes>
         <Route path="/" element={<NavbarRoute><Home /></NavbarRoute>} />
         <Route path="/home" element={<NavbarRoute><Home /></NavbarRoute>} />
+        <Route path="/home-listagem" element={<NavbarRoute><HomeListagem /></NavbarRoute>} />
         <Route path="/register" element={<NavbarRoute><Register /></NavbarRoute>} />
         <Route path="/login" element={<NavbarRoute><Login /></NavbarRoute>} />
         <Route

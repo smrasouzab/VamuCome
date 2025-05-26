@@ -1,7 +1,7 @@
 package com.example.login_auth_api.controllers;
 
-import com.example.login_auth_api.dto.LoginRequestDTO;
-import com.example.login_auth_api.dto.RegisterRequestDTO;
+import com.example.login_auth_api.dto.request.LoginRequestDTO;
+import com.example.login_auth_api.dto.request.RegisterRequestDTO;
 import com.example.login_auth_api.dto.LoginResponseDTO;
 import com.example.login_auth_api.service.TokenService;
 import com.example.login_auth_api.repositories.UserRepository;
