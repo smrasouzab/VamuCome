@@ -54,4 +54,14 @@ public class FornecedorController {
         Endereco endereco = fornecedorService.mostrarEnderecoFornecedor();
         return ResponseEntity.ok(endereco);
     }
+
+    @PutMapping("/endereco/atualizar/{id}")
+    public ResponseEntity<String> atualizarEndereco(
+            @PathVariable Integer id,
+            @RequestBody @Valid EnderecoRequestDTO dto
+    ) {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        fornecedorService.atualizarEnderecoDoFornecedor(id, dto, email);
+        return ResponseEntity.ok("Endereço atualizado com sucesso");
+    }
 }

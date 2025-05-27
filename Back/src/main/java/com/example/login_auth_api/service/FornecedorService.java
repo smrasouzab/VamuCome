@@ -5,11 +5,13 @@ import com.example.login_auth_api.domain.endereco.Endereco;
 import com.example.login_auth_api.domain.fornecedor.Fornecedor;
 import com.example.login_auth_api.dto.request.EnderecoRequestDTO;
 import com.example.login_auth_api.dto.response.FornecedorResponseDTO;
+import com.example.login_auth_api.repositories.EnderecoRepository;
 import com.example.login_auth_api.repositories.FornecedorRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,7 @@ import java.util.List;
 public class FornecedorService {
 
     private final FornecedorRepository fornecedorRepository;
+    private final EnderecoRepository enderecoRepository;
 
     public List<FornecedorResponseDTO> listarTodosFornecedores() {
         return fornecedorRepository.findAll()
@@ -58,5 +61,25 @@ public class FornecedorService {
                 .orElseThrow(() -> new UsernameNotFoundException("Cliente não encontrado"));
 
         return fornecedor.getEndereco();
+    }
+
+    @Transactional
+    public void atualizarEnderecoDoFornecedor(Integer idEndereco, EnderecoRequestDTO dto, String email) {
+        Fornecedor fornecedor = fornecedorRepository.findByDsEmailFornecedor(email)
+                .orElseThrow(() -> new UsernameNotFoundException("Fornecedor não encontrado"));
+
+        Endereco endereco = enderecoRepository.findById(idEndereco)
+                .orElseThrow(() -> new EntityNotFoundException("Endereço não encontrado"));
+
+        if (!fornecedor.getEndereco().equals(endereco)) {
+            throw new AccessDeniedException("Você não tem permissão para alterar este endereço");
+        }
+
+        endereco.setDsLogradouro(dto.dsLogradouro());
+        endereco.setDsComplemento(dto.dsComplemento());
+        endereco.setNmNumero(dto.nmNumero());
+        endereco.setEndFavorito(dto.endFavorito());
+
+        enderecoRepository.save(endereco);
     }
 }
