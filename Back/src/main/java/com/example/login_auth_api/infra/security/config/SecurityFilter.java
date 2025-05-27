@@ -8,7 +8,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -32,45 +31,45 @@ public class SecurityFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String uri = request.getRequestURI();
-        System.out.println("Entrou no SecurityFilter para: " + uri);
+        System.out.println("➡️ [SecurityFilter] Requisição recebida: " + uri);
 
-        if (
-                uri.equals("/auth/cliente/login") ||
-                        uri.equals("/auth/fornecedor/login") ||
-                        uri.equals("/auth/cliente/register") ||
-                        uri.equals("/auth/fornecedor/register")
-        ) {
-            System.out.println("Rota pública ignorada pelo filtro: " + uri);
+        if (uri.startsWith("/auth/")) {
+            System.out.println("🟡 [SecurityFilter] Rota pública ignorada: " + uri);
             filterChain.doFilter(request, response);
             return;
         }
 
         try {
             String token = recoverToken(request);
-            System.out.println("Token encontrado: " + token);
+            System.out.println("🔐 [SecurityFilter] Token recebido: " + (token != null ? token : "NULO"));
 
             if (token != null) {
                 String email = tokenService.verifyToken(token);
+                System.out.println("🔍 [SecurityFilter] Email extraído do token: " + email);
+
                 if (email != null && !email.isBlank()) {
-                    // 🔍 Decide com base na URI
                     UserDetails user;
+
                     if (uri.startsWith("/cliente/")) {
-                        System.out.println("Chamando clienteAuthService para " + email);
+                        System.out.println("👤 [SecurityFilter] Autenticando cliente: " + email);
                         user = clienteAuthService.loadUserByUsername(email);
                     } else if (uri.startsWith("/fornecedor/")) {
-                        System.out.println("Chamando fornecedorAuthService para " + email);
+                        System.out.println("👤 [SecurityFilter] Autenticando fornecedor: " + email);
                         user = fornecedorAuthService.loadUserByUsername(email);
                     } else {
+                        System.out.println("❌ [SecurityFilter] Rota não reconhecida: " + uri);
                         throw new RuntimeException("Tipo de usuário não identificado para rota: " + uri);
                     }
 
                     var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
                     SecurityContextHolder.getContext().setAuthentication(authentication);
+                    System.out.println("✅ [SecurityFilter] Usuário autenticado e contexto de segurança definido.");
                 }
             }
         } catch (Exception e) {
-            System.out.println("Falha na autenticação via token: " + e.getMessage());
+            System.out.println("❌ [SecurityFilter] Falha na autenticação via token: " + e.getMessage());
         }
+
         filterChain.doFilter(request, response);
     }
     private String recoverToken(HttpServletRequest request){
