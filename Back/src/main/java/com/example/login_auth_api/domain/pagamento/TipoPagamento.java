@@ -1,20 +1,26 @@
 package com.example.login_auth_api.domain.pagamento;
 
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Entity
-@Table(name = "tbtipopagamento")
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-public class TipoPagamento {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idTipoPagamento;
-    private String dsTipoPagamento;
+public enum TipoPagamento {
+    PIX("Pix"),
+    CARTAO_CREDITO("Cartão de Crédito"),
+    CARTAO_DEBITO("Cartão de Débito"),
+    BOLETO("Boleto Bancário"),
+    TRANSFERENCIA("Transferência Bancária");
+
+    @Getter
+    private final String descricao;
+
+    TipoPagamento(String descricao) {
+        this.descricao = descricao;
+    }
+
+    @Override
+    @JsonValue
+    public String toString() {
+        return descricao;
+    }
 }
+

@@ -25,12 +25,10 @@ public class Pedido {
     private Integer idPedido;
     private BigDecimal vlTotalPedido;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "tipo_pagamento_id")
+    @Enumerated(EnumType.STRING)
     private TipoPagamento tipoPagamento;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "status_pedido_id")
+    @Enumerated(EnumType.STRING)
     private StatusPedido statusPedido;
 
     @OneToOne(cascade = CascadeType.ALL)
