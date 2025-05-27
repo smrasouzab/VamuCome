@@ -12,20 +12,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.Collection;
 import java.util.List;
-/*
-@Entity
-@Table(name = "tbcliente")
-@Getter
-@Setter
-@PrimaryKeyJoinColumn(name = "idUsuario")
-public class Cliente extends User {
-    private String nuCPF;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "cliente_id")
-    private List<Endereco> endereco;
-}
-*/
 @Entity
 @Table(name = "tbcliente")
 @Getter
