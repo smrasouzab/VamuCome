@@ -19,8 +19,4 @@ public class Endereco {
     private String nmNumero;
     private String dsComplemento;
     private Boolean endFavorito;
-
-
-
-
 }

@@ -1,11 +1,15 @@
 package com.example.login_auth_api.controllers;
 
+import com.example.login_auth_api.domain.endereco.Endereco;
+import com.example.login_auth_api.dto.request.EnderecoRequestDTO;
 import com.example.login_auth_api.dto.response.FornecedorResponseDTO;
 import com.example.login_auth_api.service.FornecedorService;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,5 +40,18 @@ public class FornecedorController {
         } catch (EntityNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
+    }
+
+    @PostMapping("/endereco/cadastrar")
+    public ResponseEntity<?> cadastrarEndereco(@RequestBody @Valid EnderecoRequestDTO dto) {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        fornecedorService.cadastrarEndereco(email, dto);
+        return ResponseEntity.status(HttpStatus.CREATED).body("Endereço cadastrado para o fornecedor.");
+    }
+
+    @GetMapping("/endereco/listar")
+    public ResponseEntity<Endereco> mostrarEndereco() {
+        Endereco endereco = fornecedorService.mostrarEnderecoFornecedor();
+        return ResponseEntity.ok(endereco);
     }
 }

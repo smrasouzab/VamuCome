@@ -28,8 +28,11 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/cliente/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/fornecedor/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/cliente/**").hasRole("CLIENTE")
+                        .requestMatchers(HttpMethod.POST, "/fornecedor/**").hasRole("FORNECEDOR")
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
