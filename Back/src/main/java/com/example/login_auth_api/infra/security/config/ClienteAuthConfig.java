@@ -1,3 +1,4 @@
+/*
 package com.example.login_auth_api.infra.security.config;
 
 import com.example.login_auth_api.service.auth.ClienteAuthService;
@@ -24,3 +25,5 @@ public class ClienteAuthConfig {
         return new ProviderManager(clienteAuthProvider);
     }
 }
+
+ */

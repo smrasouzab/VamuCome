@@ -8,6 +8,7 @@ import com.example.login_auth_api.service.TokenService;
 import com.example.login_auth_api.service.auth.ClienteAuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -23,27 +24,25 @@ public class ClienteAuthController {
 
     private final ClienteAuthService clienteAuthService;
     private final TokenService tokenService;
-    private final AuthenticationManager clienteAuthenticationManager;
+
+    @Qualifier("authenticationManager")
+    private final AuthenticationManager authenticationManager;
 
     @PostMapping("/login")
     public ResponseEntity<LoginResponseDTO> login(@RequestBody @Valid ClienteRequestLoginDTO dto) {
-        /*
-        String token = clienteAuthService.login(dto);
-        Cliente cliente = clienteAuthService.loadByEmail(dto.dsEmailCliente()); // metodo utilitário se quiser puxar nome, ID, etc.
-
-        return ResponseEntity.ok(new LoginResponseDTO(
-                cliente.getIdCliente(),
-                cliente.getNmUsuarioCliente(),
-                token,
-                "CLIENTE"
-        ));
-        */
+        System.out.println("Entrou no controller de login com email: " + dto.dsEmailCliente());
 
         var credentials = new UsernamePasswordAuthenticationToken(dto.dsEmailCliente(), dto.dsSenhaCliente());
-        var auth = clienteAuthenticationManager.authenticate(credentials);
+        System.out.println("🔑 Tentando autenticar com senha: " + dto.dsSenhaCliente());
+        var auth = authenticationManager.authenticate(credentials);
+        System.out.println("Autenticação concluída");
+
         Cliente cliente = (Cliente) auth.getPrincipal();
+        System.out.println("Cliente autenticado: " + cliente.getNmUsuarioCliente());
 
         String token = tokenService.generateToken(cliente);
+        System.out.println("Token gerado");
+
         return ResponseEntity.ok(new LoginResponseDTO(
                 cliente.getIdCliente(),
                 cliente.getNmUsuarioCliente(),
@@ -52,6 +51,20 @@ public class ClienteAuthController {
         ));
     }
 
+    /*
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponseDTO> login(@RequestBody @Valid ClienteRequestLoginDTO dto) {
+        System.out.println("📥 Entrou no controller de login com email: " + dto.dsEmailCliente());
+
+        // NÃO AUTENTICA — apenas simula
+        return ResponseEntity.ok(new LoginResponseDTO(
+                1,
+                "Mock Cliente",
+                "mock-token",
+                "CLIENTE"
+        ));
+    }
+     */
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody @Valid ClienteRequestRegisterDTO dto) {

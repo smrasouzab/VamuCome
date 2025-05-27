@@ -25,8 +25,21 @@ public class ClienteAuthService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        System.out.println("Procurando usuário por e-mail: " + email);
+
+        Cliente cliente = clienteRepository.findByDsEmailCliente(email)
+                .orElseThrow(() -> new UsernameNotFoundException("Cliente não encontrado"));
+
+        System.out.println("🧠 Cliente encontrado: " + cliente.getDsEmailCliente());
+        System.out.println("🔐 Senha do banco: " + cliente.getDsSenhaCliente());
+
+        return cliente;
+
+        /*
         return clienteRepository.findByDsEmailCliente(email)
                 .orElseThrow(() -> new UsernameNotFoundException("Cliente não encontrado"));
+
+         */
     }
 
     /*

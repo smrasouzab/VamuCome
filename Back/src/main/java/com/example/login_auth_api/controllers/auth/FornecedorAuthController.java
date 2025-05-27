@@ -8,6 +8,7 @@ import com.example.login_auth_api.service.TokenService;
 import com.example.login_auth_api.service.auth.FornecedorAuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -23,6 +24,8 @@ public class FornecedorAuthController {
 
     private final FornecedorAuthService fornecedorAuthService;
     private final TokenService tokenService;
+
+    @Qualifier("fornecedorAuthenticationManager")
     private final AuthenticationManager fornecedorAuthenticationManager;
 
     @PostMapping("/login")

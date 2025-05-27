@@ -25,6 +25,7 @@ public class FornecedorAuthService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        System.out.println("Procurando usuário por e-mail: " + email);
         return fornecedorRepository.findByDsEmailFornecedor(email)
                 .orElseThrow(() -> new UsernameNotFoundException("Fornecedor não encontrado"));
     }
