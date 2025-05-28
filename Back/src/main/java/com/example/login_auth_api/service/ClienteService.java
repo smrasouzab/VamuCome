@@ -1,53 +1,81 @@
 package com.example.login_auth_api.service;
 
 import com.example.login_auth_api.domain.cliente.Cliente;
-import com.example.login_auth_api.domain.user.User;
-import com.example.login_auth_api.domain.user.UserRole;
-import com.example.login_auth_api.dto.ClienteRegisterDTO;
-import com.example.login_auth_api.dto.response.UserResponseDTO;
+import com.example.login_auth_api.domain.endereco.Endereco;
+import com.example.login_auth_api.dto.request.EnderecoRequestDTO;
+import com.example.login_auth_api.dto.response.ClienteResponseDTO;
 import com.example.login_auth_api.repositories.ClienteRepository;
-import com.example.login_auth_api.repositories.UserRepository;
+import com.example.login_auth_api.repositories.EnderecoRepository;
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.BeanUtils;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class ClienteService {
 
-    @Autowired
-    private ClienteRepository clienteRepository;
+    private final ClienteRepository clienteRepository;
+    private final EnderecoRepository enderecoRepository;
 
-    @Autowired
-    private UserRepository userRepository;
-
-    public List<User> listarTodosClientes() {
-        return userRepository.findAllByEnRole(UserRole.CLIENTE);
+    public List<ClienteResponseDTO> listarTodosClientes() {
+        return clienteRepository.findAll()
+                .stream()
+                .map(ClienteResponseDTO::new)
+                .toList();
     }
 
-    public UserResponseDTO listarClientePorId(Integer id) {
-        return userRepository.findByIdAndEnRole(id, UserRole.CLIENTE)
+    public ClienteResponseDTO listarClientePorId(Integer id) {
+        Cliente cliente = clienteRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado"));
+        return new ClienteResponseDTO(cliente);
     }
 
-    public Cliente registrarCliente(@RequestBody @Valid ClienteRegisterDTO dto) {
-        if (this.userRepository.findByDsEmail(dto.dsEmail()) != null) {
-            throw new IllegalArgumentException("Email já cadastrado.");
+    @Transactional
+    public void adicionarEndereco(String email, EnderecoRequestDTO dto) {
+        Cliente cliente = clienteRepository.findByDsEmailCliente(email)
+                .orElseThrow(() -> new UsernameNotFoundException("Cliente não encontrado"));
+
+        Endereco endereco = new Endereco();
+        BeanUtils.copyProperties(dto, endereco);
+
+        cliente.getEndereco().add(endereco);
+        clienteRepository.save(cliente);
+    }
+
+    public List<Endereco> listarEnderecosDoCliente() {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        Cliente cliente = clienteRepository.findByDsEmailCliente(email)
+                .orElseThrow(() -> new UsernameNotFoundException("Cliente não encontrado"));
+
+        return cliente.getEndereco();
+    }
+
+
+    @Transactional
+    public void atualizarEnderecoDoCliente(Integer idEndereco, EnderecoRequestDTO dto, String email) {
+        Cliente cliente = clienteRepository.findByDsEmailCliente(email)
+                .orElseThrow(() -> new UsernameNotFoundException("Cliente não encontrado"));
+
+        Endereco endereco = enderecoRepository.findById(idEndereco)
+                .orElseThrow(() -> new EntityNotFoundException("Endereço não encontrado"));
+
+        if (!cliente.getEndereco().contains(endereco)) {
+            throw new AccessDeniedException("Você não tem permissão para alterar este endereço");
         }
-        String encryptedPassword = new BCryptPasswordEncoder().encode(dto.dsSenha());
 
-        Cliente novoCliente = new Cliente();
-        novoCliente.setNmUsuario(dto.nmUsuario());
-        novoCliente.setEnRole(dto.enRole());
-        novoCliente.setDsEmail(dto.dsEmail());
-        novoCliente.setNuCPF(dto.nuCPF());
-        novoCliente.setEndereco(dto.dsEndereco());
-        novoCliente.setDsSenha(encryptedPassword);
+        endereco.setDsLogradouro(dto.dsLogradouro());
+        endereco.setDsComplemento(dto.dsComplemento());
+        endereco.setNmNumero(dto.nmNumero());
+        endereco.setEndFavorito(dto.endFavorito());
 
-        return clienteRepository.save(novoCliente);
+        enderecoRepository.save(endereco);
     }
 }

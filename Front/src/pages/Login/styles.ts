@@ -10,16 +10,16 @@ export const Container = styled.div`
   background-color: #FFFAEB;
 `;
 
-export const Form = styled.div`
+export const Form = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #ffffff;
+  background-color: rgb(250, 250, 250);
   border: 1px solid rgb(200, 200, 200);
   border-radius: 32px;
   gap: 20px;
-  padding: 80px 60px;
+  padding: 60px 60px;
 
   h1 {
     font-family: 'Inter', sans-serif;
@@ -43,6 +43,7 @@ export const Form = styled.div`
     color: #000000;
 
     .amarelo {
+      all: unset;
       color:rgb(255, 174, 0);
       cursor: pointer;
 

@@ -1,20 +1,22 @@
 package com.example.login_auth_api.domain.status;
 
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonValue;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
-@Entity
-@Table(name = "tbstatuspedido")
-public class StatusPedido {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idStatusPedido;
-    private String dsStatusPedido;
+public enum StatusPedido {
+    AGUARDANDO_PAGAMENTO("Aguardando Pagamento"),
+    PAGO("Pago"),
+    ENVIADO("Enviado"),
+    ENTREGUE("Entregue"),
+    CANCELADO("Cancelado");
+
+    private final String descricao;
+
+    StatusPedido(String descricao) {
+        this.descricao = descricao;
+    }
+
+    @JsonValue
+    public String getDescricao() {
+        return descricao;
+    }
 }

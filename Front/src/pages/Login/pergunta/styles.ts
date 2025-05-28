@@ -45,10 +45,11 @@ export const Card = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 150px;
+    width: 250px;
     height: 150px;
     background-color: #ffffff;
     border-radius: 32px 0 0 32px;
+    border: 3px solid #FFC13B;
 
     svg {
       transition: all 0.3s ease;

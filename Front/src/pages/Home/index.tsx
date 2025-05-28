@@ -1,8 +1,15 @@
 // import Navbar from "../../components/Navbar";
 import SearchBar from "../../components/SearchBar";
 import { Container, Categorias, Title, ListaCategorias } from "./styles";
+import { useNavigate } from "react-router";
 
 const Home = () => {
+  const navigate = useNavigate();
+
+  const paginaListagem = () => {
+    navigate("/home-listagem");
+  };
+
   return (
     <>
       <Container>
@@ -18,10 +25,10 @@ const Home = () => {
           }}
         />
         <Categorias>
-          <img src="categorias/1.png" alt="" />
-          <img src="categorias/2.png" alt="" />
-          <img src="categorias/3.png" alt="" />
-          <img src="categorias/2.png" alt="" />
+          <img onClick={paginaListagem} src="categorias/1.png" alt="" />
+          <img onClick={paginaListagem} src="categorias/2.png" alt="" />
+          <img onClick={paginaListagem} src="categorias/3.png" alt="" />
+          <img onClick={paginaListagem} src="categorias/2.png" alt="" />
         </Categorias>
         <ListaCategorias>
           <div className="header">

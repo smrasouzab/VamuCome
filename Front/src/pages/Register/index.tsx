@@ -1,98 +1,122 @@
-import { useState } from "react";
-import { Container, Form } from "./styles";
+import { ButtonSubmit, Container, Form } from "./styles";
 import { useNavigate } from "react-router";
+import { toast, Slide } from "react-toastify";
+import Input from "../../components/Input";
+
+import { useForm } from "react-hook-form";
+import { isEmail } from "validator";
 import api from "../../api";
-import { Slide, toast } from "react-toastify";
+
+interface FormData {
+  nmUsuario: string;
+  email: string;
+  senha: string;
+  telefone: string;
+  numCpfCnpj: string;
+}
 
 const Register = () => {
-
   const navigate = useNavigate();
 
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [role, setRole] = useState('');
+  // const [searchParams] = useSearchParams();
 
-  const handleRegister = async () => {
-    // const json = JSON.stringify({
-    //   nmUsuario: name,
-    //   dsEmail: email,
-    //   dsSenha: password,
-    //   enRole: role,
-    // });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormData>();
 
-    const json = JSON.stringify({
-      name: name,
-      email: email,
-      password: password,
-      role: role,
-    });
-
+  const handleLogin = async (data: FormData) => {
     try {
-      await api
-        .post('/auth/register', json, {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        })
-      toast.success('Registrado com sucesso!', {
+      await api.post("/auth/register", data);
+      toast.success("Cadastrado com sucesso!", {
         transition: Slide,
       });
-      navigate('/login');
+      navigate("/login");
     } catch {
-      toast.error('Erro ao registrar!', {
+      toast.error("Erro ao cadastrar!", {
         transition: Slide,
       });
     }
-
-    // api
-    //   .post('/auth/register', json, {
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //   })
-    //   .then((response) => {
-    //     console.log(response);
-    //     if (response.status === 200 || response.status === 201) {
-    //       alert('User registered successfully!');
-    //       navigate('/login');
-    //     } else {
-    //       alert('Error registering user');
-    //     }
-    //   })
-    //   .catch(() => {
-    //     alert('Error registering user');
-    //   });
-  }
+  };
 
   return (
     <>
       <Container>
-        <Form>
-          <button
-            type="button"
-            onClick={() => {
-              setName('Teste');
-              setEmail('teste@gmail.com');
-              setPassword('12345678');
-              setRole('cliente');
+        <Form onSubmit={handleSubmit(handleLogin)}>
+          <h1>Cadastro</h1>
+          <Input
+            type="text"
+            label="Nome de Usuário"
+            placeholder="Seu nome"
+            style={{
+              width: "260px",
             }}
-          >Teste</button>
-          <h1>Register</h1>
-          <input type="text" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} />
-          <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
-          <input type="text" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
-          {/* <input type="text" placeholder="Role" value={role} onChange={(e) => setRole(e.target.value)} /> */}
-          <select defaultValue={role} onChange={(e) => setRole(e.target.value)}>
-            <option value="">Select Role</option>
-            <option value="entregador">Entregador</option>
-            <option value="cliente">Cliente</option>
-          </select>
-          <button type="button" onClick={handleRegister}>Register</button>
+            errors={errors.nmUsuario}
+            {...register("nmUsuario", {
+              required: "Nome de Usuário é obrigatório",
+            })}
+          />
+          <Input
+            type="text"
+            label="Email"
+            placeholder="exemplo@gmail.com"
+            style={{
+              width: "260px",
+            }}
+            errors={errors.email}
+            {...register("email", {
+              required: "Email é obrigatório",
+              validate: (value) => isEmail(value) || "Email inválido",
+            })}
+          />
+          <Input
+            type="text"
+            label="CPF/CNPJ"
+            placeholder="000.000.000-00/00.000.000/0000-00"
+            style={{
+              width: "260px",
+            }}
+            errors={errors.numCpfCnpj}
+            {...register("numCpfCnpj", {
+              required: "CPF/CNPJ é obrigatório",
+            })}
+          />
+          <Input
+            type="text"
+            label="Telefone"
+            placeholder="(00) 00000-0000"
+            style={{
+              width: "260px",
+            }}
+            errors={errors.telefone}
+            {...register("telefone", {
+              required: "Telefone é obrigatório",
+            })}
+          />
+          <Input
+            type="password"
+            label="Senha"
+            placeholder="Senha"
+            style={{
+              width: "260px",
+            }}
+            errors={errors.senha}
+            {...register("senha", {
+              required: "Senha é obrigatória",
+              minLength: {
+                value: 8,
+                message: "Senha deve ter pelo menos 8 caracteres",
+              },
+            })}
+          />
+          <ButtonSubmit type="submit">
+            Cadastrar
+          </ButtonSubmit>
         </Form>
       </Container>
     </>
-  )
+  );
 };
 
 export default Register;

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
+export const Container = styled.div<{ $initialLeft: number }>`
   position: relative;
   display: flex;
   flex-direction: row;
@@ -19,7 +19,7 @@ export const Container = styled.div`
     background-color: var(--color);
     border-radius: 8px;
     transition: all 0.5s ease;
-    left: 9px;
+    left: ${props => props.$initialLeft}px;
     z-index: 0;
     opacity: 0.1;
 
