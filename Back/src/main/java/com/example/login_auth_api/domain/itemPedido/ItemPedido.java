@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 @Entity
 @Table(name = "tbitempedido")
 @Getter
@@ -19,10 +21,20 @@ public class ItemPedido {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idItemPedido;
     private Integer qtItem;
-    private Double vlItem;
-    private Double vlTotalItemPedido;
+    private BigDecimal vlItem;
+    private BigDecimal vlTotalItemPedido;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "produto_id")
     private Produto produto;
+
+    @ManyToOne
+    @JoinColumn(name = "pedido_id")
+    private Pedido pedido;
+
+    public void calcularTotalItemPedido() {
+        if (vlItem != null && qtItem != null) {
+            this.vlTotalItemPedido = vlItem.multiply(BigDecimal.valueOf(qtItem));
+        }
+    }
 }

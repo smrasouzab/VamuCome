@@ -65,6 +65,14 @@ public class Fornecedor implements UserDetails {
     @JoinColumn(name = "endereco_id")
     private Endereco endereco;
 
+    /*
+    @OneToMany(mappedBy = "fornecedor")
+    @JsonIgnore
+    private List<Pedido> pedidos;
+
+    Inserir se precisar listar todos os pedidos que estão em um fornecedor.
+     */
+
     @OneToMany(mappedBy = "fornecedor", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Produto> produto;
 
