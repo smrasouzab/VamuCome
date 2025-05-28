@@ -1,60 +1,67 @@
 package com.example.login_auth_api.controllers;
 
-import com.example.login_auth_api.domain.fornecedor.Fornecedor;
-import com.example.login_auth_api.domain.produto.Produto;
-import com.example.login_auth_api.domain.user.UserRole;
-import com.example.login_auth_api.dto.FornecedorRegisterDTO;
-import com.example.login_auth_api.dto.request.ProductRequestDTO;
-import com.example.login_auth_api.repositories.FornecedorRepository;
-import com.example.login_auth_api.repositories.UserRepository;
-import com.example.login_auth_api.service.ProductService;
+import com.example.login_auth_api.domain.endereco.Endereco;
+import com.example.login_auth_api.dto.request.EnderecoRequestDTO;
+import com.example.login_auth_api.dto.response.FornecedorResponseDTO;
+import com.example.login_auth_api.service.FornecedorService;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/fornecedor")
 public class FornecedorController {
 
-    @Autowired
-    private ProductService produtoService;
+    private final FornecedorService fornecedorService;
 
-    @Autowired
-    private FornecedorRepository fornecedorRepository;
+    @GetMapping("/listar-todos")
+    public ResponseEntity<List<FornecedorResponseDTO>> listarTodosFornecedores() {
+        List<FornecedorResponseDTO> fornecedores = fornecedorService.listarTodosFornecedores();
 
-    @Autowired
-    private UserRepository userRepository;
+        if (fornecedores.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
 
-    @PostMapping("/criar-produtos")
-    public ResponseEntity<Produto> criarProduto(@RequestBody @Valid ProductRequestDTO dto) {
-        Produto novoProduto = produtoService.criarProduto(dto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(novoProduto);
+        return ResponseEntity.ok(fornecedores);
     }
 
-    @PostMapping("/register")
-    public ResponseEntity<Fornecedor> registerFornecedor(@RequestBody @Valid FornecedorRegisterDTO dto) {
-        if (this.userRepository.findByDsEmail(dto.dsEmail()) != null) return ResponseEntity.badRequest().build();
-        String encryptedPassword = new BCryptPasswordEncoder().encode(dto.dsSenha());
+    @GetMapping("/{id}")
+    public ResponseEntity<?> buscarFornecedorPorId(@PathVariable Integer id) {
+        try {
+            FornecedorResponseDTO dto = fornecedorService.listarFornecedorPorId(id);
+            return ResponseEntity.ok(dto);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
 
-        Fornecedor novoFornecedor = new Fornecedor();
-        novoFornecedor.setNmUsuario(dto.nmUsuario());
-        novoFornecedor.setDsEmail(dto.dsEmail());
-        novoFornecedor.setDsSenha(encryptedPassword);
-        novoFornecedor.setEndereco(dto.dsEndereco());
-        novoFornecedor.setEnRole(UserRole.FORNECEDOR);
+    @PostMapping("/endereco/cadastrar")
+    public ResponseEntity<?> cadastrarEndereco(@RequestBody @Valid EnderecoRequestDTO dto) {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        fornecedorService.cadastrarEndereco(email, dto);
+        return ResponseEntity.status(HttpStatus.CREATED).body("Endereço cadastrado para o fornecedor.");
+    }
 
-        // Adicionar os dados específicos do fornecedor
-        novoFornecedor.setDsRazaoSocial(dto.dsRazaoSocial());
-        novoFornecedor.setDtHorarioAbertura(dto.dtHorarioAbertura());
-        novoFornecedor.setDtHorarioFechamento(dto.dtHorarioFechamento());
-        novoFornecedor.setVlMinimoCompra(dto.vlMinimoCompra());
-        novoFornecedor.setNuCNPJ(dto.nuCNPJ());
+    @GetMapping("/endereco/listar")
+    public ResponseEntity<Endereco> mostrarEndereco() {
+        Endereco endereco = fornecedorService.mostrarEnderecoFornecedor();
+        return ResponseEntity.ok(endereco);
+    }
 
-        fornecedorRepository.save(novoFornecedor);
-
-        return ResponseEntity.ok().build();
+    @PutMapping("/endereco/atualizar/{id}")
+    public ResponseEntity<String> atualizarEndereco(
+            @PathVariable Integer id,
+            @RequestBody @Valid EnderecoRequestDTO dto
+    ) {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        fornecedorService.atualizarEnderecoDoFornecedor(id, dto, email);
+        return ResponseEntity.ok("Endereço atualizado com sucesso");
     }
 }
