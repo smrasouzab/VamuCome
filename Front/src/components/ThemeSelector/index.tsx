@@ -1,10 +1,22 @@
 import { Container } from "./styles"
 import { LuSun, LuMoon, LuMonitor } from "react-icons/lu";
 import { useTheme } from "../../context/ThemeProvidder";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const ThemeSelector = () => {
   const { theme, setTheme } = useTheme();
+
+  const [initialLeft] = useState(() => {
+    const syncWithSystem = localStorage.getItem('themeSyncWithSystem');
+    if (syncWithSystem === 'true') {
+      return 110;
+    } else {
+      const theme = localStorage.getItem('theme');
+      if (theme === 'light') return 9;
+      if (theme === 'dark') return 59;
+      return 110;
+    }
+  });
   
   const highlightRef = useRef<HTMLDivElement>(null);
   
@@ -49,7 +61,7 @@ const ThemeSelector = () => {
 
 
   return (
-    <Container>
+    <Container $initialLeft={initialLeft}>
       <div className="highlight" ref={highlightRef} />
       <LuSun size={30} onClick={() => handleThemeChange("light")} />
       <LuMoon size={30} onClick={() => handleThemeChange("dark")} />

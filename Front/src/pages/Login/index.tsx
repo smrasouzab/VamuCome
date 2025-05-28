@@ -1,27 +1,38 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ButtonSubmit, Container, Form } from "./styles";
 import { useAuth } from "../../context/AuthProvider";
-import { useNavigate } from "react-router";
+import { useNavigate, NavLink } from "react-router";
 import { toast, Slide } from "react-toastify";
-import { useSearchParams } from "react-router-dom";
+// import { useSearchParams } from "react-router-dom";
 import Pergunta from "./pergunta";
 import Input from "../../components/Input";
 
-const Register = () => {
+import { useForm } from "react-hook-form";
+import { isEmail } from "validator";
+
+interface FormData {
+  email: string;
+  senha: string;
+}
+
+const Login = () => {
   const { login } = useAuth();
 
   const navigate = useNavigate();
 
-  const [searchParams] = useSearchParams();
+  // const [searchParams] = useSearchParams();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormData>();
 
   const [displayPergunta, setDisplayPergunta] = useState(true);
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const handleLogin = async () => {
+  const handleLogin = async (data: FormData) => {
     try {
-      await login(email, password);
+      await login(data.email, data.senha);
       toast.success("Logado com sucesso!", {
         transition: Slide,
       });
@@ -37,36 +48,36 @@ const Register = () => {
     <>
       {displayPergunta && <Pergunta setDisplayPergunta={setDisplayPergunta} />}
       <Container>
-        <Form>
-          {/* <button
-            type="button"
-            onClick={() => {
-              setEmail("teste@gmail.com");
-              setPassword("12345678");
-            }}
-          >
-            Teste
-          </button> */}
+        <Form onSubmit={handleSubmit(handleLogin)}>
           <h1>Login</h1>
           <Input
-            type="email"
+            type="text"
             label="Email"
             placeholder="exemplo@gmail.com"
-            value={email}
             style={{
               width: "260px",
             }}
-            onChange={(e) => setEmail((e.target as HTMLInputElement).value)}
+            errors={errors.email}
+            {...register("email", {
+              required: "Email é obrigatório",
+              validate: (value) => isEmail(value) || "Email inválido",
+            })}
           />
           <Input
             type="password"
             label="Senha"
             placeholder="Senha"
-            value={password}
             style={{
               width: "260px",
             }}
-            onChange={(e) => setPassword((e.target as HTMLInputElement).value)}
+            errors={errors.senha}
+            {...register("senha", {
+              required: "Senha é obrigatória",
+              minLength: {
+                value: 8,
+                message: "Senha deve ter pelo menos 8 caracteres",
+              },
+            })}
           />
           <div
             style={{
@@ -76,16 +87,16 @@ const Register = () => {
               gap: "10px",
             }}
           >
-            <ButtonSubmit type="button" onClick={handleLogin}>
+            <ButtonSubmit type="submit">
               Entrar
             </ButtonSubmit>
             <span className="esqueceuSenha">Esqueceu sua senha?</span>
           </div>
-          <span className="naoPossuiConta">Não possui uma conta? <span className="amarelo">Crie uma conta!</span></span>
+          <span className="naoPossuiConta">Não possui uma conta? <NavLink to="/register" className="amarelo">Crie uma conta!</NavLink></span>
         </Form>
       </Container>
     </>
   );
 };
 
-export default Register;
+export default Login;

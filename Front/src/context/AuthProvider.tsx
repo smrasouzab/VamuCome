@@ -19,7 +19,7 @@ interface LoginResponse {
 
 const AuthContext = createContext<AuthContextType>({} as AuthContextType);
 
-export const AuthProvider = ({ children }: AuthProviderProps) => {
+const AuthProvider = ({ children }: AuthProviderProps) => {
   const [isAuthenticated, setIsAuthenticated] = useState<Promise<boolean>>(async () => {
     const token = localStorage.getItem('token');
 
@@ -40,15 +40,10 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   });
   const [role, setRole] = useState<string>('');
 
-  const login = useCallback(async (email: string, password: string) => {
-    // const reponse = await api.post<LoginResponse>('/auth/login', {
-    //   dsEmail: email,
-    //   dsSenha: password,
-    // })
-
+  const login = useCallback(async (email: string, senha: string) => {
     const reponse = await api.post<LoginResponse>('/auth/login', {
       email: email,
-      password: password,
+      senha: senha,
     })
 
     if (reponse.status === 200) {
@@ -64,6 +59,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   }, []);
 
   const logout = () => {
+    localStorage.removeItem('token');
     setIsAuthenticated(Promise.resolve(false));
     setRole('');
   };
@@ -82,7 +78,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   )
 };
 
-export const useAuth = (): AuthContextType => {
+const useAuth = (): AuthContextType => {
   const context = useContext(AuthContext);
 
   if (!context) {
@@ -91,3 +87,5 @@ export const useAuth = (): AuthContextType => {
 
   return context;
 }
+
+export { AuthProvider, useAuth };

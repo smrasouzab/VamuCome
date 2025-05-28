@@ -36,7 +36,6 @@ const Pergunta = ({ setDisplayPergunta }: PerguntaProps) => {
         </div>
         <div className="content">
           <h1>Sou Cliente</h1>
-          <p>Lorem ipsum dolor sit amet.</p>
         </div>
         <div className="arrow">
           <IoIosArrowForward size={30} color="#000000" />
@@ -50,7 +49,6 @@ const Pergunta = ({ setDisplayPergunta }: PerguntaProps) => {
         </div>
         <div className="content">
           <h1>Sou Fornecedor</h1>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing.</p>
         </div>
         <div className="arrow">
           <IoIosArrowForward size={30} color="#000000" />
