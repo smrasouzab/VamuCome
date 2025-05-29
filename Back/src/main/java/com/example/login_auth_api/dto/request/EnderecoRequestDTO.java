@@ -8,5 +8,4 @@ public record EnderecoRequestDTO(
         @NotBlank String nmNumero,
         @NotBlank String dsComplemento,
         @NotNull Boolean endFavorito
-) {
-}
+) {}

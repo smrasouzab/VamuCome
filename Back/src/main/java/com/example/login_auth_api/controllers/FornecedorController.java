@@ -2,6 +2,8 @@ package com.example.login_auth_api.controllers;
 
 import com.example.login_auth_api.domain.endereco.Endereco;
 import com.example.login_auth_api.dto.request.EnderecoRequestDTO;
+import com.example.login_auth_api.dto.request.FornecedorUpdateRequestDTO;
+import com.example.login_auth_api.dto.request.RecSenhaFornecedorRequestDTO;
 import com.example.login_auth_api.dto.response.FornecedorResponseDTO;
 import com.example.login_auth_api.service.FornecedorService;
 import jakarta.persistence.EntityNotFoundException;
@@ -37,6 +39,28 @@ public class FornecedorController {
         try {
             FornecedorResponseDTO dto = fornecedorService.listarFornecedorPorId(id);
             return ResponseEntity.ok(dto);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> atualizarFornecedor(@PathVariable Integer id, @RequestBody @Valid FornecedorUpdateRequestDTO dto) {
+        try {
+            FornecedorResponseDTO atualizado = fornecedorService.atualizarFornecedor(id, dto);
+            return ResponseEntity.ok(atualizado);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+
+    @PutMapping("/{id}/alterar-senha")
+    public ResponseEntity<?> alterarSenha(@PathVariable Integer id, @RequestBody @Valid RecSenhaFornecedorRequestDTO dto) {
+        try {
+            fornecedorService.alterarSenhaFornecedor(id, dto);
+            return ResponseEntity.ok("Senha atualizada com sucesso.");
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
         } catch (EntityNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
