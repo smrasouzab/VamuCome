@@ -44,6 +44,16 @@ public class ClienteController {
         }
     }
 
+    @GetMapping("/buscar-por-cpf")
+    public ResponseEntity<?> buscarPorCpf(@RequestParam String cpf) {
+        try {
+            ClienteResponseDTO dto = clienteService.buscarPorCpf(cpf);
+            return ResponseEntity.ok(dto);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<?> atualizarCliente(@PathVariable Integer id, @RequestBody @Valid ClienteUpdateRequestDTO dto) {
         try {

@@ -41,6 +41,18 @@ public class FornecedorService {
         return new FornecedorResponseDTO(fornecedor);
     }
 
+    public FornecedorResponseDTO buscarPorCnpj(String cnpj) {
+        Fornecedor fornecedor = fornecedorRepository.findByNuCNPJ(cnpj)
+                .orElseThrow(() -> new EntityNotFoundException("Fornecedor não encontrado"));
+        return new FornecedorResponseDTO(fornecedor);
+    }
+
+    public FornecedorResponseDTO buscarPorRazaoSocial(String razao) {
+        Fornecedor fornecedor = fornecedorRepository.findByDsRazaoSocial(razao)
+                .orElseThrow(() -> new EntityNotFoundException("Fornecedor não encontrado"));
+        return new FornecedorResponseDTO(fornecedor);
+    }
+
     public FornecedorResponseDTO atualizarFornecedor(Integer id, FornecedorUpdateRequestDTO dto) {
         Fornecedor fornecedor = fornecedorRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Fornecedor não encontrado"));

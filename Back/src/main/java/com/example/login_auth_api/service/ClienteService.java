@@ -42,6 +42,12 @@ public class ClienteService {
         return new ClienteResponseDTO(cliente);
     }
 
+    public ClienteResponseDTO buscarPorCpf(String cpf) {
+        Cliente cliente = clienteRepository.findByNuCPF(cpf)
+                .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado"));
+        return new ClienteResponseDTO(cliente);
+    }
+
     public ClienteResponseDTO atualizarCliente(Integer id, ClienteUpdateRequestDTO dto) {
         Cliente cliente = clienteRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado"));

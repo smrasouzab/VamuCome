@@ -6,6 +6,6 @@ import jakarta.validation.constraints.NotNull;
 public record EnderecoRequestDTO(
         @NotBlank String dsLogradouro,
         @NotBlank String nmNumero,
-        @NotBlank String dsComplemento,
+        String dsComplemento,
         @NotNull Boolean endFavorito
 ) {}

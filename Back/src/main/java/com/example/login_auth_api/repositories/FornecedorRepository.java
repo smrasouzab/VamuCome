@@ -8,4 +8,6 @@ import java.util.Optional;
 
 public interface FornecedorRepository extends JpaRepository<Fornecedor, Integer> {
     Optional<Fornecedor> findByDsEmailFornecedor(String email);
+    Optional<Fornecedor> findByDsRazaoSocial(String dsRazaoSocial);
+    Optional<Fornecedor> findByNuCNPJ(String nuCNPJ);
 }

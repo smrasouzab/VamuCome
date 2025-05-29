@@ -44,6 +44,26 @@ public class FornecedorController {
         }
     }
 
+    @GetMapping("/buscar-por-cnpj")
+    public ResponseEntity<?> buscarPorCnpj(@RequestParam String cnpj) {
+        try {
+            FornecedorResponseDTO dto = fornecedorService.buscarPorCnpj(cnpj);
+            return ResponseEntity.ok(dto);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/buscar-por-razao")
+    public ResponseEntity<?> buscarPorRazaoSocial(@RequestParam String razao) {
+        try {
+            FornecedorResponseDTO dto = fornecedorService.buscarPorRazaoSocial(razao);
+            return ResponseEntity.ok(dto);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<?> atualizarFornecedor(@PathVariable Integer id, @RequestBody @Valid FornecedorUpdateRequestDTO dto) {
         try {
