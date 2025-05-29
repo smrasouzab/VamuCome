@@ -1,20 +1,21 @@
 package com.example.login_auth_api.dto.request;
 
-import com.example.login_auth_api.domain.cliente.Cliente;
-import com.example.login_auth_api.domain.fornecedor.Fornecedor;
 import com.example.login_auth_api.domain.pagamento.TipoPagamento;
-import com.example.login_auth_api.domain.status.StatusPedido;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
-import java.math.BigDecimal;
+import java.util.List;
 
 public record PedidoRequestDTO(
-        @NotBlank Cliente cliente,
-        @NotBlank Fornecedor fornecedor,
-        @NotBlank StatusPedido statusPedido,
-        @NotBlank TipoPagamento tipoPagamento,
-        @NotNull BigDecimal vlTotalPedido
-        //FALTA ITEMPEDIDO
-) {
-}
+        @NotNull(message = "idFornecedor é obrigatório")
+        Integer idFornecedor,
+
+        @NotNull(message = "Tipo de pagamento é obrigatório")
+        TipoPagamento tipoPagamento,
+
+        @NotNull(message = "A lista de itens não pode ser nula")
+        @Size(min = 1, message = "O pedido deve conter pelo menos um item")
+        List<@Valid ItemPedidoRequestDTO> itens
+) {}
