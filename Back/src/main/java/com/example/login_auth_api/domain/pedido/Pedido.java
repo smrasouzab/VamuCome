@@ -5,6 +5,7 @@ import com.example.login_auth_api.domain.fornecedor.Fornecedor;
 import com.example.login_auth_api.domain.itemPedido.ItemPedido;
 import com.example.login_auth_api.domain.pagamento.TipoPagamento;
 import com.example.login_auth_api.domain.status.StatusPedido;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -41,6 +42,8 @@ public class Pedido {
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
+
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<ItemPedido> itensPedido = new ArrayList<>();
 }

@@ -1,6 +1,7 @@
 package com.example.login_auth_api.domain.produto;
 
 import com.example.login_auth_api.domain.fornecedor.Fornecedor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,8 +23,10 @@ public class Produto {
     private String nmProduto;
     private BigDecimal vlProduto;
     private String dsProduto;
+    private String urlFoto;
 
     @ManyToOne
     @JoinColumn(name = "idUsuario")
+    @JsonIgnore
     private Fornecedor fornecedor;
 }

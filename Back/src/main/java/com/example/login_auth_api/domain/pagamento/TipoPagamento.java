@@ -7,7 +7,7 @@ public enum TipoPagamento {
     PIX("Pix"),
     CARTAO_CREDITO("Cartão de Crédito"),
     CARTAO_DEBITO("Cartão de Débito"),
-    BOLETO("Boleto Bancário"),
+    DINHEIRO("Dinheiro"),
     TRANSFERENCIA("Transferência Bancária");
 
     @Getter
