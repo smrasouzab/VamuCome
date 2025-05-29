@@ -1,7 +1,7 @@
 package com.example.login_auth_api.controllers;
 
 import com.example.login_auth_api.domain.endereco.Endereco;
-alterarimport com.example.login_auth_api.dto.request.ClienteUpdateRequestDTO;
+import com.example.login_auth_api.dto.request.ClienteUpdateRequestDTO;
 import com.example.login_auth_api.dto.request.EnderecoRequestDTO;
 import com.example.login_auth_api.dto.request.RecSenhaClienteRequestDTO;
 import com.example.login_auth_api.dto.response.ClienteResponseDTO;
