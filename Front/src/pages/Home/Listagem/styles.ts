@@ -45,11 +45,11 @@ export const Listagem = styled.div`
   }
 
   .lista {
+    width: 100%;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 5vw;
     margin-top: 20px;
 
     .card {

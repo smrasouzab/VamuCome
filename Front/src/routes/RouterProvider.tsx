@@ -7,6 +7,7 @@ import User from "../pages/User";
 import ProtectedRoute from "./ProtectedRoute";
 import Navbar from "../components/Navbar";
 import HomeListagem from "../pages/Home/Listagem";
+import Loja from "../pages/Loja";
 
 const RouterProvider = () => {
   const NavbarRoute = ({ children }: { children: React.ReactNode }) => {
@@ -36,6 +37,7 @@ const RouterProvider = () => {
             </ProtectedRoute>
           }
         />
+        <Route path="/loja" element={<NavbarRoute><Loja /></NavbarRoute>} />
         <Route path="*" element={<NavbarRoute><NotFound /></NavbarRoute>} />
       </Routes>
     </BrowserRouter>

@@ -5,21 +5,31 @@ interface AuthProviderProps extends React.PropsWithChildren {
   children: React.ReactNode;
 }
 
-interface AuthContextType {
-  isAuthenticated: Promise<boolean>;
-  role: string;
-  login: (email: string, password: string) => Promise<boolean>;
-  logout: () => void;
-}
 
 interface LoginResponse {
+  id: string;
+  name: string;
   token: string;
   role: string;
+}
+
+interface User {
+  id: string;
+  nome: string;
+  role: string;
+}
+
+interface AuthContextType {
+  isAuthenticated: Promise<boolean>;
+  user: User;
+  login: (email: string, password: string) => Promise<boolean>;
+  logout: () => void;
 }
 
 const AuthContext = createContext<AuthContextType>({} as AuthContextType);
 
 const AuthProvider = ({ children }: AuthProviderProps) => {
+  const [user, setUser] = useState<User>({} as User);
   const [isAuthenticated, setIsAuthenticated] = useState<Promise<boolean>>(async () => {
     const token = localStorage.getItem('token');
 
@@ -28,29 +38,36 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
         const response = await api.post('/auth/validate-token', {
           token,
         });
-        setRole(response.data.decoded.role);
+        setUser({
+          id: response.data.id,
+          nome: response.data.name,
+          role: response.data.role,
+        } as User);
         return true;
       } catch {
-        setRole('');
+        setUser({} as User);
         return false;
       }
     };
 
     return validateToken(token || '');
   });
-  const [role, setRole] = useState<string>('');
 
   const login = useCallback(async (email: string, senha: string) => {
-    const reponse = await api.post<LoginResponse>('/auth/login', {
+    const response = await api.post<LoginResponse>('/auth/login', {
       email: email,
-      senha: senha,
+      // senha: senha,
+      password: senha,
     })
 
-    if (reponse.status === 200) {
+    if (response.status === 200) {
       setIsAuthenticated(Promise.resolve(true));
-      setRole(reponse.data.role);
-      // Trocar para cookie
-      localStorage.setItem('token', reponse.data.token);
+      setUser({
+          id: response.data.id,
+          nome: response.data.name,
+          role: response.data.role,
+        });
+      localStorage.setItem('token', response.data.token);
 
       return true;
     }
@@ -61,14 +78,14 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
   const logout = () => {
     localStorage.removeItem('token');
     setIsAuthenticated(Promise.resolve(false));
-    setRole('');
+    setUser({} as User);
   };
 
   return (
     <AuthContext.Provider
       value={{
         isAuthenticated,
-        role,
+        user,
         login,
         logout,
       }}

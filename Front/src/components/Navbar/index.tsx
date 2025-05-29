@@ -7,7 +7,7 @@ import { useAuth } from "../../context/AuthProvider";
 import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, logout } = useAuth();
 
   const navigate = useNavigate();
 
@@ -41,7 +41,7 @@ const Navbar = () => {
         </div>
         {openCard && (
           auth ? (
-            <div className="card">logado</div>
+            <div className="card"><NavLink to="/user">CONTA</NavLink> <button type="button" onClick={logout}>SAIR</button></div>
           ) : (
             <div className="cardDeslogado">
               <span>Você não está logado, tente <NavLink to="/login" className="amarelo" onClick={() => setOpenCard(false)}>Entrar</NavLink></span>

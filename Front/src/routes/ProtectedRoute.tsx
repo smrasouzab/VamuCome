@@ -5,10 +5,11 @@ import { useEffect, useState } from "react";
 interface ProtectedRouteProps {
   children: React.ReactNode;
   roleType?: string[];
+  exact?: boolean;
 }
 
 const ProtectedRoute = ({ children, roleType }: ProtectedRouteProps) => {
-  const { isAuthenticated, role } = useAuth();
+  const { isAuthenticated, user } = useAuth();
   const [authChecked, setAuthChecked] = useState(false);
   const [auth, setAuth] = useState<boolean | null>(null);
 
@@ -34,7 +35,7 @@ const ProtectedRoute = ({ children, roleType }: ProtectedRouteProps) => {
     return <Navigate to="/" />;
   }
 
-  if (roleType && !roleType.includes(role)) {
+  if (roleType && !roleType.includes(user.role)) {
     return <Navigate to="/" />;
   }
 

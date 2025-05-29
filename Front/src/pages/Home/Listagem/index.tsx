@@ -135,42 +135,6 @@ const HomeListagem = () => {
                 </div>
               </div>
             </div>
-            <div className="card">
-              <span className="labelFechado">Fechado</span>
-              <img className="fotoFornecedor" src="listagem/image.png" alt="" />
-              <div className="informacoes">
-                <span className="nome">Restaurante do Zé</span>
-                <div className="tempoDistancia">
-                  <span className="tempo">~40 min</span>
-                  <span className="distancia">1.2 km</span>
-                </div>
-                <div className="estrelas">
-                  <img src="estrelas/preenchido.svg" alt="" />
-                  <img src="estrelas/preenchido.svg" alt="" />
-                  <img src="estrelas/preenchido.svg" alt="" />
-                  <img src="estrelas/vazio.svg" alt="" />
-                  <img src="estrelas/vazio.svg" alt="" />
-                </div>
-              </div>
-            </div>
-            <div className="card fechado">
-              <span className="labelFechado">Fechado</span>
-              <img className="fotoFornecedor" src="listagem/image.png" alt="" />
-              <div className="informacoes">
-                <span className="nome">Restaurante do Zé</span>
-                <div className="tempoDistancia">
-                  <span className="tempo">~40 min</span>
-                  <span className="distancia">1.2 km</span>
-                </div>
-                <div className="estrelas">
-                  <img src="estrelas/preenchido.svg" alt="" />
-                  <img src="estrelas/preenchido.svg" alt="" />
-                  <img src="estrelas/preenchido.svg" alt="" />
-                  <img src="estrelas/vazio.svg" alt="" />
-                  <img src="estrelas/vazio.svg" alt="" />
-                </div>
-              </div>
-            </div>
             <div className="card fechado">
               <span className="labelFechado">Fechado</span>
               <img className="fotoFornecedor" src="listagem/image.png" alt="" />

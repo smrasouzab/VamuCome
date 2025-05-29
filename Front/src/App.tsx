@@ -5,6 +5,11 @@ import { ToastContainer } from "react-toastify";
 import { ThemeProvider } from "./context/ThemeProvidder.tsx";
 import { useTheme } from "./context/ThemeProvidder.tsx";
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+import 'swiper/css';
+import 'swiper/css/pagination';
+
 function App() {
   return (
     <AuthProvider>

@@ -17,7 +17,7 @@ const GlobalStyle = createGlobalStyle<{ $themeColor: string; }>`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Open-Sans, Helvetica, Sans-Serif;
+    font-family: "Inter", sans-serif !important;
   }
 
   html, body, #root {
