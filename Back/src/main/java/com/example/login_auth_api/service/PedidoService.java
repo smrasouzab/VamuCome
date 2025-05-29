@@ -5,11 +5,12 @@ import com.example.login_auth_api.domain.fornecedor.Fornecedor;
 import com.example.login_auth_api.domain.itemPedido.ItemPedido;
 import com.example.login_auth_api.domain.pedido.Pedido;
 import com.example.login_auth_api.domain.status.StatusPedido;
-import com.example.login_auth_api.dto.request.PedidoRequestDTO;
+import com.example.login_auth_api.dto.request.pedido.PedidoRequestDTO;
+import com.example.login_auth_api.dto.request.pedido.PedidoUpdateDTO;
 import com.example.login_auth_api.dto.response.PedidoResponseDTO;
-import com.example.login_auth_api.dto.response.ProdutoResponseDTO;
 import com.example.login_auth_api.repositories.ClienteRepository;
 import com.example.login_auth_api.repositories.FornecedorRepository;
+import com.example.login_auth_api.repositories.ItemPedidoRepository;
 import com.example.login_auth_api.repositories.PedidoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -29,6 +30,7 @@ public class PedidoService {
     private final ClienteRepository clienteRepository;
     private final FornecedorRepository fornecedorRepository;
     private final ItemPedidoService itemPedidoService;
+    private final ItemPedidoRepository itemPedidoRepository;
 
     @Transactional
     public PedidoResponseDTO criarPedido(PedidoRequestDTO dto, String emailCliente) {
@@ -52,9 +54,9 @@ public class PedidoService {
 
         pedido = pedidoRepository.save(pedido); // garantir ID
 
-        Pedido finalPedido = pedido;
+        Pedido pedidoFinal = pedido;
         List<ItemPedido> itens = dto.itens().stream()
-                .map(itemDto -> itemPedidoService.criarItem(itemDto, finalPedido))
+                .map(itemDto -> itemPedidoService.criarItem(itemDto, pedidoFinal))
                 .collect(Collectors.toCollection(ArrayList::new));
 
         BigDecimal total = itens.stream()
@@ -76,5 +78,38 @@ public class PedidoService {
         return pedidoRepository.findAll().stream()
                 .map(PedidoResponseDTO::new)
                 .toList();
+    }
+
+    @Transactional
+    public PedidoResponseDTO atualizarPedido(Integer idPedido, PedidoUpdateDTO dto, String emailCliente) {
+        Pedido pedido = pedidoRepository.findById(idPedido)
+                .orElseThrow(() -> new RuntimeException("Pedido não encontrado"));
+
+        if (!pedido.getCliente().getDsEmailCliente().equals(emailCliente)) {
+            throw new RuntimeException("Você não tem permissão para alterar esse pedido");
+        }
+
+        if (pedido.getStatusPedido().ordinal() >= StatusPedido.EM_PREPARO.ordinal()) {
+            throw new RuntimeException("Pedido não pode ser atualizado. Já está em preparo ou além.");
+        }
+
+        // Limpar os itens antigos
+        itemPedidoRepository.deleteAll(pedido.getItensPedido());
+
+        // Criar novos itens com base no DTO
+        List<ItemPedido> novosItens = dto.itens().stream()
+                .map(itemDto -> itemPedidoService.criarItem(itemDto, pedido))
+                .collect(Collectors.toCollection(ArrayList::new));
+
+        BigDecimal total = novosItens.stream()
+                .map(ItemPedido::getVlTotalItemPedido)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        pedido.getItensPedido().clear();
+        pedido.getItensPedido().addAll(novosItens);
+        pedido.setVlTotalPedido(total);
+        pedido.setTipoPagamento(dto.tipoPagamento());
+
+        return new PedidoResponseDTO(pedidoRepository.save(pedido));
     }
 }

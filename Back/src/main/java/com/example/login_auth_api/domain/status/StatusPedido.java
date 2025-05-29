@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum StatusPedido {
     AGUARDANDO_PAGAMENTO("Aguardando Pagamento"),
-    PAGO("Pago"),
+    EM_PREPARO("Em preparo"),
     ENVIADO("Enviado"),
     ENTREGUE("Entregue"),
     CANCELADO("Cancelado");

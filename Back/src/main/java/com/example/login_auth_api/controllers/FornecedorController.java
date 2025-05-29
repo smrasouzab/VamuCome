@@ -3,6 +3,7 @@ package com.example.login_auth_api.controllers;
 import com.example.login_auth_api.domain.endereco.Endereco;
 import com.example.login_auth_api.dto.request.EnderecoRequestDTO;
 import com.example.login_auth_api.dto.response.FornecedorResponseDTO;
+import com.example.login_auth_api.dto.response.PedidoResponseDTO;
 import com.example.login_auth_api.service.FornecedorService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
@@ -20,6 +21,7 @@ import java.util.List;
 public class FornecedorController {
 
     private final FornecedorService fornecedorService;
+    private final PedidoController pedidoController;
 
     @GetMapping("/listar-todos")
     public ResponseEntity<List<FornecedorResponseDTO>> listarTodosFornecedores() {
@@ -63,5 +65,10 @@ public class FornecedorController {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         fornecedorService.atualizarEnderecoDoFornecedor(id, dto, email);
         return ResponseEntity.ok("Endereço atualizado com sucesso");
+    }
+
+    @GetMapping("/pedido/listar")
+    public ResponseEntity<List<PedidoResponseDTO>> listarPedidosFornecedor() {
+        return pedidoController.listarTodos();
     }
 }

@@ -2,15 +2,14 @@ package com.example.login_auth_api.controllers;
 
 import com.example.login_auth_api.domain.pagamento.TipoPagamento;
 import com.example.login_auth_api.domain.status.StatusPedido;
-import com.example.login_auth_api.dto.request.PedidoRequestDTO;
+import com.example.login_auth_api.dto.request.pedido.PedidoRequestDTO;
+import com.example.login_auth_api.dto.request.pedido.PedidoUpdateDTO;
 import com.example.login_auth_api.dto.response.PedidoResponseDTO;
-import com.example.login_auth_api.dto.response.ProdutoResponseDTO;
 import com.example.login_auth_api.service.PedidoService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,13 +18,13 @@ import java.util.List;
 import java.util.Arrays;
 
 @RestController
-@RequestMapping("/pedido")
+@RequestMapping("cliente/pedido")
 @RequiredArgsConstructor
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class PedidoController {
     private final PedidoService pedidoService;
 
-    @GetMapping("/cliente/listar")
+    @GetMapping("/listar")
     public ResponseEntity<List<PedidoResponseDTO>> listarTodos() {
         List<PedidoResponseDTO> pedidos = pedidoService.listarPedidos();
 
@@ -34,12 +33,7 @@ public class PedidoController {
                 : ResponseEntity.ok(pedidos);
     }
 
-    @GetMapping("/fornecedor/listar")
-    public ResponseEntity<List<PedidoResponseDTO>> listarPedidosFornecedor() {
-        return listarTodos();
-    }
-
-    @PostMapping("/cliente/cadastrar")
+    @PostMapping("/cadastrar")
     public ResponseEntity<PedidoResponseDTO> cadastrarPedido(
             @RequestBody @Valid PedidoRequestDTO dto
     ) {
@@ -65,5 +59,20 @@ public class PedidoController {
                 .toList();
 
         return ResponseEntity.ok(status);
+    }
+
+    @PutMapping("/atualizar/{idPedido}")
+    public ResponseEntity<Object> atualizarPedido(
+            @PathVariable Integer idPedido,
+            @RequestBody @Valid PedidoUpdateDTO dto
+    ) {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        try {
+            PedidoResponseDTO response = pedidoService.atualizarPedido(idPedido, dto, email);
+            return ResponseEntity.ok(response);
+        } catch (RuntimeException ex) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+        }
     }
 }

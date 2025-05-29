@@ -1,8 +1,8 @@
-package com.example.login_auth_api.dto.request;
+package com.example.login_auth_api.dto.request.pedido;
 
 import com.example.login_auth_api.domain.pagamento.TipoPagamento;
+import com.example.login_auth_api.dto.request.ItemPedidoRequestDTO;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
