@@ -17,6 +17,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/fornecedor")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class FornecedorController {
 
     private final FornecedorService fornecedorService;
