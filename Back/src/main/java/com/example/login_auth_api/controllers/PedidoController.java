@@ -4,6 +4,7 @@ import com.example.login_auth_api.domain.pagamento.TipoPagamento;
 import com.example.login_auth_api.domain.status.StatusPedido;
 import com.example.login_auth_api.dto.request.PedidoRequestDTO;
 import com.example.login_auth_api.dto.response.PedidoResponseDTO;
+import com.example.login_auth_api.dto.response.ProdutoResponseDTO;
 import com.example.login_auth_api.service.PedidoService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -18,13 +19,27 @@ import java.util.List;
 import java.util.Arrays;
 
 @RestController
-@RequestMapping("/cliente/pedido")
+@RequestMapping("/pedido")
 @RequiredArgsConstructor
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class PedidoController {
     private final PedidoService pedidoService;
 
-    @PostMapping("/cadastrar")
+    @GetMapping("/cliente/listar")
+    public ResponseEntity<List<PedidoResponseDTO>> listarTodos() {
+        List<PedidoResponseDTO> pedidos = pedidoService.listarPedidos();
+
+        return pedidos.isEmpty()
+                ? ResponseEntity.noContent().build()
+                : ResponseEntity.ok(pedidos);
+    }
+
+    @GetMapping("/fornecedor/listar")
+    public ResponseEntity<List<PedidoResponseDTO>> listarPedidosFornecedor() {
+        return listarTodos();
+    }
+
+    @PostMapping("/cliente/cadastrar")
     public ResponseEntity<PedidoResponseDTO> cadastrarPedido(
             @RequestBody @Valid PedidoRequestDTO dto
     ) {

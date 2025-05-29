@@ -7,6 +7,7 @@ import com.example.login_auth_api.domain.pedido.Pedido;
 import com.example.login_auth_api.domain.status.StatusPedido;
 import com.example.login_auth_api.dto.request.PedidoRequestDTO;
 import com.example.login_auth_api.dto.response.PedidoResponseDTO;
+import com.example.login_auth_api.dto.response.ProdutoResponseDTO;
 import com.example.login_auth_api.repositories.ClienteRepository;
 import com.example.login_auth_api.repositories.FornecedorRepository;
 import com.example.login_auth_api.repositories.PedidoRepository;
@@ -69,5 +70,11 @@ public class PedidoService {
     private boolean isDentroDoHorario(Fornecedor fornecedor, LocalTime agora) {
         return !agora.isBefore(fornecedor.getDtHorarioAbertura().toLocalTime()) ||
                 !agora.isAfter(fornecedor.getDtHorarioFechamento().toLocalTime());
+    }
+
+    public List<PedidoResponseDTO> listarPedidos() {
+        return pedidoRepository.findAll().stream()
+                .map(PedidoResponseDTO::new)
+                .toList();
     }
 }
