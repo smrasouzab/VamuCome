@@ -1,7 +1,9 @@
 package com.example.login_auth_api.controllers;
 
 import com.example.login_auth_api.domain.endereco.Endereco;
+import com.example.login_auth_api.dto.request.ClienteUpdateRequestDTO;
 import com.example.login_auth_api.dto.request.EnderecoRequestDTO;
+import com.example.login_auth_api.dto.request.RecSenhaClienteRequestDTO;
 import com.example.login_auth_api.dto.response.ClienteResponseDTO;
 import com.example.login_auth_api.service.ClienteService;
 import jakarta.persistence.EntityNotFoundException;
@@ -38,6 +40,38 @@ public class ClienteController {
         try {
             ClienteResponseDTO dto = clienteService.listarClientePorId(id);
             return ResponseEntity.ok(dto);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/buscar-por-cpf")
+    public ResponseEntity<?> buscarPorCpf(@RequestParam String cpf) {
+        try {
+            ClienteResponseDTO dto = clienteService.buscarPorCpf(cpf);
+            return ResponseEntity.ok(dto);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> atualizarCliente(@PathVariable Integer id, @RequestBody @Valid ClienteUpdateRequestDTO dto) {
+        try {
+            ClienteResponseDTO atualizado = clienteService.atualizarCliente(id, dto);
+            return ResponseEntity.ok(atualizado);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+
+    @PutMapping("/{id}/alterar-senha")
+    public ResponseEntity<?> alterarSenha(@PathVariable Integer id, @RequestBody @Valid RecSenhaClienteRequestDTO dto) {
+        try {
+            clienteService.alterarSenhaCliente(id, dto);
+            return ResponseEntity.ok("Senha atualizada com sucesso.");
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
         } catch (EntityNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
