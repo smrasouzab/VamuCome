@@ -32,6 +32,9 @@ public class Cliente implements UserDetails {
     private String dsSenhaCliente;
     private String nuCPF;
 
+    @Column(name = "nu_tel_cliente")
+    private String nuTelCliente;
+
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "cliente_id")
     private List<Endereco> endereco;

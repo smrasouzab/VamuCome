@@ -9,6 +9,7 @@ public record ClienteResponseDTO(
         String nmUsuarioCliente,
         String dsEmailCliente,
         String nuCPF,
+        String nuTelCliente,
         List<Endereco> endereco
 ) {
     public ClienteResponseDTO(Cliente cliente) {
@@ -17,6 +18,7 @@ public record ClienteResponseDTO(
                 cliente.getNmUsuarioCliente(),
                 cliente.getDsEmailCliente(),
                 cliente.getNuCPF(),
+                cliente.getNuTelCliente(),
                 cliente.getEndereco()
         );
     }

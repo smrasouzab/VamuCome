@@ -75,6 +75,7 @@ public class ClienteAuthService implements UserDetailsService {
         cliente.setDsEmailCliente(dto.dsEmailCliente());
         cliente.setDsSenhaCliente(passwordEncoder.encode(dto.dsSenhaCliente()));
         cliente.setNuCPF(dto.nuCPF());
+        cliente.setNuTelCliente(dto.nuTelCliente());
         cliente.setEndereco(dto.endereco());
 
         clienteRepository.save(cliente);

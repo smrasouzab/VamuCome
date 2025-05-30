@@ -1,7 +1,9 @@
 package com.example.login_auth_api.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 
 public record ClienteUpdateRequestDTO(
-        @NotBlank String nmUsuarioCliente
+        @NotBlank String nmUsuarioCliente,
+        @Pattern(regexp = "\\d{10,11}", message = "Telefone deve conter 10 ou 11 dígitos numéricos") String nuTelCliente
 ) {}

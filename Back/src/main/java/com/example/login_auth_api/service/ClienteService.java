@@ -53,6 +53,7 @@ public class ClienteService {
                 .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado"));
 
         cliente.setNmUsuarioCliente(dto.nmUsuarioCliente());
+        cliente.setNuTelCliente(dto.nuTelCliente());
 
         clienteRepository.save(cliente);
         return new ClienteResponseDTO(cliente);

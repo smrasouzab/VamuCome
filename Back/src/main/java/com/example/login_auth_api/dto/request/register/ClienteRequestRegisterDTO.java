@@ -9,9 +9,10 @@ import jakarta.validation.constraints.Pattern;
 import java.util.List;
 
 public record ClienteRequestRegisterDTO(
-        @NotBlank String nmUsuarioCliente,
+        @NotBlank(message = "Usuário não pode estar em branco") String nmUsuarioCliente,
         @NotBlank @Email String dsEmailCliente,
         @NotBlank String dsSenhaCliente,
         @NotBlank @Pattern(regexp = "\\d{11}", message = "O CPF deve conter exatamente 11 dígitos numéricos") String nuCPF,
+        @Pattern(regexp = "\\d{10,11}", message = "Telefone deve conter 10 ou 11 dígitos numéricos") String nuTelCliente,
         @NotNull List<Endereco> endereco
 ) {}
