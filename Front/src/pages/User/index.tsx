@@ -73,7 +73,7 @@ const User = () => {
         </Form>
 
         <Modal show={showModalEndereco} onHide={handleClose} centered>
-          <Modal.Header style={{border: "none"}} closeButton>
+          <Modal.Header style={{border: "none"}}>
             <Modal.Title>Novo Endereço</Modal.Title>
           </Modal.Header>
           <Modal.Body>

@@ -1,13 +1,13 @@
 import { Container } from "./styles";
 import styled from "styled-components";
 
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination } from "swiper/modules";
+// import { Swiper, SwiperSlide } from "swiper/react";
+// import { Pagination } from "swiper/modules";
 
 const Loja = () => {
   return (
     <Container>
-      <Swiper
+      {/* <Swiper
         slidesPerView={5}
         spaceBetween={30}
         centeredSlides={true}
@@ -26,7 +26,7 @@ const Loja = () => {
         <SwiperSlide>Slide 7</SwiperSlide>
         <SwiperSlide>Slide 8</SwiperSlide>
         <SwiperSlide>Slide 9</SwiperSlide>
-      </Swiper>
+      </Swiper> */}
       <Header>
         <div className="loja-info">
           <img className="avatar" src="listagem/image.png" alt="Logo Loja" />
@@ -225,14 +225,15 @@ const ProdutoCard = styled.div`
   padding: 18px 16px 12px 16px;
   display: flex;
   flex-direction: column;
+  gap: 8px;
   align-items: center;
   min-width: 160px;
   max-width: 170px;
+
   img {
     width: 100px;
     height: 100px;
     object-fit: contain;
-    margin-bottom: 10px;
     border-radius: 12px;
     background: #f5f5f5;
   }
@@ -241,14 +242,12 @@ const ProdutoCard = styled.div`
     font-size: 1rem;
     font-weight: 700;
     color: #222;
-    margin-bottom: 4px;
     text-align: center;
   }
   .produto-preco-antigo {
     font-size: 0.9rem;
     color: #bdbdbd;
     text-decoration: line-through;
-    margin-bottom: 2px;
   }
   .produto-preco {
     font-size: 1.1rem;
