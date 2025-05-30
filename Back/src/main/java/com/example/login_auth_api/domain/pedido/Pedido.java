@@ -26,6 +26,7 @@ public class Pedido {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idPedido;
+    @Column(name ="pedido_id")
     private BigDecimal vlTotalPedido;
 
     @Enumerated(EnumType.STRING)

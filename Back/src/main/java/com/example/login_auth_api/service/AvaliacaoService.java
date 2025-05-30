@@ -32,7 +32,7 @@ public class AvaliacaoService {
             throw new RuntimeException("Esse pedido não pertence ao cliente autenticado.");
         }
 
-        if (!pedido.getStatusPedido().equals(StatusPedido.ENTREGUE)) {
+        if (pedido.getStatusPedido().equals(StatusPedido.ENTREGUE)) {
             throw new RuntimeException("A avaliação só pode ser feita após o pedido ser entregue.");
         }
 

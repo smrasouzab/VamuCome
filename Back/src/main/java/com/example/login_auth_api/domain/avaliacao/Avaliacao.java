@@ -14,7 +14,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "tbavaliacao")
+@Table(name = "tbavaliacao",uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"pedido_id", "id_avaliacao","cliente_id","fornecedor_id"})})
 @Getter
 @Setter
 @AllArgsConstructor
@@ -22,6 +23,7 @@ import lombok.Setter;
 public class Avaliacao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="idAvaliacao", nullable = false)
     private Integer idAvaliacao;
 
     @NotNull
@@ -34,14 +36,14 @@ public class Avaliacao {
     private String dsComentario;
 
     @ManyToOne
-    @JoinColumn(name = "cliente_id")
+    @JoinColumn(name = "cliente_id", nullable = false)
     private Cliente cliente;
 
     @ManyToOne
-    @JoinColumn(name = "fornecedor_id")
+    @JoinColumn(name = "fornecedor_id", nullable = false)
     private Fornecedor fornecedor;
 
     @OneToOne
-    @JoinColumn(name = "pedido_id", unique = true) // um pedido só pode ter 1 avaliação
+    @JoinColumn(name = "pedido_id", unique = true, nullable = false) // um pedido só pode ter 1 avaliação
     private Pedido pedido;
 }

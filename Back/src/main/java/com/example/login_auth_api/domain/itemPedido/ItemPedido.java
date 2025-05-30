@@ -11,7 +11,8 @@ import lombok.Setter;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "tbitempedido")
+@Table(uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"pedido_id", "id_ItemPedido"})})
 @Getter
 @Setter
 @AllArgsConstructor
@@ -25,7 +26,7 @@ public class ItemPedido {
     private BigDecimal vlTotalItemPedido;
 
     @ManyToOne
-    @JoinColumn(name = "produto_id")
+    @JoinColumn(name = "produto_id", nullable = false)
     private Produto produto;
 
     @ManyToOne
