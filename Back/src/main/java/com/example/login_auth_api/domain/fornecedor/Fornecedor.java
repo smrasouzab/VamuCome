@@ -62,7 +62,7 @@ public class Fornecedor implements UserDetails {
     private BigDecimal vlMinimoCompra;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "endereco_id")
+    @JoinColumn(name = "idEndereco")
     private Endereco endereco;
 
     /*

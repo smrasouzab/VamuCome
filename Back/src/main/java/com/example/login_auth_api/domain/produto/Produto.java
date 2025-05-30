@@ -19,6 +19,7 @@ import java.math.BigDecimal;
 public class Produto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name ="idProduto")
     private Integer idProduto;
     private String nmProduto;
     private BigDecimal vlProduto;
@@ -26,7 +27,7 @@ public class Produto {
     private String urlFoto;
 
     @ManyToOne
-    @JoinColumn(name = "idUsuario")
+    @JoinColumn(name = "idFornecedor")
     @JsonIgnore
     private Fornecedor fornecedor;
 }

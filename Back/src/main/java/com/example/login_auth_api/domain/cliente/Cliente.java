@@ -14,7 +14,8 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity
-@Table(name = "tbcliente")
+@Table(name = "tbcliente", uniqueConstraints = {
+    @UniqueConstraint(columnNames = {"idCliente"})})
 @Getter
 @Setter
 @NoArgsConstructor
@@ -23,6 +24,7 @@ public class Cliente implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="idCliente", nullable = false)
     private Integer idCliente;
 
     @Column(unique = true, nullable = false)
@@ -33,7 +35,7 @@ public class Cliente implements UserDetails {
     private String nuCPF;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "cliente_id")
+    @JoinColumn(name = "idCliente")
     private List<Endereco> endereco;
 
     @Override

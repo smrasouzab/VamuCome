@@ -59,10 +59,10 @@ public class ProdutoService {
     @Transactional
     public ProdutoResponseDTO atualizarProduto(Integer idProduto, ProdutoRequestDTO dto, String email) {
         Fornecedor fornecedor = fornecedorRepository.findByDsEmailFornecedor(email)
-                .orElseThrow(() -> new UsernameNotFoundException("Cliente não encontrado"));
+                .orElseThrow(() -> new UsernameNotFoundException("Fornecedor não encontrado"));
 
         Produto produto = produtoRepository.findById(idProduto)
-                .orElseThrow(() -> new EntityNotFoundException("Endereço não encontrado"));
+                .orElseThrow(() -> new EntityNotFoundException("Produto não encontrado"));
 
         if (!fornecedor.getProduto().contains(produto)) {
             throw new AccessDeniedException("Você não tem permissão para alterar este produto");

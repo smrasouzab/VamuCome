@@ -11,8 +11,8 @@ import lombok.Setter;
 import java.math.BigDecimal;
 
 @Entity
-@Table(uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"pedido_id", "id_ItemPedido"})})
+@Table(name = "tbitempedido",uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"idPedido", "idItemPedido"})})
 @Getter
 @Setter
 @AllArgsConstructor
@@ -20,17 +20,18 @@ import java.math.BigDecimal;
 public class ItemPedido {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name ="idItemPedido")
     private Integer idItemPedido;
     private Integer qtItem;
     private BigDecimal vlItem;
     private BigDecimal vlTotalItemPedido;
 
     @ManyToOne
-    @JoinColumn(name = "produto_id", nullable = false)
+    @JoinColumn(name = "idProduto", nullable = false)
     private Produto produto;
 
     @ManyToOne
-    @JoinColumn(name = "pedido_id")
+    @JoinColumn(name = "idPedido")
     private Pedido pedido;
 
     public void calcularTotalItemPedido() {

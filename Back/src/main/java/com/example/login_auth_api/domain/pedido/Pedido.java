@@ -25,8 +25,9 @@ import java.util.List;
 public class Pedido {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name ="idPedido")
     private Integer idPedido;
-    @Column(name ="pedido_id")
+
     private BigDecimal vlTotalPedido;
 
     @Enumerated(EnumType.STRING)
@@ -36,11 +37,11 @@ public class Pedido {
     private StatusPedido statusPedido;
 
     @ManyToOne
-    @JoinColumn(name = "fornecedor_id")
+    @JoinColumn(name = "idFornecedor")
     private Fornecedor fornecedor;
 
     @ManyToOne
-    @JoinColumn(name = "cliente_id")
+    @JoinColumn(name = "idCliente")
     private Cliente cliente;
 
 
