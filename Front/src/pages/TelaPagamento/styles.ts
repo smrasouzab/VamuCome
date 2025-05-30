@@ -11,7 +11,42 @@ export const Container = styled.div`
   padding: 35px;
 `;
 
+export const Grid = styled.div`
+  width: 80%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-template-rows: min-content;
+  align-content: stretch;
+  gap: 32px;
+`;
+
 export const FormasPagamento = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  background-color: rgb(250, 250, 250);
+  border: 1px solid rgb(200, 200, 200);
+  border-radius: 32px;
+  gap: 20px;
+  padding: 30px 40px;
+
+  button {
+    all: unset;
+    cursor: pointer;
+    font-family: "Inter", sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #000000;
+    background-color: rgb(0, 0, 0, 0.05);
+    padding: 10px 20px;
+    border-radius: 8px;
+  }
+`;
+
+export const DadosPagamento = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -21,4 +56,157 @@ export const FormasPagamento = styled.div`
   border-radius: 32px;
   gap: 20px;
   padding: 40px 60px;
+
+  grid-column-start: 1;
+  grid-row-start: 2;
+`;
+
+export const DetalhesPedido = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(250, 250, 250);
+  border: 1px solid rgb(200, 200, 200);
+  border-radius: 32px;
+  gap: 20px;
+  padding: 40px 60px;
+
+  grid-row: span 2 / span 2;
+  grid-column-start: 2;
+  grid-row-start: 1;
+
+  .title {
+    font-family: "Inter", sans-serif;
+    font-size: 2rem;
+    color: var(--text-color);
+    font-weight: 700;
+  }
+
+  .bold {
+    font-weight: 700;
+    font-size: 1.2rem;
+  }
+
+  .informacoes {
+    display: flex;
+    flex-direction: column;
+
+    span {
+      display: flex;
+      justify-content: space-between;
+      font-family: "Inter", sans-serif;
+      font-size: 1rem;
+      color: var(--text-color);
+      font-weight: 400;
+    }
+  }
+
+  .itens {
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(245, 245, 245);
+    border: 1px solid rgb(200, 200, 200);
+    border-radius: 16px;
+    gap: 10px;
+    padding: 15px 20px;
+
+    .item {
+      position: relative;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      background-color: rgb(255, 255, 255);
+      border: 1px solid rgb(200, 200, 200);
+      border-radius: 8px;
+      padding: 10px 20px;
+
+      .btnRemover {
+        all: unset;
+        position: absolute !important;
+        right: -5px;
+        top: -5px;
+        height: 10px;
+        width: 10px;
+        display: flex;
+        cursor: pointer;
+        font-size: 1rem;
+        color: #ffffff;
+        background-color: #e53935;
+        border-radius: 50%;
+        padding: 5px;
+
+        &:hover {
+          background-color: rgb(200, 0, 0);
+        }
+      }
+
+      .fotoNome {
+        img {
+          height: 40px;
+          width: 40px;
+          border-radius: 50%;
+        }
+
+        span {
+          font-family: "Inter", sans-serif;
+          font-size: 1rem;
+          color: var(--text-color);
+          font-weight: 500;
+          margin-left: 10px;
+        }
+      }
+
+      .quantidade {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 5px;
+
+        button {
+          all: unset;
+          cursor: pointer;
+          padding: 5px;
+          border-radius: 50%;
+
+          &:hover {
+            background-color: rgb(0, 0, 0, 0.05);
+          }
+        }
+
+        span {
+          font-family: "Inter", sans-serif;
+          font-size: 1.2rem;
+          color: #000000;
+          font-weight: 500;
+        }
+      }
+    }
+  }
+`;
+
+export const Button = styled.button`
+  all: unset;
+  height: 45px;
+  width: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffc13b;
+  font-family: "Inter", sans-serif;
+  font-size: 1.2rem;
+  color: #000000;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgb(238, 180, 55);
+  }
+
+  &.confirmar {
+    position: absolute;
+    bottom: 32px;
+    right: 32px;
+  }
 `;

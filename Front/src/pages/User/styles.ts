@@ -91,7 +91,7 @@ export const ContainerModal = styled.div`
     flex-direction: column;
     gap: 20px;
   }
-
+  
   .linha {
     display: flex;
     flex-direction: row;

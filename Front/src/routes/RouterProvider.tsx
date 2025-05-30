@@ -9,6 +9,7 @@ import Navbar from "../components/Navbar";
 import HomeListagem from "../pages/Home/Listagem";
 import Loja from "../pages/Loja";
 import Produto from "../pages/Produto";
+import TelaPagamento from "../pages/TelaPagamento";
 
 const RouterProvider = () => {
   const NavbarRoute = ({ children }: { children: React.ReactNode }) => {
@@ -40,6 +41,7 @@ const RouterProvider = () => {
         />
         <Route path="/loja" element={<NavbarRoute><Loja /></NavbarRoute>} />
         <Route path="/produto" element={<NavbarRoute><Produto /></NavbarRoute>} />
+        <Route path="/tela-pagamento" element={<NavbarRoute><TelaPagamento /></NavbarRoute>} />
         <Route path="*" element={<NavbarRoute><NotFound /></NavbarRoute>} />
       </Routes>
     </BrowserRouter>
