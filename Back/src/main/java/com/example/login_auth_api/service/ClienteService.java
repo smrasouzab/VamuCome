@@ -4,7 +4,7 @@ import com.example.login_auth_api.domain.cliente.Cliente;
 import com.example.login_auth_api.domain.endereco.Endereco;
 import com.example.login_auth_api.dto.request.ClienteUpdateRequestDTO;
 import com.example.login_auth_api.dto.request.EnderecoRequestDTO;
-import com.example.login_auth_api.dto.request.RecSenhaClienteRequestDTO;
+import com.example.login_auth_api.dto.request.AltSenhaClienteRequestDTO;
 import com.example.login_auth_api.dto.response.ClienteResponseDTO;
 import com.example.login_auth_api.repositories.ClienteRepository;
 import com.example.login_auth_api.repositories.EnderecoRepository;
@@ -59,7 +59,7 @@ public class ClienteService {
         return new ClienteResponseDTO(cliente);
     }
 
-    public void alterarSenhaCliente(Integer id, RecSenhaClienteRequestDTO dto) {
+    public void alterarSenhaCliente(Integer id, AltSenhaClienteRequestDTO dto) {
         Cliente cliente = clienteRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado"));
 

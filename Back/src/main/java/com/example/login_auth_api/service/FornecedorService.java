@@ -4,7 +4,7 @@ import com.example.login_auth_api.domain.endereco.Endereco;
 import com.example.login_auth_api.domain.fornecedor.Fornecedor;
 import com.example.login_auth_api.dto.request.EnderecoRequestDTO;
 import com.example.login_auth_api.dto.request.FornecedorUpdateRequestDTO;
-import com.example.login_auth_api.dto.request.RecSenhaFornecedorRequestDTO;
+import com.example.login_auth_api.dto.request.AltSenhaFornecedorRequestDTO;
 import com.example.login_auth_api.dto.response.FornecedorResponseDTO;
 import com.example.login_auth_api.repositories.EnderecoRepository;
 import com.example.login_auth_api.repositories.FornecedorRepository;
@@ -66,7 +66,7 @@ public class FornecedorService {
         return new FornecedorResponseDTO(fornecedor);
     }
 
-    public void alterarSenhaFornecedor(Integer id, RecSenhaFornecedorRequestDTO dto) {
+    public void alterarSenhaFornecedor(Integer id, AltSenhaFornecedorRequestDTO dto) {
         Fornecedor fornecedor = fornecedorRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Fornecedor não encontrado"));
 

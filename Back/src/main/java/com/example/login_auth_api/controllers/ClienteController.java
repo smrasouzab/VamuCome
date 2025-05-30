@@ -3,7 +3,7 @@ package com.example.login_auth_api.controllers;
 import com.example.login_auth_api.domain.endereco.Endereco;
 import com.example.login_auth_api.dto.request.ClienteUpdateRequestDTO;
 import com.example.login_auth_api.dto.request.EnderecoRequestDTO;
-import com.example.login_auth_api.dto.request.RecSenhaClienteRequestDTO;
+import com.example.login_auth_api.dto.request.AltSenhaClienteRequestDTO;
 import com.example.login_auth_api.dto.response.ClienteResponseDTO;
 import com.example.login_auth_api.service.ClienteService;
 import jakarta.persistence.EntityNotFoundException;
@@ -66,7 +66,7 @@ public class ClienteController {
     }
 
     @PutMapping("/{id}/alterar-senha")
-    public ResponseEntity<?> alterarSenha(@PathVariable Integer id, @RequestBody @Valid RecSenhaClienteRequestDTO dto) {
+    public ResponseEntity<?> alterarSenha(@PathVariable Integer id, @RequestBody @Valid AltSenhaClienteRequestDTO dto) {
         try {
             clienteService.alterarSenhaCliente(id, dto);
             return ResponseEntity.ok("Senha atualizada com sucesso.");

@@ -3,7 +3,7 @@ package com.example.login_auth_api.controllers;
 import com.example.login_auth_api.domain.endereco.Endereco;
 import com.example.login_auth_api.dto.request.EnderecoRequestDTO;
 import com.example.login_auth_api.dto.request.FornecedorUpdateRequestDTO;
-import com.example.login_auth_api.dto.request.RecSenhaFornecedorRequestDTO;
+import com.example.login_auth_api.dto.request.AltSenhaFornecedorRequestDTO;
 import com.example.login_auth_api.dto.response.FornecedorResponseDTO;
 import com.example.login_auth_api.dto.response.PedidoResponseDTO;
 import com.example.login_auth_api.service.FornecedorService;
@@ -78,7 +78,7 @@ public class FornecedorController {
     }
 
     @PutMapping("/{id}/alterar-senha")
-    public ResponseEntity<?> alterarSenha(@PathVariable Integer id, @RequestBody @Valid RecSenhaFornecedorRequestDTO dto) {
+    public ResponseEntity<?> alterarSenha(@PathVariable Integer id, @RequestBody @Valid AltSenhaFornecedorRequestDTO dto) {
         try {
             fornecedorService.alterarSenhaFornecedor(id, dto);
             return ResponseEntity.ok("Senha atualizada com sucesso.");
