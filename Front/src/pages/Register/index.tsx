@@ -28,15 +28,7 @@ const Register = () => {
 
   const handleLogin = async (data: FormData) => {
     try {
-      // await api.post("/auth/register", data);
-      await api.post("/auth/register", {
-        name: data.nmUsuario,
-        email: data.email,
-        password: data.senha,
-        role: "cliente",
-        cpf: data.numCpfCnpj,
-        telefone: data.telefone,
-      });
+      await api.post("/auth/register", data);
       toast.success("Cadastrado com sucesso!", {
         transition: Slide,
       });

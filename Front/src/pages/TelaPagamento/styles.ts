@@ -209,4 +209,111 @@ export const Button = styled.button`
     bottom: 32px;
     right: 32px;
   }
+
+  &.icon {
+    gap: 10px;
+  }
+`;
+
+export const Nenhum = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  .title {
+    font-family: "Inter", sans-serif;
+    font-size: 2rem;
+    color: var(--text-color);
+    font-weight: 700;
+  }
+`;
+
+export const Pix = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  .bold {
+    font-weight: 700;
+    font-size: 1.6rem;
+  }
+
+  .title {
+    font-family: "Inter", sans-serif;
+    font-size: 2rem;
+    color: var(--text-color);
+    font-weight: 700;
+  }
+
+  span {
+    font-family: "Inter", sans-serif;
+    font-size: 1.4rem;
+    color: var(--text-color);
+    font-weight: 400;
+  }
+
+  .qrcode {
+    width: 200px;
+    height: 200px;
+    background-color: #ffffff;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 16px;
+    }
+  }
+`;
+
+export const Cartao = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 8px;
+
+    .div1 {
+      grid-column: span 2 / span 2;
+    }
+
+    .div2 {
+      grid-column: span 2 / span 2;
+      grid-row-start: 2;
+    }
+
+    .div3 {
+      grid-row-start: 3;
+    }
+
+    .div4 {
+      grid-row-start: 3;
+    }
+  }
+
+  .bold {
+    font-weight: 700;
+    font-size: 1.6rem;
+  }
+
+  .title {
+    font-family: "Inter", sans-serif;
+    font-size: 2rem;
+    color: var(--text-color);
+    font-weight: 700;
+  }
 `;

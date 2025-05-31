@@ -8,9 +8,9 @@ interface AuthProviderProps extends React.PropsWithChildren {
 
 interface LoginResponse {
   id: string;
-  name: string;
-  token: string;
+  nmUsuario: string;
   role: string;
+  token: string;
 }
 
 interface User {
@@ -40,7 +40,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
         });
         setUser({
           id: response.data.id,
-          nome: response.data.name,
+          nome: response.data.nmUsuario,
           role: response.data.role,
         } as User);
         return true;
@@ -56,17 +56,16 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
   const login = useCallback(async (email: string, senha: string) => {
     const response = await api.post<LoginResponse>('/auth/login', {
       email: email,
-      // senha: senha,
-      password: senha,
+      senha: senha,
     })
 
     if (response.status === 200) {
       setIsAuthenticated(Promise.resolve(true));
       setUser({
-          id: response.data.id,
-          nome: response.data.name,
-          role: response.data.role,
-        });
+        id: response.data.id,
+        nome: response.data.nmUsuario,
+        role: response.data.role,
+      } as User);
       localStorage.setItem('token', response.data.token);
 
       return true;

@@ -10,14 +10,14 @@ import { useAuth } from "../../context/AuthProvider";
 // import useTheme from "../../hooks/useTheme";
 // import { useTheme } from "../../context/ThemeProvidder";
 import { useNavigate } from "react-router";
-import api from "../../api";
-import { toast } from "react-toastify";
+// import api from "../../api";
+// import { toast } from "react-toastify";
 import Input from "../../components/Input";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 
 const User = () => {
-  const { logout, user } = useAuth();
+  const { user } = useAuth();
 
   // const { toogleTheme } = useTheme();
 
