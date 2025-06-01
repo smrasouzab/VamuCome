@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+
 @Component
 @RequiredArgsConstructor
 public class AdminInitializer {
@@ -27,6 +29,7 @@ public class AdminInitializer {
             Admin admin = new Admin();
             admin.setNmUsuarioAdmin(defaultUser);
             admin.setDsSenhaAdmin(passwordEncoder.encode(defaultPassword));
+            admin.setDataCadastroAdmin(LocalDateTime.now());
             adminRepository.save(admin);
             System.out.println("✅ Admin padrão criado com sucesso");
         } else {

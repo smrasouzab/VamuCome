@@ -1,9 +1,11 @@
 package com.example.login_auth_api.service.auth;
 
 import com.example.login_auth_api.domain.admin.Admin;
-import com.example.login_auth_api.domain.cliente.Cliente;
+import com.example.login_auth_api.domain.historico.HistoricoAcesso;
+import com.example.login_auth_api.domain.historico.PerfilUsuario;
 import com.example.login_auth_api.dto.request.login.AdminRequestLoginDTO;
 import com.example.login_auth_api.repositories.AdminRepository;
+import com.example.login_auth_api.repositories.HistoricoAcessoRepository;
 import com.example.login_auth_api.service.TokenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -13,11 +15,14 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 @RequiredArgsConstructor
 @Service
 public class AdminAuthService implements UserDetailsService {
 
     private final AdminRepository adminRepository;
+    private final HistoricoAcessoRepository historicoAcessoRepository;
     private final PasswordEncoder passwordEncoder;
     private final TokenService tokenService;
 
@@ -55,6 +60,14 @@ public class AdminAuthService implements UserDetailsService {
             System.out.println("❌ [Login] Senha incorreta para: " + dto.nmUsuarioAdmin());
             throw new BadCredentialsException("Senha incorreta");
         }
+
+        System.out.println("📔 [Login] Registrando acesso...");
+        HistoricoAcesso historico = new HistoricoAcesso();
+        historico.setIdUsuario(admin.getIdAdmin());
+        historico.setNomeUsuario(admin.getNmUsuarioAdmin());
+        historico.setRole(PerfilUsuario.ADMIN);
+        historico.setDataHoraAcesso(LocalDateTime.now());
+        historicoAcessoRepository.save(historico);
 
         System.out.println("✅ [Login] Autenticação bem-sucedida para: " + dto.nmUsuarioAdmin());
         return tokenService.generateToken(admin);

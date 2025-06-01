@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 
 public record FornecedorResponseDTO(
         Integer idFornecedor,
+        LocalDateTime dataCadastroFornecedor,
         String nmUsuarioFornecedor,
         String dsEmailFornecedor,
         String dsRazaoSocial,
@@ -20,6 +21,7 @@ public record FornecedorResponseDTO(
     public FornecedorResponseDTO(Fornecedor fornecedor) {
         this(
                 fornecedor.getIdFornecedor(),
+                fornecedor.getDataCadastroFornecedor(),
                 fornecedor.getNmUsuarioFornecedor(),
                 fornecedor.getDsEmailFornecedor(),
                 fornecedor.getDsRazaoSocial(),
