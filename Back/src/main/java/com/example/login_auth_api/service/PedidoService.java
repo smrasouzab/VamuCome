@@ -92,7 +92,6 @@ public class PedidoService {
         if (pedido.getStatusPedido().ordinal() >= StatusPedido.EM_PREPARO.ordinal()) {
             throw new RuntimeException("Pedido não pode ser atualizado. Já está em preparo ou além.");
         }
-
         // Limpar os itens antigos
         itemPedidoRepository.deleteAll(pedido.getItensPedido());
 
