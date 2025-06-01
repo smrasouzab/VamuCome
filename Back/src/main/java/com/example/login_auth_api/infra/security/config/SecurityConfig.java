@@ -31,8 +31,10 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/cliente/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/fornecedor/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/auth/admin/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/cliente/**").hasRole("CLIENTE")
                         .requestMatchers(HttpMethod.POST, "/fornecedor/**").hasRole("FORNECEDOR")
+                        .requestMatchers(HttpMethod.POST, "/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);

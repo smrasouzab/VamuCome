@@ -1,6 +1,7 @@
 package com.example.login_auth_api.infra.security.config;
 
 import com.example.login_auth_api.service.TokenService;
+import com.example.login_auth_api.service.auth.AdminAuthService;
 import com.example.login_auth_api.service.auth.ClienteAuthService;
 import com.example.login_auth_api.service.auth.FornecedorAuthService;
 import jakarta.servlet.FilterChain;
@@ -27,6 +28,9 @@ public class SecurityFilter extends OncePerRequestFilter {
 
     @Lazy
     private final FornecedorAuthService fornecedorAuthService;
+
+    @Lazy
+    private final AdminAuthService adminAuthService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -56,6 +60,9 @@ public class SecurityFilter extends OncePerRequestFilter {
                     } else if (uri.startsWith("/fornecedor/")) {
                         System.out.println("👤 [SecurityFilter] Autenticando fornecedor: " + email);
                         user = fornecedorAuthService.loadUserByUsername(email);
+                    } else if (uri.startsWith("/admin/")) {
+                        user = adminAuthService.loadByUsername(email); //na verdade username
+                        System.out.println("👤 [SecurityFilter] Autenticando admin: " + email);
                     } else {
                         System.out.println("❌ [SecurityFilter] Rota não reconhecida: " + uri);
                         throw new RuntimeException("Tipo de usuário não identificado para rota: " + uri);
