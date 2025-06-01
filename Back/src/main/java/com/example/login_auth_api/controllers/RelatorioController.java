@@ -1,9 +1,7 @@
 package com.example.login_auth_api.controllers;
 
-import com.example.login_auth_api.dto.response.AvaliacaoRelatorioDTO;
-import com.example.login_auth_api.dto.response.FaturamentoAnualResponseDTO;
-import com.example.login_auth_api.dto.response.FaturamentoMensalResponseDTO;
-import com.example.login_auth_api.dto.response.HistoricoAcessoResponseDTO;
+import com.example.login_auth_api.dto.response.*;
+import com.example.login_auth_api.service.AvaliacaoService;
 import com.example.login_auth_api.service.RelatorioService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +17,7 @@ import java.util.List;
 public class RelatorioController {
 
     private final RelatorioService relatorioService;
+    private final AvaliacaoService avaliacaoService;
 
     @GetMapping("/anual")
     public ResponseEntity<List<FaturamentoAnualResponseDTO>> getFaturamento() {
@@ -32,10 +31,13 @@ public class RelatorioController {
         return ResponseEntity.ok(dados);
     }
 
-    @GetMapping("/avaliacoes-fornecedores")
-    public ResponseEntity<List<AvaliacaoRelatorioDTO>> getRelatorioAvaliacoes() {
-        List<AvaliacaoRelatorioDTO> dados = relatorioService.obterRelatorioAvaliacoes();
-        return ResponseEntity.ok(dados);
+    @GetMapping("/avaliacoes")
+    public ResponseEntity<List<AvaliacaoResponseDTO>> listarAvaliacoes() {
+        List<AvaliacaoResponseDTO> avaliacoes = avaliacaoService.listarAvaliacoes();
+
+        return avaliacoes.isEmpty()
+                ? ResponseEntity.noContent().build()
+                : ResponseEntity.ok(avaliacoes);
     }
 
     @GetMapping("/acesso-usuarios")
