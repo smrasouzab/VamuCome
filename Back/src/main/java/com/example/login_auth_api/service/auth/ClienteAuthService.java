@@ -1,10 +1,13 @@
 package com.example.login_auth_api.service.auth;
 
 import com.example.login_auth_api.domain.cliente.Cliente;
+import com.example.login_auth_api.domain.historico.HistoricoAcesso;
+import com.example.login_auth_api.domain.historico.PerfilUsuario;
 import com.example.login_auth_api.dto.request.login.ClienteRequestLoginDTO;
 import com.example.login_auth_api.dto.request.register.ClienteRequestRegisterDTO;
 import com.example.login_auth_api.dto.response.ClienteResponseDTO;
 import com.example.login_auth_api.repositories.ClienteRepository;
+import com.example.login_auth_api.repositories.HistoricoAcessoRepository;
 import com.example.login_auth_api.service.TokenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -14,11 +17,14 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 @RequiredArgsConstructor
 @Service
 public class ClienteAuthService implements UserDetailsService {
 
     private final ClienteRepository clienteRepository;
+    private final HistoricoAcessoRepository historicoAcessoRepository;
     private final PasswordEncoder passwordEncoder;
     private final TokenService tokenService;
 
@@ -51,6 +57,14 @@ public class ClienteAuthService implements UserDetailsService {
             throw new BadCredentialsException("Senha incorreta");
         }
 
+        System.out.println("📔 [Login] Registrando acesso...");
+        HistoricoAcesso historico = new HistoricoAcesso();
+        historico.setIdUsuario(cliente.getIdCliente());
+        historico.setNomeUsuario(cliente.getNmUsuarioCliente());
+        historico.setRole(PerfilUsuario.CLIENTE);
+        historico.setDataHoraAcesso(LocalDateTime.now());
+        historicoAcessoRepository.save(historico);
+
         System.out.println("✅ [Login] Autenticação bem-sucedida para: " + dto.dsEmailCliente());
         return tokenService.generateToken(cliente);
     }
@@ -75,7 +89,9 @@ public class ClienteAuthService implements UserDetailsService {
         cliente.setDsEmailCliente(dto.dsEmailCliente());
         cliente.setDsSenhaCliente(passwordEncoder.encode(dto.dsSenhaCliente()));
         cliente.setNuCPF(dto.nuCPF());
+        cliente.setNuTelCliente(dto.nuTelCliente());
         cliente.setEndereco(dto.endereco());
+        cliente.setDataCadastroCliente(LocalDateTime.now());
 
         clienteRepository.save(cliente);
         System.out.println("✅ [Register] Cliente salvo com sucesso: " + cliente.getDsEmailCliente());

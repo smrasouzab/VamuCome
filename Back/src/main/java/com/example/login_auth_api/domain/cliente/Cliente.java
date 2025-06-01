@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
@@ -30,9 +31,15 @@ public class Cliente implements UserDetails {
     @Column(unique = true, nullable = false)
     private String dsEmailCliente;
 
+    @Column(nullable = false)
+    private LocalDateTime dataCadastroCliente;
+
     private String nmUsuarioCliente;
     private String dsSenhaCliente;
     private String nuCPF;
+
+    @Column(name = "nu_tel_cliente")
+    private String nuTelCliente;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "idCliente")

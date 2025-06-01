@@ -53,6 +53,9 @@ public class Fornecedor implements UserDetails {
     @Column(unique = true, nullable = false)
     private String dsEmailFornecedor;
 
+    @Column(nullable = false)
+    private LocalDateTime dataCadastroFornecedor;
+
     private String nmUsuarioFornecedor;
     private String dsSenhaFornecedor;
     private String dsRazaoSocial;

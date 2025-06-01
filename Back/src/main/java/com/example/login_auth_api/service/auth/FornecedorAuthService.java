@@ -1,10 +1,13 @@
 package com.example.login_auth_api.service.auth;
 
 import com.example.login_auth_api.domain.fornecedor.Fornecedor;
+import com.example.login_auth_api.domain.historico.HistoricoAcesso;
+import com.example.login_auth_api.domain.historico.PerfilUsuario;
 import com.example.login_auth_api.dto.request.login.FornecedorRequestLoginDTO;
 import com.example.login_auth_api.dto.request.register.FornecedorRequestRegisterDTO;
 import com.example.login_auth_api.dto.response.FornecedorResponseDTO;
 import com.example.login_auth_api.repositories.FornecedorRepository;
+import com.example.login_auth_api.repositories.HistoricoAcessoRepository;
 import com.example.login_auth_api.service.TokenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -14,11 +17,14 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 @RequiredArgsConstructor
 @Service
 public class FornecedorAuthService implements UserDetailsService {
 
     private final FornecedorRepository fornecedorRepository;
+    private final HistoricoAcessoRepository historicoAcessoRepository;
     private final PasswordEncoder passwordEncoder;
     private final TokenService tokenService;
 
@@ -51,6 +57,14 @@ public class FornecedorAuthService implements UserDetailsService {
             throw new BadCredentialsException("Senha incorreta");
         }
 
+        System.out.println("📔 [Login] Registrando acesso...");
+        HistoricoAcesso historico = new HistoricoAcesso();
+        historico.setIdUsuario(fornecedor.getIdFornecedor());
+        historico.setNomeUsuario(fornecedor.getNmUsuarioFornecedor());
+        historico.setRole(PerfilUsuario.FORNECEDOR);
+        historico.setDataHoraAcesso(LocalDateTime.now());
+        historicoAcessoRepository.save(historico);
+
         System.out.println("✅ [Login] Autenticação bem-sucedida para: " + dto.dsEmailFornecedor());
         return tokenService.generateToken(fornecedor);
     }
@@ -80,6 +94,7 @@ public class FornecedorAuthService implements UserDetailsService {
         fornecedor.setDtHorarioFechamento(dto.dtHorarioFechamento());
         fornecedor.setVlMinimoCompra(dto.vlMinimoCompra());
         fornecedor.setEndereco(dto.endereco());
+        fornecedor.setDataCadastroFornecedor(LocalDateTime.now());
 
         fornecedorRepository.save(fornecedor);
         System.out.println("✅ [Register] Fornecedor salvo com sucesso: " + fornecedor.getDsEmailFornecedor());
