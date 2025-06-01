@@ -99,6 +99,4 @@ public class ClienteController {
         clienteService.atualizarEnderecoDoCliente(id, dto, email);
         return ResponseEntity.ok("Endereço atualizado com sucesso");
     }
-
-
 }
