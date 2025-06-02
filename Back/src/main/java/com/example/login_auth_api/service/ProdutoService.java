@@ -1,5 +1,6 @@
 package com.example.login_auth_api.service;
 
+import com.example.login_auth_api.domain.admin.Admin;
 import com.example.login_auth_api.domain.cliente.Cliente;
 import com.example.login_auth_api.domain.endereco.Endereco;
 import com.example.login_auth_api.domain.fornecedor.Fornecedor;
@@ -7,6 +8,7 @@ import com.example.login_auth_api.domain.produto.Produto;
 import com.example.login_auth_api.dto.request.EnderecoRequestDTO;
 import com.example.login_auth_api.dto.request.ProdutoRequestDTO;
 import com.example.login_auth_api.dto.response.ProdutoResponseDTO;
+import com.example.login_auth_api.repositories.AdminRepository;
 import com.example.login_auth_api.repositories.FornecedorRepository;
 import com.example.login_auth_api.repositories.ProdutoRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -26,6 +28,7 @@ public class ProdutoService {
 
     private final ProdutoRepository produtoRepository;
     private final FornecedorRepository fornecedorRepository;
+    private final AdminRepository adminRepository;
 
     @Transactional
     public ProdutoResponseDTO criarProduto(ProdutoRequestDTO dto, String email) {
@@ -70,6 +73,18 @@ public class ProdutoService {
         produto.setNmProduto(dto.nmProduto());
         produto.setDsProduto(dto.dsProduto());
         produto.setVlProduto(dto.vlProduto());
+
+        return new ProdutoResponseDTO(produtoRepository.save(produto));
+    }
+
+    @Transactional
+    public ProdutoResponseDTO criarProdutoAdmin(ProdutoRequestDTO dto) {
+        Fornecedor fornecedor = fornecedorRepository.findById(dto.idFornecedor())
+                .orElseThrow(() -> new RuntimeException("Fornecedor não encontrado"));
+
+        Produto produto = new Produto();
+        BeanUtils.copyProperties(dto, produto);
+        produto.setFornecedor(fornecedor);
 
         return new ProdutoResponseDTO(produtoRepository.save(produto));
     }
