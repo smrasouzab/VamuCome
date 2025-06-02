@@ -13,10 +13,22 @@ export const Container = styled.div`
   gap: 60px;
 
   h1 {
-    font-family: 'Inter', sans-serif;
+    font-family: "Inter", sans-serif;
     font-size: 3rem;
-    color: var(--color );
+    color: var(--color);
     font-weight: 300;
+  }
+
+  @media screen and (max-width: 1280px) {
+    h1 {
+      font-size: 2rem;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    h1 {
+      font-size: 1.5rem;
+    }
   }
 
   &.close {
@@ -40,6 +52,18 @@ export const Card = styled.div`
   align-items: center;
   height: 150px;
   width: 35%;
+
+  @media screen and (max-width: 1280px) {
+    h1 {
+      font-size: 1.5rem;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    h1 {
+      font-size: 1.2rem;
+    }
+  }
 
   .icon {
     display: flex;
@@ -67,7 +91,8 @@ export const Card = styled.div`
     height: 100%;
     background-color: var(--bg-navbar);
 
-    h1, p {
+    h1,
+    p {
       transition: all 0.3s ease;
     }
   }
@@ -79,7 +104,7 @@ export const Card = styled.div`
     background-color: var(--bg-navbar);
     height: 100%;
     width: 100px;
-    border-radius: 0 32px 32px 0; 
+    border-radius: 0 32px 32px 0;
 
     svg {
       color: var(--color);
@@ -97,7 +122,8 @@ export const Card = styled.div`
     }
 
     .content {
-      h1, p {
+      h1,
+      p {
         transform: scale(1.05);
       }
 
