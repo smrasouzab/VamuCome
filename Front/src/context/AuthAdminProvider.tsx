@@ -5,7 +5,6 @@ interface AuthProviderProps extends React.PropsWithChildren {
   children: React.ReactNode;
 }
 
-
 interface LoginResponse {
   id: string;
   nome: string;
@@ -22,16 +21,16 @@ interface User {
 interface AuthContextType {
   isAuthenticated: Promise<boolean>;
   user: User;
-  login: (role: string, email: string, senha: string) => Promise<boolean>;
+  login: (nmUsuarioAdmin: string, dsSenhaAdmin: string) => Promise<boolean>;
   logout: () => void;
 }
 
 const AuthContext = createContext<AuthContextType>({} as AuthContextType);
 
-const AuthProvider = ({ children }: AuthProviderProps) => {
+const AuthAdminProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<User>({} as User);
   const [isAuthenticated, setIsAuthenticated] = useState<Promise<boolean>>(async () => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('token-admin');
 
     if (!token || token === undefined || token === null) {
       setUser({} as User);
@@ -58,19 +57,11 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     return validateToken();
   });
 
-  const login = useCallback(async (role: string, email: string, senha: string) => {
-
-    const dataCliente = {
-      dsEmailCliente: email,
-      dsSenhaCliente: senha,
-    };
-
-    const dataFornecedor = {
-      dsEmailFornecedor: email,
-      dsSenhaFornecedor: senha,
-    };
-    
-    const response = await api.post<LoginResponse>(`/auth/${role}/login`, role === 'fornecedor' ? dataFornecedor : dataCliente);
+  const login = useCallback(async (nmUsuarioAdmin: string, dsSenhaAdmin: string) => {
+    const response = await api.post<LoginResponse>('/auth/admin/login', {
+      nmUsuarioAdmin,
+      dsSenhaAdmin,
+    });
 
     if (response.status === 200) {
       setIsAuthenticated(Promise.resolve(true));
@@ -80,7 +71,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
         role: response.data.role,
       } as User);
       api.defaults.headers.authorization = `Bearer ${response.data.token}`;
-      localStorage.setItem('token', response.data.token);
+      localStorage.setItem('token-admin', response.data.token);
 
       return true;
     }
@@ -89,8 +80,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
   }, []);
 
   const logout = () => {
-    localStorage.removeItem('token');
-    api.defaults.headers.authorization = '';
+    localStorage.removeItem('token-admin');
     setIsAuthenticated(Promise.resolve(false));
     setUser({} as User);
   };
@@ -109,7 +99,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
   )
 };
 
-const useAuth = (): AuthContextType => {
+const useAuthAdmin = (): AuthContextType => {
   const context = useContext(AuthContext);
 
   if (!context) {
@@ -119,4 +109,4 @@ const useAuth = (): AuthContextType => {
   return context;
 }
 
-export { AuthProvider, useAuth };
+export { AuthAdminProvider, useAuthAdmin };

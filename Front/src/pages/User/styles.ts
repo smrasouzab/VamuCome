@@ -27,7 +27,8 @@ export const Header = styled.div`
 export const Form = styled.form`
   display: grid;
   flex-direction: row;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(1, 1fr);
   grid-template-rows: min-content 1fr;
 
   gap: 40px;

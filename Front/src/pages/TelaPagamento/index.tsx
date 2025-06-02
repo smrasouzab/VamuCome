@@ -151,7 +151,7 @@ const TelaPagamento = () => {
           </Cartao>)}
         </DadosPagamento>
         <DetalhesPedido>
-          <span className="title">#999 - Detalhes do Pedido</span>
+          <span className="title">Detalhes do Pedido #123</span>
           <div className="informacoes">
             <span>
               <span className="bold">Subtotal:</span> R$ 99,90
@@ -190,7 +190,42 @@ const TelaPagamento = () => {
                   </button>
                 </div>
               </div>
-              <div className="item">Nome</div>
+              <div className="item">
+                <button className="btnRemover">
+                  <FaX size={10} />
+                </button>
+                <div className="fotoNome">
+                  <img src="listagem/image.png" alt="Produto" />
+                  <span>Nome</span>
+                </div>
+                <div className="quantidade">
+                  <button onClick={handleDecrement}>
+                    <FaMinus size={20} />
+                  </button>
+                  <span>{counter}</span>
+                  <button onClick={handleIncrement}>
+                    <FaPlus size={20} />
+                  </button>
+                </div>
+              </div>
+              <div className="item">
+                <button className="btnRemover">
+                  <FaX size={10} />
+                </button>
+                <div className="fotoNome">
+                  <img src="listagem/image.png" alt="Produto" />
+                  <span>Nome</span>
+                </div>
+                <div className="quantidade">
+                  <button onClick={handleDecrement}>
+                    <FaMinus size={20} />
+                  </button>
+                  <span>{counter}</span>
+                  <button onClick={handleIncrement}>
+                    <FaPlus size={20} />
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
           <Button className="confirmar">Finalizar Pedido</Button>

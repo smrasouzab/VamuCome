@@ -20,6 +20,11 @@ export const Grid = styled.div`
   grid-template-rows: min-content;
   align-content: stretch;
   gap: 32px;
+
+  @media screen and (max-width: 1280px) {
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+  }
 `;
 
 export const FormasPagamento = styled.div`
@@ -59,6 +64,11 @@ export const DadosPagamento = styled.div`
 
   grid-column-start: 1;
   grid-row-start: 2;
+
+  @media screen and (max-width: 1280px) {
+    grid-column-start: auto;
+    grid-row-start: auto;
+  }
 `;
 
 export const DetalhesPedido = styled.div`
@@ -74,6 +84,12 @@ export const DetalhesPedido = styled.div`
   grid-row: span 2 / span 2;
   grid-column-start: 2;
   grid-row-start: 1;
+
+  @media screen and (max-width: 1280px) {
+    grid-row: auto;
+    grid-column-start: auto;
+    grid-row-start: auto;
+  }
 
   .title {
     font-family: "Inter", sans-serif;
@@ -208,6 +224,10 @@ export const Button = styled.button`
     position: absolute;
     bottom: 32px;
     right: 32px;
+
+    @media screen and (max-width: 1280px) {
+      position: static;
+    }
   }
 
   &.icon {

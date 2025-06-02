@@ -62,7 +62,7 @@ export const Header = styled.div`
       .preco {
         font-family: "Inter", sans-serif;
         font-size: 1.8rem;
-        color: #e53935;
+        color: var(--bg-navbar);
         font-weight: 700;
         margin-bottom: 16px;
       }
@@ -72,6 +72,45 @@ export const Header = styled.div`
         font-size: 1.2rem;
         color: #555555;
         margin-bottom: 8px;
+      }
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    .informacoesProduto {
+      flex-direction: column;
+      align-items: center;
+
+      img {
+        width: 200px;
+        height: auto;
+      }
+
+      .informacoes {
+        max-width: 100%;
+        text-align: center;
+
+        .title {
+          font-family: "Inter", sans-serif;
+          font-size: 1.5rem;
+          color: #000000;
+          font-weight: 700;
+        }
+
+        .preco {
+          font-family: "Inter", sans-serif;
+          font-size: 1rem;
+          color: var(--bg-navbar);
+          font-weight: 700;
+          margin-bottom: 0px;
+        }
+
+        .descricao {
+          font-family: "Inter", sans-serif;
+          font-size: 0.8rem;
+          color: #555555;
+          margin-bottom: 0px;
+        }
       }
     }
   }
@@ -125,6 +164,27 @@ export const AddCarrinho = styled.div`
       font-weight: 500;
     }
   }
+
+  @media screen and (max-width: 1000px) {
+    width: 100%;
+    position: static;
+    bottom: 0px;
+    left: none;
+    transform: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 0px;
+
+    .quantidade {
+      position: static;
+      transform: none;
+      margin-bottom: 10px;
+    }
+
+    .preco {
+      font-size: 1.2rem;
+    }
+  }
 `;
 
 export const Button = styled.button`
@@ -144,5 +204,10 @@ export const Button = styled.button`
 
   &:hover {
     background-color: rgb(238, 180, 55);
+  }
+
+  @media screen and (max-width: 480px) {
+    width: 100%;
+    font-size: 0.8rem;
   }
 `;

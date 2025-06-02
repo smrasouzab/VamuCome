@@ -45,16 +45,40 @@ const User = () => {
             <span className="title">Dados Pessoais</span>
             <Input
               type="text"
-              label="Nome de Usuário"
-              placeholder="Seu nome"
+              label="Razão Social"
+              placeholder="Sua Razão Social"
               style={{
                 width: "200px",
               }}
             />
             <Input
               type="text"
-              label="CPF"
-              placeholder="CPF"
+              label="CNPJ"
+              placeholder="CNPJ"
+              style={{
+                width: "200px",
+              }}
+            />
+          </div>
+          <div className="coluna">
+            <span className="title">Dados Loja</span>
+            <Input
+              type="time"
+              label="Horário de Abertura"
+              style={{
+                width: "200px",
+              }}
+            />
+            <Input
+              type="time"
+              label="Horário de Fechamento"
+              style={{
+                width: "200px",
+              }}
+            />
+            <Input
+              type="number"
+              label="Valor Mínimo de Pedido"
               style={{
                 width: "200px",
               }}

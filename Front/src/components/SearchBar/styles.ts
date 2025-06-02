@@ -5,11 +5,11 @@ export const SearchBarContainer = styled.div`
   align-items: center;
   width: 350px;
   height: 50px;
-  border: 1px solid #696969;
+  border: 1px solid var(--border-color);
   border-radius: 99999px;
-  background-color: #ffffff;
+  background-color: var(--color-reverse);
   font-family: "Inter", sans-serif;
-  color:  #696969;
+  color: var(--bordedr-color);
   padding: 0 20px;
 
   input {
@@ -20,5 +20,6 @@ export const SearchBarContainer = styled.div`
 
   svg {
     cursor: pointer;
+    fill: var(--border-color);
   }
 `;

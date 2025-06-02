@@ -21,6 +21,18 @@ export const Form = styled.form`
   gap: 20px;
   padding: 40px 60px;
 
+  .linha {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+  }
+
+  .coluna {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
   h1 {
     font-family: 'Inter', sans-serif;
     font-size: 2.5rem;

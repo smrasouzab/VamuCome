@@ -1,4 +1,5 @@
 import { AuthProvider } from "./context/AuthProvider";
+import { AuthAdminProvider } from "./context/AuthAdminProvider.tsx";
 import GlobalStyle from './styles/GlobalStyles.ts'
 import RouterProvider from "./routes/RouterProvider.tsx";
 import { ToastContainer } from "react-toastify";
@@ -13,11 +14,13 @@ import 'swiper/css/pagination';
 function App() {
   return (
     <AuthProvider>
-      <ThemeProvider>
-        <GlobalStyleWrapper />
-        <ToastContainerWrapper />
-        <RouterProvider />
-      </ThemeProvider>
+      <AuthAdminProvider>
+        <ThemeProvider>
+          <GlobalStyleWrapper />
+          <ToastContainerWrapper />
+          <RouterProvider />
+        </ThemeProvider>
+      </AuthAdminProvider>
     </AuthProvider>
   )
 };
