@@ -1,17 +1,11 @@
-# Etapa 1: build com Maven e Java 24
-FROM eclipse-temurin:24-jdk AS build
+# Etapa 1: build com Maven e Java 21
+FROM maven:3.9.6-eclipse-temurin-21 AS build
 WORKDIR /app
-
-# Instala Maven manualmente
-RUN apt-get update && \
-    apt-get install -y maven && \
-    apt-get clean
-
 COPY Back/ /app
 RUN mvn clean package -DskipTests
 
-# Etapa 2: runtime mais leve com JDK 24
-FROM eclipse-temurin:24-jdk-slim
+# Etapa 2: usar JDK leve com o .jar final
+FROM eclipse-temurin:21-jdk-slim
 WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
 EXPOSE 8081
