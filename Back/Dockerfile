@@ -5,7 +5,7 @@ COPY Back/ /app
 RUN mvn clean package -DskipTests
 
 # Etapa 2: usar JDK leve com o .jar final
-FROM eclipse-temurin:21-jdk-slim
+FROM adoptium/eclipse-temurin:21-jdk-slim
 WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
 EXPOSE 8081
