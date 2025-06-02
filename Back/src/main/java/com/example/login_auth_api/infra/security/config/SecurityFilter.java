@@ -37,7 +37,14 @@ public class SecurityFilter extends OncePerRequestFilter {
         String uri = request.getRequestURI();
         System.out.println("➡️ [SecurityFilter] Requisição recebida: " + uri);
 
-        if (uri.startsWith("/auth/")) {
+        if (uri.startsWith("/auth/")
+                || uri.startsWith("/fornecedor/listar-todos")
+                || uri.startsWith("/fornecedor/produto/geral")
+                || uri.startsWith("/fornecedor/produto/todos-por-fornecedor/{idFornecedor}")
+                || uri.startsWith("/fornecedor/{id}")
+                || uri.startsWith("/fornecedor/buscar-por-cnpj/{cnpj}")
+                || uri.startsWith("/fornecedor/buscar-por-razao/{razao}")
+        ) {
             System.out.println("🟡 [SecurityFilter] Rota pública ignorada: " + uri);
             filterChain.doFilter(request, response);
             return;

@@ -61,6 +61,7 @@ public class FornecedorService {
         fornecedor.setDtHorarioAbertura(dto.dtHorarioAbertura());
         fornecedor.setDtHorarioFechamento(dto.dtHorarioFechamento());
         fornecedor.setVlMinimoCompra(dto.vlMinimoCompra());
+        fornecedor.setUrlFotoFornecedor(dto.urlFotoFornecedor());
 
         fornecedorRepository.save(fornecedor);
         return new FornecedorResponseDTO(fornecedor);

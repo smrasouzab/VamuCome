@@ -1,7 +1,6 @@
 package com.example.login_auth_api.domain.historico;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,10 +20,10 @@ public class HistoricoAcesso {
 
     private Integer idUsuario;
 
-    private String nomeUsuario;
+    private String nmUsuario;
 
     @Enumerated(EnumType.STRING)
     private PerfilUsuario role;
 
-    private LocalDateTime dataHoraAcesso;
+    private LocalDateTime dtHoraAcesso;
 }

@@ -9,5 +9,6 @@ public record ProdutoRequestDTO(
         Integer idFornecedor,
         @NotBlank String nmProduto,
         @NotNull BigDecimal vlProduto,
-        @NotBlank String dsProduto
+        @NotBlank String dsProduto,
+        String urlFotoProduto
         ) {}

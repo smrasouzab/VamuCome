@@ -60,9 +60,9 @@ public class ClienteAuthService implements UserDetailsService {
         System.out.println("📔 [Login] Registrando acesso...");
         HistoricoAcesso historico = new HistoricoAcesso();
         historico.setIdUsuario(cliente.getIdCliente());
-        historico.setNomeUsuario(cliente.getNmUsuarioCliente());
+        historico.setNmUsuario(cliente.getNmUsuarioCliente());
         historico.setRole(PerfilUsuario.CLIENTE);
-        historico.setDataHoraAcesso(LocalDateTime.now());
+        historico.setDtHoraAcesso(LocalDateTime.now());
         historicoAcessoRepository.save(historico);
 
         System.out.println("✅ [Login] Autenticação bem-sucedida para: " + dto.dsEmailCliente());

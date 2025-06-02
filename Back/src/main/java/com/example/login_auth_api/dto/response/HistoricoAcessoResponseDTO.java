@@ -8,16 +8,16 @@ import java.time.LocalDateTime;
 public record HistoricoAcessoResponseDTO(
         Integer id,
         Integer idUsuario,
-        String nomeUsuario,
+        String nmUsuario,
         PerfilUsuario role,
-        LocalDateTime dataHoraAcesso
+        LocalDateTime dtHoraAcesso
 ) {
     public HistoricoAcessoResponseDTO(HistoricoAcesso entity) {
         this(
                 entity.getId(),
                 entity.getIdUsuario(),
-                entity.getNomeUsuario(),
+                entity.getNmUsuario(),
                 entity.getRole(),
-                entity.getDataHoraAcesso());
+                entity.getDtHoraAcesso());
     }
 }

@@ -20,6 +20,7 @@ public record ClienteRequestRegisterDTO(
         @NotBlank(message = "Número de telefone não pode estar em branco")
         @Pattern(regexp = "\\d{10,11}", message = "Telefone deve conter 10 ou 11 dígitos numéricos")
         String nuTelCliente,
+        //@NotBlank(message = "Endereço não pode estar em branco") não funciona
         @NotNull(message = "Endereço não pode ser nulo")
         List<Endereco> endereco
 ) {}

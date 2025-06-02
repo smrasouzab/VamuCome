@@ -47,7 +47,7 @@ public class FornecedorController {
         }
     }
 
-    @GetMapping("/buscar-por-cnpj")
+    @GetMapping("/buscar-por-cnpj/{cnpj}")
     public ResponseEntity<?> buscarPorCnpj(@RequestParam String cnpj) {
         try {
             FornecedorResponseDTO dto = fornecedorService.buscarPorCnpj(cnpj);
@@ -57,7 +57,7 @@ public class FornecedorController {
         }
     }
 
-    @GetMapping("/buscar-por-razao")
+    @GetMapping("/buscar-por-razao/{razao}")
     public ResponseEntity<?> buscarPorRazaoSocial(@RequestParam String razao) {
         try {
             FornecedorResponseDTO dto = fornecedorService.buscarPorRazaoSocial(razao);

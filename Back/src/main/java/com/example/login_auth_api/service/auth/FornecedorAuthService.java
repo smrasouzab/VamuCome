@@ -60,9 +60,9 @@ public class FornecedorAuthService implements UserDetailsService {
         System.out.println("📔 [Login] Registrando acesso...");
         HistoricoAcesso historico = new HistoricoAcesso();
         historico.setIdUsuario(fornecedor.getIdFornecedor());
-        historico.setNomeUsuario(fornecedor.getNmUsuarioFornecedor());
+        historico.setNmUsuario(fornecedor.getNmUsuarioFornecedor());
         historico.setRole(PerfilUsuario.FORNECEDOR);
-        historico.setDataHoraAcesso(LocalDateTime.now());
+        historico.setDtHoraAcesso(LocalDateTime.now());
         historicoAcessoRepository.save(historico);
 
         System.out.println("✅ [Login] Autenticação bem-sucedida para: " + dto.dsEmailFornecedor());
@@ -93,6 +93,7 @@ public class FornecedorAuthService implements UserDetailsService {
         fornecedor.setDtHorarioAbertura(dto.dtHorarioAbertura());
         fornecedor.setDtHorarioFechamento(dto.dtHorarioFechamento());
         fornecedor.setVlMinimoCompra(dto.vlMinimoCompra());
+        fornecedor.setUrlFotoFornecedor(dto.urlFotoFornecedor());
         fornecedor.setEndereco(dto.endereco());
         fornecedor.setDataCadastroFornecedor(LocalDateTime.now());
 

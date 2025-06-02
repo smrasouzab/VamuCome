@@ -48,9 +48,8 @@ public class ProdutoService {
                 .toList();
     }
 
-    public List<ProdutoResponseDTO> listarProdutosDoFornecedor() {
-        String email = SecurityContextHolder.getContext().getAuthentication().getName();
-        Fornecedor fornecedor = fornecedorRepository.findByDsEmailFornecedor(email)
+    public List<ProdutoResponseDTO> listarProdutosDoFornecedor(Integer idFornecedor) {
+        Fornecedor fornecedor = fornecedorRepository.findById(idFornecedor)
                 .orElseThrow(() -> new EntityNotFoundException("Fornecedor não encontrado"));
 
         return produtoRepository.findByFornecedor(fornecedor)

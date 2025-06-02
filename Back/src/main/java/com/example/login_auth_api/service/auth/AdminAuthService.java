@@ -64,9 +64,9 @@ public class AdminAuthService implements UserDetailsService {
         System.out.println("📔 [Login] Registrando acesso...");
         HistoricoAcesso historico = new HistoricoAcesso();
         historico.setIdUsuario(admin.getIdAdmin());
-        historico.setNomeUsuario(admin.getNmUsuarioAdmin());
+        historico.setNmUsuario(admin.getNmUsuarioAdmin());
         historico.setRole(PerfilUsuario.ADMIN);
-        historico.setDataHoraAcesso(LocalDateTime.now());
+        historico.setDtHoraAcesso(LocalDateTime.now());
         historicoAcessoRepository.save(historico);
 
         System.out.println("✅ [Login] Autenticação bem-sucedida para: " + dto.nmUsuarioAdmin());

@@ -1,7 +1,5 @@
 package com.example.login_auth_api.controllers;
 
-import com.example.login_auth_api.domain.produto.Produto;
-import com.example.login_auth_api.dto.request.EnderecoRequestDTO;
 import com.example.login_auth_api.dto.request.ProdutoRequestDTO;
 import com.example.login_auth_api.dto.response.ProdutoResponseDTO;
 import com.example.login_auth_api.service.ProdutoService;
@@ -40,10 +38,10 @@ public class ProdutoController {
                 : ResponseEntity.ok(produtos);
     }
 
-    @GetMapping
-    public ResponseEntity<?> listarPorFornecedor() {
+    @GetMapping("/todos-por-fornecedor/{idFornecedor}")
+    public ResponseEntity<?> listarPorFornecedor(@PathVariable Integer idFornecedor) {
         try {
-            List<ProdutoResponseDTO> produtos = produtoService.listarProdutosDoFornecedor();
+            List<ProdutoResponseDTO> produtos = produtoService.listarProdutosDoFornecedor(idFornecedor);
             return produtos.isEmpty()
                     ? ResponseEntity.noContent().build()
                     : ResponseEntity.ok(produtos);
