@@ -4,8 +4,8 @@ WORKDIR /app
 COPY Back/ /app
 RUN mvn clean package -DskipTests
 
-# Etapa 2: usar JDK leve com o .jar final
-FROM adoptium/eclipse-temurin:21-jdk-slim
+# Etapa 2: runtime com JDK 21 leve
+FROM eclipse-temurin:21-jdk
 WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
 EXPOSE 8081
