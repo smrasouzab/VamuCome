@@ -27,6 +27,8 @@ public record FornecedorRequestRegisterDTO(
         @NotNull(message = "Valor mínimo de compra não pode ser nulo")
         @DecimalMin(value = "0.0", inclusive = false, message = "O valor mínimo de compra deve ser maior que zero")
         BigDecimal vlMinimoCompra,
+        String urlFotoFornecedor,
+        //@NotBlank(message = "Endereço não pode estar em branco") não funciona
         @NotNull(message = "Endereço não pode ser nulo")
         Endereco endereco
 ) {}

@@ -63,6 +63,7 @@ public class Fornecedor implements UserDetails {
     private LocalDateTime dtHorarioAbertura;
     private LocalDateTime dtHorarioFechamento;
     private BigDecimal vlMinimoCompra;
+    private String urlFotoFornecedor;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "idEndereco")

@@ -24,7 +24,7 @@ public class Produto {
     private String nmProduto;
     private BigDecimal vlProduto;
     private String dsProduto;
-    private String urlFoto;
+    private String urlFotoProduto;
 
     @ManyToOne
     @JoinColumn(name = "idFornecedor")

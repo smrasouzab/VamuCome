@@ -34,6 +34,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/auth/admin/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/auth/validate-token").permitAll()
                         .requestMatchers(HttpMethod.POST, "/cliente/**").hasRole("CLIENTE")
+                        .requestMatchers(HttpMethod.GET, "/fornecedor/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/fornecedor/**").hasRole("FORNECEDOR")
                         .requestMatchers(HttpMethod.POST, "/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
