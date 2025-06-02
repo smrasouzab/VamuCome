@@ -107,21 +107,6 @@ const User = () => {
             transition: Slide,
           });
         });
-
-      // await api
-      //   .put(`/fornecedor/endereco/atualizar/${user.id}/`, {
-      //     ...data.endereco,
-      //   })
-      //   .then(() => {
-      //     toast.success("Endereço atualizado com sucesso!", {
-      //       transition: Slide,
-      //     });
-      //   })
-      //   .catch(() => {
-      //     toast.error("Erro ao atualizar endereço!", {
-      //       transition: Slide,
-      //     });
-      //   });
     },
     [user.id]
   );
