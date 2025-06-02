@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/esm/Button';
 import { ContainerModal } from './styles';
 import TextArea from '../TextArea';
 import { FaStar } from "react-icons/fa";
+import { useTheme } from '../../context/ThemeProvidder';
 
 export interface AvaliacaoProps {
   showAvaliacao: boolean;
@@ -11,6 +12,8 @@ export interface AvaliacaoProps {
 }
 
 const Avaliacao = ({showAvaliacao, handleClose}: AvaliacaoProps) => {
+  const { theme } = useTheme();
+
   const previewStars = (stars: number) => {
     const starElements = document.querySelectorAll('.linha > svg');
     starElements.forEach((star, index) => {
@@ -34,7 +37,7 @@ const Avaliacao = ({showAvaliacao, handleClose}: AvaliacaoProps) => {
   }
 
   return (
-    <Modal show={showAvaliacao} onHide={handleClose} keyboard={false} backdrop='static' centered>
+    <Modal show={showAvaliacao} onHide={handleClose} keyboard={false} backdrop='static' data-bs-theme={theme} centered>
       <Modal.Header style={{ border: "none" }}>
         <Modal.Title>Faça sua Avaliação!</Modal.Title>
       </Modal.Header>

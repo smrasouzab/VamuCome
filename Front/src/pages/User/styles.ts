@@ -20,7 +20,7 @@ export const Header = styled.div`
     font-family: "Inter", sans-serif;
     font-size: 4rem;
     font-weight: 700;
-    color: var(--text-color);
+    color: var(--color);
   }
 `;
 
@@ -33,8 +33,8 @@ export const Form = styled.form`
 
   gap: 40px;
 
-  background-color: rgb(250, 250, 250);
-  border: 1px solid rgb(200, 200, 200);
+  background-color: var(--bg-color);
+  border: 1px solid var(--border-color);
   border-radius: 32px;
   padding: 40px 60px;
 
@@ -46,14 +46,14 @@ export const Form = styled.form`
     span {
       font-family: "Inter", sans-serif;
       font-size: 1.2rem;
-      color: var(--text-color);
+      color: var(--color);
       font-weight: 500;
     }
 
     .title {
       font-family: "Inter", sans-serif;
       font-size: 2.5rem;
-      color: var(--text-color);
+      color: var(--color);
       font-weight: 700;
     }
   }

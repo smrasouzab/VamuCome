@@ -32,8 +32,8 @@ export const FormasPagamento = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  background-color: rgb(250, 250, 250);
-  border: 1px solid rgb(200, 200, 200);
+  background-color: var(--bg-color);
+  border: 1px solid var(--border-color);
   border-radius: 32px;
   gap: 20px;
   padding: 30px 40px;
@@ -44,8 +44,9 @@ export const FormasPagamento = styled.div`
     font-family: "Inter", sans-serif;
     font-size: 1rem;
     font-weight: 500;
-    color: #000000;
+    color: var(--color);
     background-color: rgb(0, 0, 0, 0.05);
+    border: 1px solid var(--border-color);
     padding: 10px 20px;
     border-radius: 8px;
   }
@@ -56,8 +57,8 @@ export const DadosPagamento = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: rgb(250, 250, 250);
-  border: 1px solid rgb(200, 200, 200);
+  background-color: var(--bg-color);
+  border: 1px solid var(--border-color);
   border-radius: 32px;
   gap: 20px;
   padding: 40px 60px;
@@ -75,8 +76,8 @@ export const DetalhesPedido = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  background-color: rgb(250, 250, 250);
-  border: 1px solid rgb(200, 200, 200);
+  background-color: var(--bg-color);
+  border: 1px solid var(--border-color);
   border-radius: 32px;
   gap: 20px;
   padding: 40px 60px;
@@ -94,13 +95,14 @@ export const DetalhesPedido = styled.div`
   .title {
     font-family: "Inter", sans-serif;
     font-size: 2rem;
-    color: var(--text-color);
+    color: var(--color);
     font-weight: 700;
   }
 
   .bold {
     font-weight: 700;
     font-size: 1.2rem;
+    color: var(--color);
   }
 
   .informacoes {
@@ -112,7 +114,7 @@ export const DetalhesPedido = styled.div`
       justify-content: space-between;
       font-family: "Inter", sans-serif;
       font-size: 1rem;
-      color: var(--text-color);
+      color: var(--color);
       font-weight: 400;
     }
   }
@@ -120,8 +122,8 @@ export const DetalhesPedido = styled.div`
   .itens {
     display: flex;
     flex-direction: column;
-    background-color: rgb(245, 245, 245);
-    border: 1px solid rgb(200, 200, 200);
+    background-color: var(--bg-color);
+    border: 1px solid var(--border-color);
     border-radius: 16px;
     gap: 10px;
     padding: 15px 20px;
@@ -132,8 +134,8 @@ export const DetalhesPedido = styled.div`
       flex-direction: row;
       align-items: center;
       justify-content: space-between;
-      background-color: rgb(255, 255, 255);
-      border: 1px solid rgb(200, 200, 200);
+      background-color: var(--bg-color);
+      border: 1px solid var(--border-color);
       border-radius: 8px;
       padding: 10px 20px;
 
@@ -167,7 +169,7 @@ export const DetalhesPedido = styled.div`
         span {
           font-family: "Inter", sans-serif;
           font-size: 1rem;
-          color: var(--text-color);
+          color: var(--color);
           font-weight: 500;
           margin-left: 10px;
         }
@@ -193,8 +195,12 @@ export const DetalhesPedido = styled.div`
         span {
           font-family: "Inter", sans-serif;
           font-size: 1.2rem;
-          color: #000000;
+          color: var(--color);
           font-weight: 500;
+        }
+
+        svg {
+          color: var(--color);
         }
       }
     }
@@ -245,7 +251,7 @@ export const Nenhum = styled.div`
   .title {
     font-family: "Inter", sans-serif;
     font-size: 2rem;
-    color: var(--text-color);
+    color: var(--color);
     font-weight: 700;
   }
 `;
@@ -255,6 +261,7 @@ export const Pix = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 10px;
 
   .bold {
     font-weight: 700;
@@ -264,14 +271,14 @@ export const Pix = styled.div`
   .title {
     font-family: "Inter", sans-serif;
     font-size: 2rem;
-    color: var(--text-color);
+    color: var(--color);
     font-weight: 700;
   }
 
   span {
     font-family: "Inter", sans-serif;
     font-size: 1.4rem;
-    color: var(--text-color);
+    color: var(--color);
     font-weight: 400;
   }
 
@@ -333,7 +340,7 @@ export const Cartao = styled.div`
   .title {
     font-family: "Inter", sans-serif;
     font-size: 2rem;
-    color: var(--text-color);
+    color: var(--color);
     font-weight: 700;
   }
 `;

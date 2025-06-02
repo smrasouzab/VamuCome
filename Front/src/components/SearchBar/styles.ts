@@ -16,6 +16,7 @@ export const SearchBarContainer = styled.div`
     all: unset;
     width: 100%;
     height: 100%;
+    color: var(--border-color);
   }
 
   svg {

@@ -8,7 +8,7 @@ export const Container = styled.div`
 
   .label {
     font-family: "Inter", sans-serif;
-    color:  #000000;
+    color: var(--color);;
     margin-bottom: 5px;
     margin-left: 2px;
     font-size: 0.8rem;
@@ -28,14 +28,14 @@ export const Container = styled.div`
     align-items: center;
     justify-content: center;
     padding: 0 8px;
-    border: 1px solid rgb(200, 200, 200);
+    border: 1px solid var(--border-color);
     border-radius: 8px;
     transition: all 0.3s ease;
 
     input {
       all: unset;
       font-family: "Inter", sans-serif;
-      color:  #000000;
+      color: var(--color);
       width: 160px;
       height: 40px;
     }

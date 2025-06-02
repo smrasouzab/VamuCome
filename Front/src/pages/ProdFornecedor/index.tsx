@@ -3,8 +3,11 @@ import ButtonBs from 'react-bootstrap/esm/Button';
 import { Button, Container, ContainerModal, Header, Produtos } from './styles'
 import Input from '../../components/Input';
 import { useState } from 'react';
+import { useTheme } from '../../context/ThemeProvidder';
 
 const ProdFornecedor = () => {
+  const { theme } = useTheme();
+
   const [showModal, setShowModal] = useState(false);
 
   const handleClose = () => setShowModal(false);
@@ -62,7 +65,7 @@ const ProdFornecedor = () => {
           </Button>
         </div>
       </Produtos>
-      <Modal show={showModal} onHide={handleClose} centered>
+      <Modal show={showModal} onHide={handleClose} data-bs-theme={theme} centered>
         <Modal.Header style={{ border: "none" }}>
           <Modal.Title>Novo Produto</Modal.Title>
         </Modal.Header>
@@ -107,7 +110,7 @@ const ProdFornecedor = () => {
           </ContainerModal>
         </Modal.Body>
         <Modal.Footer style={{ border: "none" }}>
-          <ButtonBs variant="dark" onClick={handleClose}>
+          <ButtonBs variant={theme === 'light' ? 'dark' : 'light'} onClick={handleClose}>
             Cancelar
           </ButtonBs>
           <ButtonBs variant="warning" onClick={handleClose}>

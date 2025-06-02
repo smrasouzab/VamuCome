@@ -81,6 +81,7 @@ const AuthAdminProvider = ({ children }: AuthProviderProps) => {
 
   const logout = () => {
     localStorage.removeItem('token-admin');
+    api.defaults.headers.authorization = '';
     setIsAuthenticated(Promise.resolve(false));
     setUser({} as User);
   };

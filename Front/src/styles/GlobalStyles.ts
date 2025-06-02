@@ -13,6 +13,8 @@ const GlobalStyle = createGlobalStyle<{ $themeColor: string; }>`
     --color: ${props => props.$themeColor === "light" ? "#000" : "#fff"};
     --color-reverse: ${props => props.$themeColor === "light" ? "#fff" : "#000"};
     --border-color: ${props => props.$themeColor === "light" ? "#696969" : "#c8c8c8"};
+    --bg-color-opacity: ${props => props.$themeColor === "light" ? "rgba(255, 255, 255, 0.8)" : "rgba(43, 43, 39, 0.8)"};
+    --bg-color-opacity-reverse: ${props => props.$themeColor === "light" ? "rgba(43, 43, 39, 0.8)" : "rgba(255, 255, 255, 0.8)"};
   }
 
   * {

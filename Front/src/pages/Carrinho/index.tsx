@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Button, Container, Header, Itens } from './styles';
 import { Slide, toast } from 'react-toastify';
 import { FaMinus, FaPlus, FaX } from 'react-icons/fa6';
-import { useSearchParams } from 'react-router';
+import { useNavigate, useSearchParams } from 'react-router';
 
 export interface ItemCarrinho {
   idProduto: number;
@@ -14,6 +14,8 @@ export interface ItemCarrinho {
 }
 
 const Carrinho = () => {
+  const navigate = useNavigate();
+
   const [searchParams] = useSearchParams();
 
   const [counter, setCounter] = useState<number>(1);
@@ -35,7 +37,7 @@ const Carrinho = () => {
   };
 
   useEffect(() => {
-    const carrinho = JSON.parse(localStorage.getItem(`carrinho-${searchParams.get('l')}`) || '[]');
+    const carrinho = JSON.parse(localStorage.getItem(`carrinho${searchParams.get('l')}`) || '[]');
 
     setCarrinho(carrinho);
 
@@ -50,7 +52,12 @@ const Carrinho = () => {
     <Container>
       <Header>
         <span className='title'>Carrinho - Pizza da Casa</span>
-        <Button>Ir para Pagamento</Button>
+        <Button
+          type='button'
+          onClick={() => navigate(`/tela-pagamento?l=${searchParams.get('l')}`)}
+        >
+          Ir para Pagamento
+        </Button>
       </Header>
       <Itens>
         <div className="itens">

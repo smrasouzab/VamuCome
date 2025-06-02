@@ -61,7 +61,7 @@ const Loja = () => {
         </h3>
         <div className="promocoes-list">
           {listaProdutos.map((produto: Produto) => (
-            <PromocaoCard key={produto.idProduto} onClick={() => navigate(`/produto/?l=${searchParams.get('l')}&p=${produto.idProduto}`)}>
+            <PromocaoCard key={produto.idProduto} onClick={() => navigate(`/produto?l=${searchParams.get('l')}&p=${produto.idProduto}`)}>
               <div className="info">
                 <span className="nome">{produto.nmProduto}</span>
                 <span className="desc">{produto.dsProduto}</span>
@@ -152,7 +152,7 @@ const Section = styled.section`
     font-family: "Inter", sans-serif;
     font-size: 1.5rem;
     font-weight: 700;
-    color: #222;
+    color: var(--color);
     margin-bottom: 18px;
   }
 
@@ -171,7 +171,7 @@ const Section = styled.section`
 `;
 
 const PromocaoCard = styled.div`
-  background: #fff;
+  background-color: var(--bg-color);
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   display: flex;
@@ -186,11 +186,12 @@ const PromocaoCard = styled.div`
     display: flex;
     flex-direction: column;
     gap: 4px;
+
     .nome {
       font-family: "Inter", sans-serif;
       font-size: 1.1rem;
       font-weight: 700;
-      color: #222;
+      color: var(--color);
     }
     .desc {
       font-size: 0.95rem;
@@ -219,7 +220,7 @@ const PromocaoCard = styled.div`
     height: 90px;
     object-fit: contain;
     border-radius: 10px;
-    background: #f5f5f5;
+    background: var(--bg-color);
   }
 
   @media screen and (max-width: 768px) {

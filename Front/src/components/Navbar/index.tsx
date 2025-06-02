@@ -5,9 +5,12 @@ import { FaUser } from "react-icons/fa6";
 import { useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthProvider";
 import { NavLink } from "react-router-dom";
+import { useTheme } from "../../context/ThemeProvidder";
 
 const Navbar = () => {
   const { isAuthenticated, logout } = useAuth();
+
+  const { theme } = useTheme();
 
   const navigate = useNavigate();
 
@@ -26,7 +29,7 @@ const Navbar = () => {
 
   return (
     <NavbarContainer>
-      <img src="logo.svg" alt="Logomarca da empresa VamuCome - Ir para a página inicial" onClick={paginaInicial} />
+      <img src={theme === 'light' ? 'logo.svg' : 'logo-white.svg'} alt="Logomarca da empresa VamuCome - Ir para a página inicial" onClick={paginaInicial} />
       {/* <NavbarNavlinkContainer>
         <NavbarNavlink to="/register">CRIAR CONTA</NavbarNavlink>
         <NavbarNavlink to="/login">ENTRAR</NavbarNavlink>
@@ -41,7 +44,7 @@ const Navbar = () => {
         </div>
         {openCard && (
           auth ? (
-            <div className="card"><NavLink to="/user">CONTA</NavLink> <button type="button" onClick={logout}>SAIR</button></div>
+            <div className="card"><NavLink to="/user">CONTA</NavLink> <button type="button" onClick={logout}>SAIR</button><ThemeSelector /></div>
           ) : (
             <div className="cardDeslogado">
               <span>Você não está logado, tente <NavLink to="/login" className="amarelo" onClick={() => setOpenCard(false)}>Entrar</NavLink></span>

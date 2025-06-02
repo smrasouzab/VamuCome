@@ -7,6 +7,7 @@ import Modal from "react-bootstrap/esm/Modal";
 import ButtonBs from "react-bootstrap/esm/Button";
 import { useNavigate, useSearchParams } from "react-router";
 import api from "../../api";
+import { useTheme } from "../../context/ThemeProvidder";
 
 export interface Produto {
   idProduto: number;
@@ -17,6 +18,8 @@ export interface Produto {
 
 const Produto = () => {
   const navigate = useNavigate();
+
+  const { theme } = useTheme();
 
   const [counter, setCounter] = useState<number>(1);
 
@@ -84,7 +87,7 @@ const Produto = () => {
   return (
     <Container>
       <Header>
-        <button className="btnVoltar" onClick={() => window.history.back()}>
+        <button className="btnVoltar" onClick={() => navigate(`/loja?l=${searchParams.get('l')}`)}>
           <FaArrowLeft />
           Voltar
         </button>
@@ -111,7 +114,7 @@ const Produto = () => {
         </AddCarrinho>
       </Header>
 
-      <Modal show={showModal} onHide={handleClose} centered>
+      <Modal show={showModal} onHide={handleClose} data-bs-theme={theme} centered>
         <Modal.Header style={{ border: "none" }}>
           <Modal.Title>Produto Adicionado!</Modal.Title>
         </Modal.Header>
@@ -119,7 +122,7 @@ const Produto = () => {
           O produto foi adicionado ao seu carrinho com sucesso!
         </Modal.Body>
         <Modal.Footer style={{ border: "none" }}>
-          <ButtonBs variant="dark" onClick={handleIrParaCarrinho}>
+          <ButtonBs variant={theme === 'light' ? 'dark' : 'light'} onClick={handleIrParaCarrinho}>
             Ir para o Carrinho
           </ButtonBs>
           <ButtonBs variant="warning" onClick={handleContinuarComprando}>

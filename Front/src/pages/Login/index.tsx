@@ -92,7 +92,6 @@ const Login = () => {
             <ButtonSubmit type="submit">
               Entrar
             </ButtonSubmit>
-            <span className="esqueceuSenha">Esqueceu sua senha?</span>
           </div>
           <span className="naoPossuiConta">Não possui uma conta? <NavLink to={searchParams.get('t') === 'fornecedor' ? '/register-fornecedor' : '/register-cliente'} className="amarelo">Crie uma conta!</NavLink></span>
         </Form>

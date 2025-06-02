@@ -15,9 +15,12 @@ import { useNavigate } from "react-router";
 import Input from "../../components/Input";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
+import { useTheme } from "../../context/ThemeProvidder";
 
 const User = () => {
   const { user } = useAuth();
+
+  const { theme } = useTheme();
 
   // const { toogleTheme } = useTheme();
 
@@ -96,7 +99,7 @@ const User = () => {
           </div>
         </Form>
 
-        <Modal show={showModalEndereco} onHide={handleClose} centered>
+        <Modal show={showModalEndereco} onHide={handleClose} centered data-bs-theme={theme}>
           <Modal.Header style={{border: "none"}}>
             <Modal.Title>Novo Endereço</Modal.Title>
           </Modal.Header>
@@ -123,7 +126,7 @@ const User = () => {
             </ContainerModal>
           </Modal.Body>
           <Modal.Footer style={{border: "none"}}>
-            <Button variant="dark" onClick={handleClose}>
+            <Button variant={theme === 'light' ? 'dark' : 'light'} onClick={handleClose}>
               Cancelar
             </Button>
             <Button variant="warning" onClick={handleClose}>

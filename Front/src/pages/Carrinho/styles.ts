@@ -21,7 +21,7 @@ export const Header = styled.div`
   .title {
     font-family: "Inter", sans-serif;
     font-size: 3rem;
-    color: var(--text-color);
+    color: var(--color);
     font-weight: 700;
   }
 `;
@@ -30,8 +30,8 @@ export const Itens = styled.div`
   width: 80%;
   display: flex;
   flex-direction: column;
-  background-color: rgb(245, 245, 245);
-  border: 1px solid rgb(200, 200, 200);
+  background-color: var(--bg-color);
+  border: 1px solid var(--border-color);
   border-radius: 16px;
   padding: 15px 20px;
 
@@ -41,8 +41,8 @@ export const Itens = styled.div`
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    background-color: rgb(255, 255, 255);
-    border: 1px solid rgb(200, 200, 200);
+    background-color: var(--bg-color);
+    border: 1px solid var(--border-color);
     border-radius: 8px;
     padding: 10px 20px;
     margin-bottom: 15px;
@@ -76,7 +76,7 @@ export const Itens = styled.div`
       span {
         font-family: "Inter", sans-serif;
         font-size: 1rem;
-        color: var(--text-color);
+        color: var(--color);
         font-weight: 500;
         margin-left: 10px;
       }
@@ -100,8 +100,12 @@ export const Itens = styled.div`
       span {
         font-family: "Inter", sans-serif;
         font-size: 1.2rem;
-        color: #000000;
+        color: var(--color);
         font-weight: 500;
+      }
+
+      svg {
+        color: var(--color);
       }
     }
   }

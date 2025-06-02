@@ -7,7 +7,7 @@ export const Container = styled.div`
   width: 100vw;
   flex-direction: column;
   align-items: center;
-  background-color: #FFFAEB;
+  background-color: var(--bg-color);
   padding-top: 15vh;
   z-index: 100;
   gap: 60px;
@@ -15,7 +15,7 @@ export const Container = styled.div`
   h1 {
     font-family: 'Inter', sans-serif;
     font-size: 3rem;
-    color: #000000;
+    color: var(--color );
     font-weight: 300;
   }
 
@@ -47,11 +47,12 @@ export const Card = styled.div`
     justify-content: center;
     width: 250px;
     height: 150px;
-    background-color: #ffffff;
+    background-color: var(--bg-color);
     border-radius: 32px 0 0 32px;
-    border: 3px solid #FFC13B;
+    border: 3px solid var(--bg-navbar);
 
     svg {
+      color: var(--color);
       transition: all 0.3s ease;
     }
   }
@@ -64,7 +65,7 @@ export const Card = styled.div`
     padding-left: 50px;
     width: 100%;
     height: 100%;
-    background-color: #FFC13B;
+    background-color: var(--bg-navbar);
 
     h1, p {
       transition: all 0.3s ease;
@@ -75,12 +76,13 @@ export const Card = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #FFC13B;
+    background-color: var(--bg-navbar);
     height: 100%;
     width: 100px;
     border-radius: 0 32px 32px 0; 
 
     svg {
+      color: var(--color);
       transition: all 0.3s ease;
     }
   }

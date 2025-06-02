@@ -200,7 +200,7 @@ export const Listagem = styled.div`
         .nome {
           font-family: 'Inter', sans-serif;
           font-size: 1.4rem;
-          color: #000000;
+          color: var(--color);
           font-weight: 400;
         }
         
