@@ -48,6 +48,16 @@ const Produto = () => {
 
   const handleAddToCart = () => {
     const existingItem = JSON.parse(localStorage.getItem(`carrinho${searchParams.get('l')}`) || '[]');
+
+    const itemExists = existingItem.some((item: Produto) => item.idProduto === produto.idProduto);
+
+    if (itemExists) {
+      toast.error("Produto já adicionado ao carrinho", {
+        transition: Slide,
+      });
+      return;
+    }
+
     existingItem.push({
       idProduto: produto.idProduto,
       nmProduto: produto.nmProduto,
@@ -69,7 +79,7 @@ const Produto = () => {
 
   const handleIrParaCarrinho = () => {
     handleClose();
-    navigate('/carrinho');
+    navigate(`/carrinho?l=${searchParams.get('l')}`);
   };
 
   useEffect(() => {

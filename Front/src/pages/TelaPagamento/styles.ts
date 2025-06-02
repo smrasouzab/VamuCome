@@ -128,6 +128,14 @@ export const DetalhesPedido = styled.div`
     gap: 10px;
     padding: 15px 20px;
 
+    .nenhumItem {
+      font-family: "Inter", sans-serif;
+      font-size: 1.5rem;
+      color: var(--color);
+      font-weight: 500;
+      text-align: center;
+    }
+
     .item {
       position: relative;
       display: flex;

@@ -35,6 +35,15 @@ export const Itens = styled.div`
   border-radius: 16px;
   padding: 15px 20px;
 
+  .nenhumItem {
+    font-family: "Inter", sans-serif;
+    font-size: 1.5rem;
+    color: var(--color);
+    font-weight: 500;
+    text-align: center;
+    margin-top: 20px;
+  }
+
   .item {
     position: relative;
     display: flex;

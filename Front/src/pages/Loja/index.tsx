@@ -3,6 +3,7 @@ import { Container } from "./styles";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import api from "../../api";
+// import Button from "react-bootstrap/esm/Button";
 
 // import { Swiper, SwiperSlide } from "swiper/react";
 // import { Pagination } from "swiper/modules";
@@ -44,6 +45,14 @@ const Loja = () => {
 
   return (
     <Container>
+      {/* <div
+        style={{
+          display: 'flex',
+          width: '80%',
+        }}
+      >
+        <Button variant="warning" onClick={() => navigate(`/carrinho?l=${searchParams.get('l')}`)}>Carrinho</Button>
+      </div> */}
       <Header>
         <div className="loja-info">
           <img className="avatar" src="listagem/image.png" alt="Logo Loja" />

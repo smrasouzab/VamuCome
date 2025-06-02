@@ -50,6 +50,8 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
         } as User);
         return true;
       } catch {
+        localStorage.removeItem('token');
+        api.defaults.headers.authorization = '';
         setUser({} as User);
         return false;
       }

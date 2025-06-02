@@ -49,6 +49,8 @@ const AuthAdminProvider = ({ children }: AuthProviderProps) => {
         } as User);
         return true;
       } catch {
+        localStorage.removeItem('token-admin');
+        api.defaults.headers.authorization = '';
         setUser({} as User);
         return false;
       }

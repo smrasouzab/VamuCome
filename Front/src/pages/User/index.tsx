@@ -68,17 +68,24 @@ const User = () => {
     null
   );
 
+  const [dadosCliente, setDadosCliente] = useState<Cliente | null>(null);
+
   const [showModalEndereco, setShowModalEndereco] = useState(false);
 
   const handleClose = () => setShowModalEndereco(false);
   // const handleShow = () => setShowModalEndereco(true);
 
   const {
-    register,
-    handleSubmit,
-    reset, // adicione o reset
-    // formState: { errors },
+    register: registerF,
+    handleSubmit: handleSubmitF,
+    reset: resetF,
   } = useForm<Fornecedor>();
+
+  const {
+    register: registerC,
+    handleSubmit: handleSubmitC,
+    reset: resetC,
+  } = useForm<Cliente>();
 
   const handleSubmitFornecedor = useCallback(
     async (data: Fornecedor) => {
@@ -100,6 +107,21 @@ const User = () => {
             transition: Slide,
           });
         });
+
+      // await api
+      //   .put(`/fornecedor/endereco/atualizar/${user.id}/`, {
+      //     ...data.endereco,
+      //   })
+      //   .then(() => {
+      //     toast.success("Endereço atualizado com sucesso!", {
+      //       transition: Slide,
+      //     });
+      //   })
+      //   .catch(() => {
+      //     toast.error("Erro ao atualizar endereço!", {
+      //       transition: Slide,
+      //     });
+      //   });
     },
     [user.id]
   );
@@ -108,7 +130,7 @@ const User = () => {
     if (user.role === "FORNECEDOR") {
       api.get<Fornecedor>(`/fornecedor/${user.id}`).then((response) => {
         setDadosFornecedor(response.data);
-        reset({
+        resetF({
           ...response.data,
           dtHorarioAbertura: response.data.dtHorarioAbertura
             ? new Date(response.data.dtHorarioAbertura).toTimeString().split(" ")[0]
@@ -122,8 +144,18 @@ const User = () => {
           },
         });
       });
+    } else if (user.role === "CLIENTE") {
+      api.get<Cliente>(`/cliente/${user.id}`).then((response) => {
+        setDadosCliente(response.data);
+        resetC({
+          ...response.data,
+          endereco: response.data.endereco.map((end) => ({
+            ...end,
+          })),
+        });
+      });
     }
-  }, [user, reset]);
+  }, [user, resetF, resetF]);
 
   return (
     <>
@@ -131,14 +163,14 @@ const User = () => {
         <Header>
           <h1>Bem-Vindo, {user.nome}.</h1>
         </Header>
-        <Form onSubmit={handleSubmit(handleSubmitFornecedor)}>
+        <Form onSubmit={handleSubmitF(handleSubmitFornecedor)}>
           <div className="coluna">
             <span className="title">Dados Pessoais</span>
             <Input
               type="text"
               label="Razão Social"
               placeholder="Sua Razão Social"
-              {...register("dsRazaoSocial")}
+              {...registerF("dsRazaoSocial")}
               style={{
                 width: "200px",
               }}
@@ -147,7 +179,7 @@ const User = () => {
               type="text"
               label="CNPJ"
               placeholder="CNPJ"
-              {...register("nuCNPJ")}
+              {...registerF("nuCNPJ")}
               style={{
                 width: "200px",
               }}
@@ -159,7 +191,7 @@ const User = () => {
               type="time"
               label="Horário de Abertura"
               placeholder="Horário de Abertura"
-              {...register("dtHorarioAbertura")}
+              {...registerF("dtHorarioAbertura")}
               defaultValue={
                 new Date(dadosFornecedor?.dtHorarioAbertura || "")
                   .toTimeString()
@@ -173,7 +205,7 @@ const User = () => {
               type="time"
               label="Horário de Fechamento"
               placeholder="Horário de Fechamento"
-              {...register("dtHorarioFechamento")}
+              {...registerF("dtHorarioFechamento")}
               defaultValue={
                 new Date(dadosFornecedor?.dtHorarioFechamento || "")
                   .toTimeString()
@@ -187,7 +219,7 @@ const User = () => {
               type="text"
               label="Valor Mínimo de Pedido"
               placeholder="Valor Mínimo de Pedido"
-              {...register("vlMinimoCompra")}
+              {...registerF("vlMinimoCompra")}
               defaultValue={String(dadosFornecedor?.vlMinimoCompra || "")}
               style={{
                 width: "200px",
@@ -200,7 +232,7 @@ const User = () => {
               type="text"
               label="Valor Mínimo de Pedido"
               placeholder="Valor Mínimo de Pedido"
-              {...register("endereco.dsLogradouro")}
+              {...registerF("endereco.dsLogradouro")}
               defaultValue={dadosFornecedor?.endereco.dsLogradouro || ""}
               style={{
                 width: "200px",
@@ -210,7 +242,7 @@ const User = () => {
               type="text"
               label="Valor Mínimo de Pedido"
               placeholder="Valor Mínimo de Pedido"
-              {...register("endereco.nmNumero")}
+              {...registerF("endereco.nmNumero")}
               defaultValue={dadosFornecedor?.endereco.nmNumero || ""}
               style={{
                 width: "200px",
@@ -220,7 +252,7 @@ const User = () => {
               type="text"
               label="Valor Mínimo de Pedido"
               placeholder="Valor Mínimo de Pedido"
-              {...register("endereco.dsComplemento")}
+              {...registerF("endereco.dsComplemento")}
               defaultValue={dadosFornecedor?.endereco.dsComplemento || ""}
               style={{
                 width: "200px",
