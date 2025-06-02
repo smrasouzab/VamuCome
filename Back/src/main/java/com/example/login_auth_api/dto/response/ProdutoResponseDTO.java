@@ -8,13 +8,15 @@ public record ProdutoResponseDTO (
     Integer idProduto,
     String nmProduto,
     BigDecimal vlProduto,
-    String dsProduto
+    String dsProduto,
+    String urlFotoProduto
 ) {
     public ProdutoResponseDTO(Produto produto) {
         this(
             produto.getIdProduto(), produto.getNmProduto(),
             produto.getVlProduto(),
-            produto.getDsProduto()
+            produto.getDsProduto(),
+            produto.getUrlFotoProduto()
         );
     }
 }

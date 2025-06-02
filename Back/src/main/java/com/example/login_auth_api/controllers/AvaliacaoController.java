@@ -23,14 +23,14 @@ public class AvaliacaoController {
     private final AvaliacaoService avaliacaoService;
 
     @PostMapping("/avaliar")
-    public ResponseEntity<?> avaliarPedido(@RequestBody @Valid AvaliacaoRequestDTO dto) {
+    public ResponseEntity<?> avaliarPedidoCliente(@RequestBody @Valid AvaliacaoRequestDTO dto) {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         Avaliacao avaliacao = avaliacaoService.cadastrarAvaliacao(dto, email);
         return ResponseEntity.status(HttpStatus.CREATED).body("Avaliação cadastrada com sucesso!");
     }
 
     @GetMapping("/listar")
-    public ResponseEntity<List<AvaliacaoResponseDTO>> listarAvaliacoes() {
+    public ResponseEntity<List<AvaliacaoResponseDTO>> listarAvaliacoesCliente() {
         List<AvaliacaoResponseDTO> avaliacoes = avaliacaoService.listarAvaliacoes();
 
         return avaliacoes.isEmpty()

@@ -20,19 +20,19 @@ public class RelatorioController {
     private final AvaliacaoService avaliacaoService;
 
     @GetMapping("/anual")
-    public ResponseEntity<List<FaturamentoAnualResponseDTO>> getFaturamento() {
+    public ResponseEntity<List<FaturamentoAnualResponseDTO>> listarRelatorioAnual() {
         List<FaturamentoAnualResponseDTO> dados = relatorioService.obterFaturamentoAnual();
         return ResponseEntity.ok(dados);
     }
 
     @GetMapping("/mensal")
-    public ResponseEntity<List<FaturamentoMensalResponseDTO>> getFaturamentoMensal() {
+    public ResponseEntity<List<FaturamentoMensalResponseDTO>> listarRelatorioMensal() {
         List<FaturamentoMensalResponseDTO> dados = relatorioService.obterFaturamentoMensal();
         return ResponseEntity.ok(dados);
     }
 
     @GetMapping("/avaliacoes")
-    public ResponseEntity<List<AvaliacaoResponseDTO>> listarAvaliacoes() {
+    public ResponseEntity<List<AvaliacaoResponseDTO>> listarRelatorioAvaliacao() {
         List<AvaliacaoResponseDTO> avaliacoes = avaliacaoService.listarAvaliacoes();
 
         return avaliacoes.isEmpty()
@@ -41,7 +41,7 @@ public class RelatorioController {
     }
 
     @GetMapping("/acesso-usuarios")
-    public ResponseEntity<List<HistoricoAcessoResponseDTO>> listarTudo() {
+    public ResponseEntity<List<HistoricoAcessoResponseDTO>> listarRelatorioAcessoUsuario() {
         List<HistoricoAcessoResponseDTO> lista = relatorioService.obterRelatorioAcessoUsuarios();
         return ResponseEntity.ok(lista);
     }

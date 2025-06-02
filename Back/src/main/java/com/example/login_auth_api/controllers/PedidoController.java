@@ -25,7 +25,7 @@ public class PedidoController {
     private final PedidoService pedidoService;
 
     @GetMapping("/listar")
-    public ResponseEntity<List<PedidoResponseDTO>> listarTodos() {
+    public ResponseEntity<List<PedidoResponseDTO>> listarPedidosPorCliente() {
         List<PedidoResponseDTO> pedidos = pedidoService.listarPedidos();
 
         return pedidos.isEmpty()

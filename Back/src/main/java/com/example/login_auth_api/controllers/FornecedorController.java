@@ -7,6 +7,7 @@ import com.example.login_auth_api.dto.request.AltSenhaFornecedorRequestDTO;
 import com.example.login_auth_api.dto.response.FornecedorResponseDTO;
 import com.example.login_auth_api.dto.response.PedidoResponseDTO;
 import com.example.login_auth_api.service.FornecedorService;
+import com.example.login_auth_api.service.PedidoService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +26,7 @@ public class FornecedorController {
 
     private final FornecedorService fornecedorService;
     private final PedidoController pedidoController;
+    private final PedidoService pedidoService;
 
     @GetMapping("/listar-todos")
     public ResponseEntity<List<FornecedorResponseDTO>> listarTodosFornecedores() {
@@ -113,7 +115,11 @@ public class FornecedorController {
     }
 
     @GetMapping("/pedido/listar")
-    public ResponseEntity<List<PedidoResponseDTO>> listarPedidosFornecedor() {
-        return pedidoController.listarTodos();
+    public ResponseEntity<List<PedidoResponseDTO>> listarPedidosPorFornecedor() {
+        List<PedidoResponseDTO> pedidos = pedidoService.listarPedidos();
+
+        return pedidos.isEmpty()
+                ? ResponseEntity.noContent().build()
+                : ResponseEntity.ok(pedidos);
     }
 }

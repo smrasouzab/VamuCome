@@ -16,7 +16,8 @@ public record FornecedorResponseDTO(
         LocalDateTime dtHorarioAbertura,
         LocalDateTime dtHorarioFechamento,
         BigDecimal vlMinimoCompra,
-        Endereco endereco
+        Endereco endereco,
+        String urlFotoFornecedor
 ) {
     public FornecedorResponseDTO(Fornecedor fornecedor) {
         this(
@@ -29,7 +30,8 @@ public record FornecedorResponseDTO(
                 fornecedor.getDtHorarioAbertura(),
                 fornecedor.getDtHorarioFechamento(),
                 fornecedor.getVlMinimoCompra(),
-                fornecedor.getEndereco()
+                fornecedor.getEndereco(),
+                fornecedor.getUrlFotoFornecedor()
         );
     }
 }
