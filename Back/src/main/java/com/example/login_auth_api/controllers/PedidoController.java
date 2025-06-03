@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Arrays;
 
 @RestController
-@RequestMapping("cliente/pedido")
+@RequestMapping("/cliente/pedido")
 @RequiredArgsConstructor
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class PedidoController {
