@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import Select from "../../components/Select";
-import { Button, Pedidos, Container, Header } from "./styles";
+import { Pedidos, Container, Header } from "./styles";
 import api from "../../api";
 import { useAuth } from "../../context/AuthProvider";
 import { Slide, toast } from "react-toastify";

@@ -1,6 +1,5 @@
 import { useState, createContext, useContext, useEffect, type ReactNode } from 'react';
 import api from '../api';
-import { set } from 'react-hook-form';
 
 interface StorageType {
   idPedido: number;
