@@ -7,7 +7,7 @@ export const Container = styled.div`
   justify-content: center;
   height: 100%;
   width: 100%;
-  background-color: #FFFAEB;
+  background-color: var(--bg-color);
 `;
 
 export const Form = styled.form`
@@ -15,16 +15,28 @@ export const Form = styled.form`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: rgb(250, 250, 250);
-  border: 1px solid rgb(200, 200, 200);
+  background-color: var(--bg-color);
+  border: 1px solid var(--border-color);
   border-radius: 32px;
   gap: 20px;
   padding: 40px 60px;
 
+  .linha {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+  }
+
+  .coluna {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
   h1 {
     font-family: 'Inter', sans-serif;
     font-size: 2.5rem;
-    color: #000000;
+    color: var(--color);
     font-weight: 700;
   }
 `;

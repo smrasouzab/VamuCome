@@ -8,9 +8,9 @@ interface AuthProviderProps extends React.PropsWithChildren {
 
 interface LoginResponse {
   id: string;
-  name: string;
-  token: string;
+  nome: string;
   role: string;
+  token: string;
 }
 
 interface User {
@@ -22,7 +22,7 @@ interface User {
 interface AuthContextType {
   isAuthenticated: Promise<boolean>;
   user: User;
-  login: (email: string, password: string) => Promise<boolean>;
+  login: (role: string, email: string, senha: string) => Promise<boolean>;
   logout: () => void;
 }
 
@@ -33,40 +33,55 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
   const [isAuthenticated, setIsAuthenticated] = useState<Promise<boolean>>(async () => {
     const token = localStorage.getItem('token');
 
-    const validateToken = async (token: string): Promise<boolean> => {
+    if (!token || token === undefined || token === null) {
+      setUser({} as User);
+      return false;
+    }
+
+    api.defaults.headers.authorization = `Bearer ${token}`;
+
+    const validateToken = async (): Promise<boolean> => {
       try {
-        const response = await api.post('/auth/validate-token', {
-          token,
-        });
+        const response = await api.get('/auth/validate-token');
         setUser({
           id: response.data.id,
-          nome: response.data.name,
+          nome: response.data.nome,
           role: response.data.role,
         } as User);
         return true;
       } catch {
+        localStorage.removeItem('token');
+        api.defaults.headers.authorization = '';
         setUser({} as User);
         return false;
       }
     };
 
-    return validateToken(token || '');
+    return validateToken();
   });
 
-  const login = useCallback(async (email: string, senha: string) => {
-    const response = await api.post<LoginResponse>('/auth/login', {
-      email: email,
-      // senha: senha,
-      password: senha,
-    })
+  const login = useCallback(async (role: string, email: string, senha: string) => {
+
+    const dataCliente = {
+      dsEmailCliente: email,
+      dsSenhaCliente: senha,
+    };
+
+    const dataFornecedor = {
+      dsEmailFornecedor: email,
+      dsSenhaFornecedor: senha,
+    };
+    
+    const response = await api.post<LoginResponse>(`/auth/${role}/login`, role === 'fornecedor' ? dataFornecedor : dataCliente);
 
     if (response.status === 200) {
       setIsAuthenticated(Promise.resolve(true));
       setUser({
-          id: response.data.id,
-          nome: response.data.name,
-          role: response.data.role,
-        });
+        id: response.data.id,
+        nome: response.data.nome,
+        role: response.data.role,
+      } as User);
+      api.defaults.headers.authorization = `Bearer ${response.data.token}`;
       localStorage.setItem('token', response.data.token);
 
       return true;
@@ -77,6 +92,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const logout = () => {
     localStorage.removeItem('token');
+    api.defaults.headers.authorization = '';
     setIsAuthenticated(Promise.resolve(false));
     setUser({} as User);
   };

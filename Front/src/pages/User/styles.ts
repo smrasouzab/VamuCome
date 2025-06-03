@@ -20,7 +20,7 @@ export const Header = styled.div`
     font-family: "Inter", sans-serif;
     font-size: 4rem;
     font-weight: 700;
-    color: var(--text-color);
+    color: var(--color);
   }
 `;
 
@@ -28,12 +28,13 @@ export const Form = styled.form`
   display: grid;
   flex-direction: row;
   grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(1, 1fr);
   grid-template-rows: min-content 1fr;
 
   gap: 40px;
 
-  background-color: rgb(250, 250, 250);
-  border: 1px solid rgb(200, 200, 200);
+  background-color: var(--bg-color);
+  border: 1px solid var(--border-color);
   border-radius: 32px;
   padding: 40px 60px;
 
@@ -45,14 +46,14 @@ export const Form = styled.form`
     span {
       font-family: "Inter", sans-serif;
       font-size: 1.2rem;
-      color: var(--text-color);
+      color: var(--color);
       font-weight: 500;
     }
 
     .title {
       font-family: "Inter", sans-serif;
       font-size: 2.5rem;
-      color: var(--text-color);
+      color: var(--color);
       font-weight: 700;
     }
   }
@@ -62,6 +63,12 @@ export const Form = styled.form`
     flex-direction: row;
     grid-column: span 2 / span 2;
     height: 45px;
+  }
+
+  @media screen and (max-width: 1400px) {
+    display: flex;
+    flex-direction: column;
+    grid-template-columns: repeat(1, 1fr);
   }
 `;
 
@@ -91,7 +98,7 @@ export const ContainerModal = styled.div`
     flex-direction: column;
     gap: 20px;
   }
-
+  
   .linha {
     display: flex;
     flex-direction: row;

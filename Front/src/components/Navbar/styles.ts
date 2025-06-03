@@ -15,6 +15,7 @@ export const NavbarContainer = styled.div`
   img {
     height: 45px;
     cursor: pointer;
+    fill: var(--color);
   }
 
   .user {
@@ -30,17 +31,24 @@ export const NavbarContainer = styled.div`
       border-radius: 50%;
       cursor: pointer;
 
+      svg {
+        fill: var(--color);
+      }
+
       &:hover {
         background-color: var(--color);
         transition: all 0.3s ease;
 
         svg {
-          color: var(--bg-color);
+         fill: var(--color-reverse);
         }
       }
     }
 
     .card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       position: absolute;
       top: 100%;
       right: 0;
@@ -51,6 +59,29 @@ export const NavbarContainer = styled.div`
       background-color: var(--bg-color);
       box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
       cursor: default;
+      color: var(--color);
+      gap: 10px;
+
+      a {
+        all: unset;
+        width: 100%;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "Inter", sans-serif;
+        font-size: 1.2rem;
+        color: var(--color);
+        font-weight: 500;
+        border-bottom: 1px solid var(--border-color);
+        transition: all 0.3s ease;
+        cursor: pointer;
+
+        &:hover {
+          background-color: rgba(0, 0, 0, 0.03);
+          color: var(--color-reverse);
+        }
+      }
     }
 
     .cardDeslogado {
@@ -68,6 +99,7 @@ export const NavbarContainer = styled.div`
       background-color: var(--bg-color);
       box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
       cursor: default;
+      color: var(--color);
 
       span {
         white-space: nowrap;

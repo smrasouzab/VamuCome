@@ -23,15 +23,11 @@ export const Header = styled.div`
     font-family: "Inter", sans-serif;
     font-size: 1.6rem;
     font-weight: 500;
-    color: #000000;
+    color: var(--color);
     transition: color 0.3s ease;
     display: flex;
     align-items: center;
     gap: 12px;
-
-    &:hover {
-      color: rgb(30, 30, 30);
-    }
   }
 
   .informacoesProduto {
@@ -55,14 +51,14 @@ export const Header = styled.div`
       .title {
         font-family: "Inter", sans-serif;
         font-size: 2.5rem;
-        color: #000000;
+        color: var(--color);
         font-weight: 700;
       }
 
       .preco {
         font-family: "Inter", sans-serif;
         font-size: 1.8rem;
-        color: #e53935;
+        color: var(--bg-navbar);
         font-weight: 700;
         margin-bottom: 16px;
       }
@@ -70,8 +66,41 @@ export const Header = styled.div`
       .descricao {
         font-family: "Inter", sans-serif;
         font-size: 1.2rem;
-        color: #555555;
+        color: var(--color);
         margin-bottom: 8px;
+      }
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    .informacoesProduto {
+      flex-direction: column;
+      align-items: center;
+
+      img {
+        width: 200px;
+        height: auto;
+      }
+
+      .informacoes {
+        max-width: 100%;
+        text-align: center;
+
+        .title {
+          font-size: 1.5rem;
+          font-weight: 700;
+        }
+
+        .preco {
+          font-size: 1rem;
+          font-weight: 700;
+          margin-bottom: 0px;
+        }
+
+        .descricao {
+          font-size: 0.8rem;
+          margin-bottom: 0px;
+        }
       }
     }
   }
@@ -89,12 +118,13 @@ export const AddCarrinho = styled.div`
   flex-direction: row;
   justify-content: space-between;
   padding: 20px 25px;
+  background-color: var(--bg-color);
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 
   .preco {
     font-family: "Inter", sans-serif;
     font-size: 1.8rem;
-    color:rgb(0, 0, 0);
+    color: var(--color);
     font-weight: 700;
   }
 
@@ -121,8 +151,33 @@ export const AddCarrinho = styled.div`
     span {
       font-family: "Inter", sans-serif;
       font-size: 1.6rem;
-      color: #000000;
+      color: var(--color);
       font-weight: 500;
+    }
+
+    svg {
+      color: var(--color);
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    width: 100%;
+    position: static;
+    bottom: 0px;
+    left: none;
+    transform: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 0px;
+
+    .quantidade {
+      position: static;
+      transform: none;
+      margin-bottom: 10px;
+    }
+
+    .preco {
+      font-size: 1.2rem;
     }
   }
 `;
@@ -144,5 +199,10 @@ export const Button = styled.button`
 
   &:hover {
     background-color: rgb(238, 180, 55);
+  }
+
+  @media screen and (max-width: 480px) {
+    width: 100%;
+    font-size: 0.8rem;
   }
 `;

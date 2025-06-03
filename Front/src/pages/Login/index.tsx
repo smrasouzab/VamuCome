@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { ButtonSubmit, Container, Form } from "./styles";
 import { useAuth } from "../../context/AuthProvider";
-import { useNavigate, NavLink } from "react-router";
+import { useNavigate, NavLink, useSearchParams } from "react-router";
 import { toast, Slide } from "react-toastify";
 // import { useSearchParams } from "react-router-dom";
 import Pergunta from "./pergunta";
@@ -20,7 +20,7 @@ const Login = () => {
 
   const navigate = useNavigate();
 
-  // const [searchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
   const {
     register,
@@ -31,8 +31,10 @@ const Login = () => {
   const [displayPergunta, setDisplayPergunta] = useState(true);
 
   const handleLogin = async (data: FormData) => {
+    const role = searchParams.get('t') || 'cliente';
+
     try {
-      await login(data.email, data.senha);
+      await login(role, data.email, data.senha);
       toast.success("Logado com sucesso!", {
         transition: Slide,
       });
@@ -74,8 +76,8 @@ const Login = () => {
             {...register("senha", {
               required: "Senha é obrigatória",
               minLength: {
-                value: 8,
-                message: "Senha deve ter pelo menos 8 caracteres",
+                value: 6,
+                message: "Senha deve ter pelo menos 6 caracteres",
               },
             })}
           />
@@ -90,9 +92,8 @@ const Login = () => {
             <ButtonSubmit type="submit">
               Entrar
             </ButtonSubmit>
-            <span className="esqueceuSenha">Esqueceu sua senha?</span>
           </div>
-          <span className="naoPossuiConta">Não possui uma conta? <NavLink to="/register" className="amarelo">Crie uma conta!</NavLink></span>
+          <span className="naoPossuiConta">Não possui uma conta? <NavLink to={searchParams.get('t') === 'fornecedor' ? '/register-fornecedor' : '/register-cliente'} className="amarelo">Crie uma conta!</NavLink></span>
         </Form>
       </Container>
     </>

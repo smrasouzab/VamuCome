@@ -48,15 +48,11 @@ const ThemeSelector = () => {
   }
 
   useEffect(() => {
-    if (localStorage.getItem('themeSyncWithSystem') === 'true') {
+    if (localStorage.getItem('themeSyncWithSystem') === null || localStorage.getItem('themeSyncWithSystem') === undefined || localStorage.getItem('themeSyncWithSystem') === 'true') {
       handleThemeChange("system");
     } else {
       handleThemeChange(theme);
     }
-
-    // if (highlightRef.current) {
-    //   highlightRef.current.className = "highlight";
-    // }
   }, []); 
 
 

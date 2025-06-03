@@ -1,14 +1,57 @@
 // import Navbar from "../../components/Navbar";
+import { useEffect, useState } from "react";
+import Avaliacao from "../../components/Avaliacao";
 import SearchBar from "../../components/SearchBar";
-import { Container, Categorias, Title, ListaCategorias } from "./styles";
+import { Container, Title, Listagem } from "./styles";
 import { useNavigate } from "react-router";
+import api from "../../api";
+import { useAuth } from "../../context/AuthProvider";
+import { Slide, toast } from "react-toastify";
+
+export interface Fornecedor {
+  idFornecedor: number;
+  dsRazaoSocial: string;
+  vlMinimoCompra: number;
+}
 
 const Home = () => {
+  const { user } = useAuth();
+  
   const navigate = useNavigate();
 
-  const paginaListagem = () => {
-    navigate("/home-listagem");
+  const [showAvaliacao, setshowAvaliacao] = useState(false);
+
+  const [search, setSearch] = useState("");
+
+  const handleCardClick = (id: number) => {
+    if (user.role !== "CLIENTE") {
+      toast.error("Você precisa estar logado para acessar a loja.", {
+        transition: Slide,
+      });
+      return;
+    }
+    navigate(`/loja?l=${id}`);
   };
+
+  // const handleOpen = () => setshowAvaliacao(true);
+  const handleClose = () => setshowAvaliacao(false);
+
+  const [listaFornecedores, setListaFornecedores] = useState([]);
+
+  useEffect(() => {
+    api
+      .get("/fornecedor/listar-todos")
+      .then((response) => {
+        if (search  === "" || search === undefined || search === null) {
+          setListaFornecedores(response.data);
+        } else {
+          const filteredFornecedores = response.data.filter((fornecedor: Fornecedor) =>
+            fornecedor.dsRazaoSocial.toLowerCase().includes(search.toLowerCase())
+          );
+          setListaFornecedores(filteredFornecedores);
+        }
+      })
+  }, [search]);
 
   return (
     <>
@@ -17,56 +60,34 @@ const Home = () => {
           <h1 className="title1">Seu delivery favorito chegou.</h1>
           <h1 className="title2">Vamu.comê?</h1>
         </Title>
-        <SearchBar 
+        <SearchBar
+          search={search}
+          setSearch={setSearch}
           placeholder="Busque aqui seus produtos"
           style={{
             width: "80%",
             height: "45px",
           }}
         />
-        <Categorias>
-          <img onClick={paginaListagem} src="categorias/1.png" alt="" />
-          <img onClick={paginaListagem} src="categorias/2.png" alt="" />
-          <img onClick={paginaListagem} src="categorias/3.png" alt="" />
-          <img onClick={paginaListagem} src="categorias/2.png" alt="" />
-        </Categorias>
-        <ListaCategorias>
-          <div className="header">
-            <span>Os melhores restaurantes para você</span>
-            <button className="btnMin">Ver Todos</button>
+        <Listagem>
+          <div className="lista">
+            {listaFornecedores.map((fornecedor: Fornecedor) => (
+              <div className="cardy" key={fornecedor.idFornecedor} onClick={() => handleCardClick(fornecedor.idFornecedor)}>
+                <span className="labelFechado">Fechado</span>
+                <img className="fotoFornecedor" src="listagem/image.png" alt="Imagem do Fornecedor" />
+                <div className="informacoes">
+                  <span className="nome">{fornecedor.dsRazaoSocial}</span>
+                  <div className="tempoDistancia">
+                    <span className="tempo">Pedido Mínimo:</span>
+                    <span className="distancia">R$ {fornecedor.vlMinimoCompra}</span>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
-          <div className="categorias">
-            <div className="card">
-              <img src="listaCategorias/1.png" alt="" />
-              <div className="text">
-                <span className="nome">Culinária Asiática</span>
-                <span className="restaurantes">+ 32 Restaurantes</span>
-              </div>
-            </div>
-            <div className="card">
-              <img src="listaCategorias/2.png" alt="" />
-              <div className="text">
-                <span className="nome">Saudáveis</span>
-                <span className="restaurantes">+ 32 Restaurantes</span>
-              </div>
-            </div>
-            <div className="card">
-              <img src="listaCategorias/3.png" alt="" />
-              <div className="text">
-                <span className="nome">Lanches Rápidos</span>
-                <span className="restaurantes">+ 32 Restaurantes</span>
-              </div>
-            </div>
-            <div className="card">
-              <img src="listaCategorias/4.png" alt="" />
-              <div className="text">
-                <span className="nome">Outro Tipo</span>
-                <span className="restaurantes">+ 32 Restaurantes</span>
-              </div>
-            </div>
-          </div>
-        </ListaCategorias>
+        </Listagem>
       </Container>
+      <Avaliacao showAvaliacao={showAvaliacao} handleClose={handleClose} />
     </>
   )
 }

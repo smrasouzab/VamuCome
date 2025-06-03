@@ -32,26 +32,26 @@ const Pergunta = ({ setDisplayPergunta }: PerguntaProps) => {
         onClick={() => tipoLogin('cliente')}
       >
         <div className="icon">
-          <MdPerson size={60} color="#000000" />
+          <MdPerson size={60} />
         </div>
         <div className="content">
           <h1>Sou Cliente</h1>
         </div>
         <div className="arrow">
-          <IoIosArrowForward size={30} color="#000000" />
+          <IoIosArrowForward size={30} />
         </div>
       </Card>
       <Card
         onClick={() => tipoLogin('fornecedor')}
       >
         <div className="icon">
-          <FaBuildingUser size={60} color="#000000" />
+          <FaBuildingUser size={60} />
         </div>
         <div className="content">
           <h1>Sou Fornecedor</h1>
         </div>
         <div className="arrow">
-          <IoIosArrowForward size={30} color="#000000" />
+          <IoIosArrowForward size={30} />
         </div>
       </Card>
     </Container>
