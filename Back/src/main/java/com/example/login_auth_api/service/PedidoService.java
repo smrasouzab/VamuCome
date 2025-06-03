@@ -7,12 +7,15 @@ import com.example.login_auth_api.domain.pedido.Pedido;
 import com.example.login_auth_api.domain.status.StatusPedido;
 import com.example.login_auth_api.dto.request.pedido.PedidoRequestDTO;
 import com.example.login_auth_api.dto.request.pedido.PedidoUpdateDTO;
+import com.example.login_auth_api.dto.request.pedido.StatusPedidoUpdateDTO;
 import com.example.login_auth_api.dto.response.PedidoResponseDTO;
 import com.example.login_auth_api.repositories.ClienteRepository;
 import com.example.login_auth_api.repositories.FornecedorRepository;
 import com.example.login_auth_api.repositories.ItemPedidoRepository;
 import com.example.login_auth_api.repositories.PedidoRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -110,5 +113,14 @@ public class PedidoService {
         pedido.setTipoPagamento(dto.tipoPagamento());
 
         return new PedidoResponseDTO(pedidoRepository.save(pedido));
+    }
+
+    @Transactional
+    public Pedido atualizarStatusPedido(Integer idPedido, StatusPedidoUpdateDTO dto) {
+        Pedido pedido = pedidoRepository.findById(idPedido)
+                .orElseThrow(() -> new RuntimeException("Pedido não encontrado"));
+
+        pedido.setStatusPedido(dto.statusPedido());
+        return pedidoRepository.save(pedido);
     }
 }

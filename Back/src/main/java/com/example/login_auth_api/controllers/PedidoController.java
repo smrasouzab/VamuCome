@@ -1,9 +1,11 @@
 package com.example.login_auth_api.controllers;
 
 import com.example.login_auth_api.domain.pagamento.TipoPagamento;
+import com.example.login_auth_api.domain.pedido.Pedido;
 import com.example.login_auth_api.domain.status.StatusPedido;
 import com.example.login_auth_api.dto.request.pedido.PedidoRequestDTO;
 import com.example.login_auth_api.dto.request.pedido.PedidoUpdateDTO;
+import com.example.login_auth_api.dto.request.pedido.StatusPedidoUpdateDTO;
 import com.example.login_auth_api.dto.response.PedidoResponseDTO;
 import com.example.login_auth_api.service.PedidoService;
 import jakarta.validation.Valid;
@@ -74,5 +76,18 @@ public class PedidoController {
         } catch (RuntimeException ex) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
         }
+    }
+
+    @PutMapping("/atualizar/status-pedido/{idPedido}")
+    public ResponseEntity<Object> atualizarStatusPedido(
+            @PathVariable Integer idPedido,
+            @RequestBody @Valid StatusPedidoUpdateDTO dto
+    ) {
+           Pedido pedido = pedidoService.atualizarStatusPedido(idPedido, dto);
+           if (pedido != null) {
+               return ResponseEntity.ok(pedido);
+           }
+           return ResponseEntity.ok("Não foi possível atualizar o status do pedido");
+
     }
 }
