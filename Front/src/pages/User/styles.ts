@@ -27,7 +27,7 @@ export const Header = styled.div`
 export const Form = styled.form`
   display: grid;
   flex-direction: row;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(1, 1fr);
   grid-template-rows: min-content 1fr;
 
@@ -63,6 +63,12 @@ export const Form = styled.form`
     flex-direction: row;
     grid-column: span 2 / span 2;
     height: 45px;
+  }
+
+  @media screen and (max-width: 1400px) {
+    display: flex;
+    flex-direction: column;
+    grid-template-columns: repeat(1, 1fr);
   }
 `;
 

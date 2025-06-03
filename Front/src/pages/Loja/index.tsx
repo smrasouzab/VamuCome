@@ -76,7 +76,7 @@ const Loja = () => {
                 <span className="desc">{produto.dsProduto}</span>
                 <span className="preco">R$ {produto.vlProduto.toFixed(2)}</span>
               </div>
-              <img src="listagem/image.png" alt={produto.nmProduto} />
+              <img src="listagem/image.png" alt={"Imagem do Produto " + produto.nmProduto} />
             </PromocaoCard>
           ))}
         </div>

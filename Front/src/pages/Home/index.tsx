@@ -5,6 +5,8 @@ import SearchBar from "../../components/SearchBar";
 import { Container, Title, Listagem } from "./styles";
 import { useNavigate } from "react-router";
 import api from "../../api";
+import { useAuth } from "../../context/AuthProvider";
+import { Slide, toast } from "react-toastify";
 
 export interface Fornecedor {
   idFornecedor: number;
@@ -13,6 +15,8 @@ export interface Fornecedor {
 }
 
 const Home = () => {
+  const { user } = useAuth();
+  
   const navigate = useNavigate();
 
   const [showAvaliacao, setshowAvaliacao] = useState(false);
@@ -20,6 +24,12 @@ const Home = () => {
   const [search, setSearch] = useState("");
 
   const handleCardClick = (id: number) => {
+    if (user.role !== "CLIENTE") {
+      toast.error("Você precisa estar logado para acessar a loja.", {
+        transition: Slide,
+      });
+      return;
+    }
     navigate(`/loja?l=${id}`);
   };
 
@@ -64,7 +74,7 @@ const Home = () => {
             {listaFornecedores.map((fornecedor: Fornecedor) => (
               <div className="cardy" key={fornecedor.idFornecedor} onClick={() => handleCardClick(fornecedor.idFornecedor)}>
                 <span className="labelFechado">Fechado</span>
-                <img className="fotoFornecedor" src="listagem/image.png" alt="" />
+                <img className="fotoFornecedor" src="listagem/image.png" alt="Imagem do Fornecedor" />
                 <div className="informacoes">
                   <span className="nome">{fornecedor.dsRazaoSocial}</span>
                   <div className="tempoDistancia">

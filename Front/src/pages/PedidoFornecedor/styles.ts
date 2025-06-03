@@ -21,7 +21,7 @@ export const Header = styled.div`
   .title {
     font-family: "Inter", sans-serif;
     font-size: 3rem;
-    color: var(--text-color);
+    color: var(--color);
     font-weight: 700;
   }
 `;

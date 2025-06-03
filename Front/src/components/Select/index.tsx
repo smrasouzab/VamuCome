@@ -30,7 +30,7 @@ const Select: React.FC<SelectProps> = ({ label, value, styleLabel, placeholder, 
       {label && <span className='label' style={styleLabel}>{label}</span>}
       <div className={clsx('borderInput', errors && 'error')}>
         <select value={value} onFocus={addFocus} onBlur={removeFocus} onChange={onChange} {...rest}>
-          {notNull && <option value=''>{placeholder ? placeholder : 'Selecionar'}</option>}
+          {!notNull && <option value=''>{placeholder ? placeholder : 'Selecionar'}</option>}
           {labels.map((label, index) => (
             <option key={index} value={values[index]}>
               {label}

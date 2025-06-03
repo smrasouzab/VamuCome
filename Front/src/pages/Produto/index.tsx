@@ -102,7 +102,7 @@ const Produto = () => {
           Voltar
         </button>
         <div className="informacoesProduto">
-          <img src="listagem/image.png" alt="Produto" />
+          <img src="listagem/image.png" alt={"Imagem Produto" + produto.nmProduto} />
           <div className="informacoes">
             <span className="title">{produto.nmProduto}</span>
             <span className="preco">R$ {produto.vlProduto}</span>

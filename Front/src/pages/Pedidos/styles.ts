@@ -9,6 +9,13 @@ export const Container = styled.div`
   background-color: var(--bg-color);
   gap: 30px;
   padding: 35px;
+
+  h1 {
+    font-family: "Inter", sans-serif;
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--color);
+  }
 `;
 
 export const PedidoAtual = styled.div`

@@ -28,38 +28,164 @@ const RouterProvider = () => {
         {children}
       </>
     );
-  }
+  };
 
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<NavbarRoute><Home /></NavbarRoute>} />
-        <Route path="/home" element={<NavbarRoute><Home /></NavbarRoute>} />
-        <Route path="/register-cliente" element={<NavbarRoute><RegisterCliente /></NavbarRoute>} />
-        <Route path="/register-fornecedor" element={<NavbarRoute><RegisterFornecedor /></NavbarRoute>} />
-        <Route path="/login" element={<NavbarRoute><Login /></NavbarRoute>} />
+        <Route
+          path="/"
+          element={
+            <NavbarRoute>
+              <Home />
+            </NavbarRoute>
+          }
+        />
+        <Route
+          path="/home"
+          element={
+            <NavbarRoute>
+              <Home />
+            </NavbarRoute>
+          }
+        />
+        <Route
+          path="/register-cliente"
+          element={
+            <NavbarRoute>
+              <RegisterCliente />
+            </NavbarRoute>
+          }
+        />
+        <Route
+          path="/register-fornecedor"
+          element={
+            <NavbarRoute>
+              <RegisterFornecedor />
+            </NavbarRoute>
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <NavbarRoute>
+              <Login />
+            </NavbarRoute>
+          }
+        />
         <Route
           path="/user"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute roleType={["CLIENTE", "FORNECEDOR"]}>
               <NavbarRoute>
                 <User />
               </NavbarRoute>
             </ProtectedRoute>
           }
         />
-        <Route path="/loja" element={<NavbarRoute><Loja /></NavbarRoute>} />
-        <Route path="/produto" element={<NavbarRoute><Produto /></NavbarRoute>} />
-        <Route path="/tela-pagamento" element={<NavbarRoute><TelaPagamento /></NavbarRoute>} />
-        <Route path="/pedidos" element={<NavbarRoute><Pedidos /></NavbarRoute>} />
-        <Route path="/produtos" element={<NavbarRoute><ProdFornecedor /></NavbarRoute>} />
-        <Route path="/pedidos-fornecedor" element={<NavbarRoute><PedidoFornecedor /></NavbarRoute>} />
-        <Route path="/carrinho" element={<NavbarRoute><Carrinho /></NavbarRoute>} />
+        <Route
+          path="/loja"
+          element={
+            <ProtectedRoute roleType={["CLIENTE"]}>
+              <NavbarRoute>
+                <Loja />
+              </NavbarRoute>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/produto"
+          element={
+            <ProtectedRoute roleType={["CLIENTE"]}>
+              <NavbarRoute>
+                <Produto />
+              </NavbarRoute>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/tela-pagamento"
+          element={
+            <ProtectedRoute roleType={["CLIENTE"]}>
+              <NavbarRoute>
+                <TelaPagamento />
+              </NavbarRoute>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/pedidos"
+          element={
+            <ProtectedRoute roleType={["CLIENTE"]}>
+              <NavbarRoute>
+                <Pedidos />
+              </NavbarRoute>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/produtos"
+          element={
+            <ProtectedRoute roleType={["FORNECEDOR"]}>
+              <NavbarRoute>
+                <ProdFornecedor />
+              </NavbarRoute>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/pedidos-fornecedor"
+          element={
+            <ProtectedRoute roleType={["FORNECEDOR"]}>
+              <NavbarRoute>
+                <PedidoFornecedor />
+              </NavbarRoute>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/carrinho"
+          element={
+            <ProtectedRoute roleType={["CLIENTE"]}>
+              <NavbarRoute>
+                <Carrinho />
+              </NavbarRoute>
+            </ProtectedRoute>
+          }
+        />
         <Route path="/admin-login" element={<LoginAdmin />} />
-        <Route path="/admin" element={<ProtectedRouteAdmin><Escolha /></ProtectedRouteAdmin>} />
-        <Route path="/admin-relatorios" element={<ProtectedRouteAdmin><Relatorios /></ProtectedRouteAdmin>} />
-        <Route path="/admin-produto" element={<ProtectedRouteAdmin><CadastroProduto /></ProtectedRouteAdmin>} />
-        <Route path="*" element={<NavbarRoute><NotFound /></NavbarRoute>} />
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRouteAdmin>
+              <Escolha />
+            </ProtectedRouteAdmin>
+          }
+        />
+        <Route
+          path="/admin-relatorios"
+          element={
+            <ProtectedRouteAdmin>
+              <Relatorios />
+            </ProtectedRouteAdmin>
+          }
+        />
+        <Route
+          path="/admin-produto"
+          element={
+            <ProtectedRouteAdmin>
+              <CadastroProduto />
+            </ProtectedRouteAdmin>
+          }
+        />
+        <Route
+          path="*"
+          element={
+            <NavbarRoute>
+              <NotFound />
+            </NavbarRoute>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );

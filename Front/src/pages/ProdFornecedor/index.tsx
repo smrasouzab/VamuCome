@@ -116,7 +116,7 @@ const ProdFornecedor = () => {
         {produtos.map((produto) => (
           <div className="item" key={produto.idProduto}>
             <div className="fotoNome">
-              <img src="listagem/image.png" alt="Produto" />
+              <img src="listagem/image.png" alt={"Imagem Produto " + produto.nmProduto} />
               <div className="nomeValor">
                 <span className="nome">{produto.nmProduto}</span>
                 <span className="preco">R$ {produto.vlProduto.toFixed(2)}</span>

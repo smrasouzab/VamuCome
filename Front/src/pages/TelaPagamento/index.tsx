@@ -119,22 +119,27 @@ const TelaPagamento = () => {
     }
 
     api
-      .post('/pedido', {
+      .post('cliente/pedido/cadastrar', {
         idFornecedor: searchParams.get('l'),
-        tipoPagamento: metodo === 'pix' ? 'PIX' : metodo === 'cartaoCredito' ? 'CARTAO_CREDITO' : metodo === 'cartaoDebito' ? 'CARTAO_DEBITO' : 'DINHEIRO',
+        tipoPagamento: metodo === 'pix' ? 'Pix' : metodo === 'cartaoCredito' ? 'Cartão de Crédito' : metodo === 'cartaoDebito' ? 'Cartão de Débito' : 'Dinheiro',
         itens: carrinho.map((item: ItemCarrinho) => ({
           idProduto: item.idProduto,
           qtItem: item.qtItem,
-          vlItem: item.vlItem,
-          vlTotalItemPedido: item.vlTotalItemPedido,
+          // vlItem: item.vlItem,
+          // vlTotalItemPedido: item.vlTotalItemPedido,
         })),
       })
-      .then(() => {
+      .then((response) => {
         toast.success("Pedido realizado com sucesso!", {
           transition: Slide,
         });
         localStorage.removeItem(`carrinho${searchParams.get('l')}`);
-        navigate(`/loja?l=${searchParams.get('l')}`);
+        localStorage.setItem('id-pedido', JSON.stringify(response.data.idPedido));
+        localStorage.setItem('pedido-atual', JSON.stringify({
+          idPedido: response.data.idPedido,
+          timer: 80,
+        }));
+        navigate(`/pedidos`);
       })
       .catch(() => {
         toast.error("Erro ao realizar o pedido!", {
@@ -308,7 +313,7 @@ const TelaPagamento = () => {
                     <FaX size={10} />
                   </button>
                   <div className="fotoNome">
-                    <img src="listagem/image.png" alt="Produto" />
+                    <img src="listagem/image.png" alt={"Imagem Produto" + item.nmProduto} />
                     <span>{item.nmProduto}</span>
                   </div>
                   <div className="quantidade">
