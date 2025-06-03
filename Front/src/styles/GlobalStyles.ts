@@ -11,6 +11,10 @@ const GlobalStyle = createGlobalStyle<{ $themeColor: string; }>`
     --bg-color-reverse: ${props => props.$themeColor !== "light" ? lightBgColor : darkTBgColor};
     --bg-navbar: ${props => props.$themeColor === "light" ? lightBgNavbarColor : darkBgNavbarColor};
     --color: ${props => props.$themeColor === "light" ? "#000" : "#fff"};
+    --color-reverse: ${props => props.$themeColor === "light" ? "#fff" : "#000"};
+    --border-color: ${props => props.$themeColor === "light" ? "#696969" : "#c8c8c8"};
+    --bg-color-opacity: ${props => props.$themeColor === "light" ? "rgba(255, 255, 255, 0.8)" : "rgba(43, 43, 39, 0.8)"};
+    --bg-color-opacity-reverse: ${props => props.$themeColor === "light" ? "rgba(43, 43, 39, 0.8)" : "rgba(255, 255, 255, 0.8)"};
   }
 
   * {
@@ -25,6 +29,7 @@ const GlobalStyle = createGlobalStyle<{ $themeColor: string; }>`
     flex-direction: column;
     width: 100%;
     height: 100%;
+    background-color: var(--bg-color);
   }
 `;
  
