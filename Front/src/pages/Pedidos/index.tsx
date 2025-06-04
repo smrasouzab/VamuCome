@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Container, PedidoAtual, PedidosAnterior } from "./styles";
 import api from "../../api";
+import { useAuth } from "../../context/AuthProvider";
 
 interface Pedido {
   idPedido: number;
@@ -98,11 +99,19 @@ interface EnderecoCliente {
 }
 
 const Pedidos = () => {
+  const { user } = useAuth();
+
   const [dadosPedidos, setdadosPedidos] = useState([] as Pedido[]);
 
   useEffect(() => {
     api.get<Pedido[]>("/cliente/pedido/listar").then((response) => {
-      setdadosPedidos(response.data);
+      const formatedItems = [] as Pedido[];
+      response.data.forEach((e: Pedido) => {
+        if (String(e.itens[0].pedido.cliente.idCliente) === String(user.id)) {
+          formatedItems.push(e);
+        }
+      })
+      setdadosPedidos(formatedItems);
     });
   }, []);
 
