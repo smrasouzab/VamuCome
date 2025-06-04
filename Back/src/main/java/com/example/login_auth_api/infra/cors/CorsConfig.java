@@ -13,8 +13,7 @@ public class CorsConfig {
     @Bean
     public CorsFilter corsFilter() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("https://vamocome.onrender.com")); // frontend correto
-        config.setAllowedOrigins(List.of("http://localhost:5173/"));
+        config.setAllowedOrigins(List.of("https://vamocome.onrender.com", "http://localhost:5173/")); // frontend correto
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true); // para usar com Authorization headers ou cookies
