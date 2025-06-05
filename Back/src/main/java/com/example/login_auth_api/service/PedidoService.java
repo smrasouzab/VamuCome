@@ -14,8 +14,6 @@ import com.example.login_auth_api.repositories.FornecedorRepository;
 import com.example.login_auth_api.repositories.ItemPedidoRepository;
 import com.example.login_auth_api.repositories.PedidoRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -81,6 +79,20 @@ public class PedidoService {
         return pedidoRepository.findAll().stream()
                 .map(PedidoResponseDTO::new)
                 .toList();
+    }
+
+    public List<PedidoResponseDTO> listarPedidosPorCliente(Integer idCliente) {
+        List<Pedido> pedidos = pedidoRepository.findByClienteIdCliente(idCliente);
+        return pedidos.stream()
+                .map(PedidoResponseDTO::new)
+                .collect(Collectors.toList());
+    }
+
+    public List<PedidoResponseDTO> listarPedidosPorFornecedor(Integer idFornecedor) {
+        List<Pedido> pedidos = pedidoRepository.findByFornecedorIdFornecedor(idFornecedor);
+        return pedidos.stream()
+                .map(PedidoResponseDTO::new)
+                .collect(Collectors.toList());
     }
 
     @Transactional

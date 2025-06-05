@@ -1,5 +1,6 @@
 package com.example.login_auth_api.controllers;
 
+import com.example.login_auth_api.domain.cliente.Cliente;
 import com.example.login_auth_api.domain.pagamento.TipoPagamento;
 import com.example.login_auth_api.domain.pedido.Pedido;
 import com.example.login_auth_api.domain.status.StatusPedido;
@@ -7,17 +8,21 @@ import com.example.login_auth_api.dto.request.pedido.PedidoRequestDTO;
 import com.example.login_auth_api.dto.request.pedido.PedidoUpdateDTO;
 import com.example.login_auth_api.dto.request.pedido.StatusPedidoUpdateDTO;
 import com.example.login_auth_api.dto.response.PedidoResponseDTO;
+import com.example.login_auth_api.repositories.ClienteRepository;
 import com.example.login_auth_api.service.PedidoService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 import java.util.Arrays;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/cliente/pedido")
@@ -25,14 +30,19 @@ import java.util.Arrays;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class PedidoController {
     private final PedidoService pedidoService;
+    private final ClienteRepository clienteRepository;
 
     @GetMapping("/listar")
-    public ResponseEntity<List<PedidoResponseDTO>> listarPedidosPorCliente() {
-        List<PedidoResponseDTO> pedidos = pedidoService.listarPedidos();
+    public ResponseEntity<List<PedidoResponseDTO>> listarPedidosPorCliente(Authentication auth) {
+        Optional<Cliente> cliente = clienteRepository.findByDsEmailCliente(auth.getName());
 
-        return pedidos.isEmpty()
-                ? ResponseEntity.noContent().build()
-                : ResponseEntity.ok(pedidos);
+        if (cliente.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        Integer idCliente = cliente.get().getIdCliente();
+        List<PedidoResponseDTO> pedidos = pedidoService.listarPedidosPorCliente(idCliente);
+        return ResponseEntity.ok(pedidos);
     }
 
     @PostMapping("/cadastrar")

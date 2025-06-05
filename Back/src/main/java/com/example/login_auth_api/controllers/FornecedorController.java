@@ -1,11 +1,14 @@
 package com.example.login_auth_api.controllers;
 
+import com.example.login_auth_api.domain.cliente.Cliente;
 import com.example.login_auth_api.domain.endereco.Endereco;
+import com.example.login_auth_api.domain.fornecedor.Fornecedor;
 import com.example.login_auth_api.dto.request.EnderecoRequestDTO;
 import com.example.login_auth_api.dto.request.FornecedorUpdateRequestDTO;
 import com.example.login_auth_api.dto.request.AltSenhaFornecedorRequestDTO;
 import com.example.login_auth_api.dto.response.FornecedorResponseDTO;
 import com.example.login_auth_api.dto.response.PedidoResponseDTO;
+import com.example.login_auth_api.repositories.FornecedorRepository;
 import com.example.login_auth_api.service.FornecedorService;
 import com.example.login_auth_api.service.PedidoService;
 import jakarta.persistence.EntityNotFoundException;
@@ -13,10 +16,12 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @RestController
@@ -27,6 +32,7 @@ public class FornecedorController {
     private final FornecedorService fornecedorService;
     private final PedidoController pedidoController;
     private final PedidoService pedidoService;
+    private final FornecedorRepository fornecedorRepository;
 
     @GetMapping("/listar-todos")
     public ResponseEntity<List<FornecedorResponseDTO>> listarTodosFornecedores() {
@@ -115,11 +121,15 @@ public class FornecedorController {
     }
 
     @GetMapping("/pedido/listar")
-    public ResponseEntity<List<PedidoResponseDTO>> listarPedidosPorFornecedor() {
-        List<PedidoResponseDTO> pedidos = pedidoService.listarPedidos();
+    public ResponseEntity<List<PedidoResponseDTO>> listarPedidosPorFornecedor(Authentication auth) {
+        Optional<Fornecedor> fornecedor = fornecedorRepository.findByDsEmailFornecedor(auth.getName());
 
-        return pedidos.isEmpty()
-                ? ResponseEntity.noContent().build()
-                : ResponseEntity.ok(pedidos);
+        if (fornecedor.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        Integer idFornecedor = fornecedor.get().getIdFornecedor();
+        List<PedidoResponseDTO> pedidos = pedidoService.listarPedidosPorFornecedor(idFornecedor);
+        return ResponseEntity.ok(pedidos);
     }
 }
