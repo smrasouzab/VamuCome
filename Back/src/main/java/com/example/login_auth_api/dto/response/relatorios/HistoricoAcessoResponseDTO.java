@@ -1,4 +1,4 @@
-package com.example.login_auth_api.dto.response;
+package com.example.login_auth_api.dto.response.relatorios;
 
 import com.example.login_auth_api.domain.historico.HistoricoAcesso;
 import com.example.login_auth_api.domain.historico.PerfilUsuario;

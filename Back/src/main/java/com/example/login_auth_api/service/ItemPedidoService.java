@@ -32,6 +32,7 @@ public class ItemPedidoService {
         item.setProduto(produto);
         item.setPedido(pedido);
         item.setQtItem(dto.qtItem());
+        item.setDsObservacaoItem(dto.dsObservacaoItem());
         item.setVlItem(produto.getVlProduto());
         item.calcularTotalItemPedido();
 

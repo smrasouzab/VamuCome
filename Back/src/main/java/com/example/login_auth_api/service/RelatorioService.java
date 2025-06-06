@@ -1,9 +1,9 @@
 package com.example.login_auth_api.service;
 
-import com.example.login_auth_api.dto.response.AvaliacaoRelatorioDTO;
-import com.example.login_auth_api.dto.response.FaturamentoAnualResponseDTO;
-import com.example.login_auth_api.dto.response.FaturamentoMensalResponseDTO;
-import com.example.login_auth_api.dto.response.HistoricoAcessoResponseDTO;
+import com.example.login_auth_api.dto.response.relatorios.AvaliacaoRelatorioDTO;
+import com.example.login_auth_api.dto.response.relatorios.FaturamentoAnualResponseDTO;
+import com.example.login_auth_api.dto.response.relatorios.FaturamentoMensalResponseDTO;
+import com.example.login_auth_api.dto.response.relatorios.HistoricoAcessoResponseDTO;
 import com.example.login_auth_api.repositories.HistoricoAcessoRepository;
 import com.example.login_auth_api.repositories.RelatorioRepository;
 import lombok.RequiredArgsConstructor;

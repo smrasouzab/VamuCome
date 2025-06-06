@@ -3,7 +3,7 @@ package com.example.login_auth_api.controllers;
 import com.example.login_auth_api.domain.avaliacao.Avaliacao;
 import com.example.login_auth_api.dto.request.avaliacao.AvaliacaoRequestDTO;
 import com.example.login_auth_api.dto.request.avaliacao.AvaliacaoUpdateDTO;
-import com.example.login_auth_api.dto.response.AvaliacaoResponseDTO;
+import com.example.login_auth_api.dto.response.avaliacao.AvaliacaoResponseDTO;
 import com.example.login_auth_api.service.AvaliacaoService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

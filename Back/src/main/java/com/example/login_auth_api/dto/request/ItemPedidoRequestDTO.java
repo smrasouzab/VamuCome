@@ -4,6 +4,7 @@ import jakarta.validation.constraints.NotNull;
 
 public record ItemPedidoRequestDTO(
         @NotNull Integer idProduto,
-        @NotNull Integer qtItem
+        @NotNull Integer qtItem,
+        String dsObservacaoItem
 ) {
 }

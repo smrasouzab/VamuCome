@@ -25,6 +25,7 @@ public class ItemPedido {
     private Integer qtItem;
     private BigDecimal vlItem;
     private BigDecimal vlTotalItemPedido;
+    private String dsObservacaoItem;
 
     @ManyToOne
     @JoinColumn(name = "idProduto", nullable = false)

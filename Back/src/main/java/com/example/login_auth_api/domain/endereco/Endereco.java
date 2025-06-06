@@ -19,5 +19,9 @@ public class Endereco {
     private String dsLogradouro;
     private String nmNumero;
     private String dsComplemento;
+    private String dsBairro;
+    private String dsCidade;
+    private String dsUF; //Unidade Federativa = Estado
+    private String nuCodigoPostal; //CEP
     private Boolean endFavorito;
 }
